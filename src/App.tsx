@@ -1,18 +1,19 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
 import './App.css'
+import { Route, Routes } from 'react-router-dom'
+import { Error404, Guide, Home, Training } from './components/pages'
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <div className="App">
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>count is {count}</button>
-      </div>
-      <h1 className="text-3xl font-bold">Tailwind Setup</h1>
-    </div>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/training" element={<Home />}>
+        <Route index element={<Training />} />
+      </Route>
+      <Route path="/guide" element={<Home />}>
+        <Route index element={<Guide />} />
+      </Route>
+      <Route path="*" element={<Error404 />} />
+    </Routes>
   )
 }
 
