@@ -11,7 +11,7 @@ export const Title = ({ pageTitle, children }: TitleProps) => {
     <>
       <div className="navbar bg-base-100">
         <BackButton />
-        <p>{pageTitle}</p>
+        <span className="mx-auto font-semibold text-lg">{pageTitle}</span>
         {children}
       </div>
     </>

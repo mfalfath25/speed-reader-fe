@@ -11,7 +11,7 @@ export const ThemeToggler = () => {
       <label className="swap swap-rotate">
         <input
           type="checkbox"
-          className="theme-toggler"
+          // className="theme-toggler"
           data-toggle-theme="night,winter"
           data-act-class="theme-toggler"
         />

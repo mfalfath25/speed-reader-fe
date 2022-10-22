@@ -7,21 +7,16 @@ export const Navbar = () => {
   const navMenu = [
     {
       id: 1,
-      name: 'Home',
-      link: '/',
-    },
-    {
-      id: 2,
       name: 'Train',
       link: '/training',
     },
     {
-      id: 3,
+      id: 2,
       name: 'Guide',
       link: '/guide',
     },
     {
-      id: 4,
+      id: 3,
       name: 'Profile',
       link: '/profile',
     },
