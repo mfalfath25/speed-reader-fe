@@ -1,7 +1,8 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState } from 'react'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { startTextAnimation } from '../../logic'
 import { getTotalChunks, removeExtraWhitespaces } from '../../logic/utils'
+import { Timer } from '../organisms'
 
 interface FormValues {
   textValue: string
@@ -14,6 +15,7 @@ export const Training = () => {
   const [isDisabled, setIsDisabled] = useState<boolean>(false)
   const [timer, setTimer] = useState<number>(0)
   const [blindWpm, setBlindWpm] = useState<number>(0)
+  const [fixationCount, setFixationCount] = useState<number>(0)
 
   const {
     register,
@@ -32,8 +34,8 @@ export const Training = () => {
     const { textValue, chunkValue, wordsPerMinute } = getValues()
     startTextAnimation(
       textValue,
-      wordsPerMinute || 100,
-      chunkValue || 1,
+      wordsPerMinute || 250,
+      chunkValue || 3,
       setTextAnimated,
       setIsDisabled
     )
@@ -44,15 +46,42 @@ export const Training = () => {
     reset()
   }
 
-  useEffect(() => {
-    console.log('isDisabled is: ', isDisabled)
-  }, [isDisabled])
+  const renderFixationLine = (count: number) => {
+    switch (count) {
+      case 0:
+        return
+      case 1:
+        return (
+          <>
+            <span className="overlay-helper left-1/2 -z-1"></span>
+          </>
+        )
+      case 2:
+        return (
+          <>
+            <span className="overlay-helper left-1/3 -z-1"></span>
+            <span className="overlay-helper left-2/3 -z-1"></span>
+          </>
+        )
+      case 3:
+        return (
+          <>
+            <span className="overlay-helper left-1/4 -z-1"></span>
+            <span className="overlay-helper left-2/4 -z-1"></span>
+            <span className="overlay-helper left-3/4 -z-1"></span>
+          </>
+        )
+    }
+  }
 
   return (
     <div className="p-2 space-y-4">
-      <form className="w-full lg:w-1/2 mx-auto space-y-4" onSubmit={handleSubmit(onSubmit)}>
+      <form
+        className="w-full xl:w-1/2 2xl:w-2/3 mx-auto space-y-4"
+        onSubmit={handleSubmit(onSubmit)}
+      >
         <textarea
-          className="textarea textarea-bordered w-full h-[200px]"
+          className="textarea textarea-bordered w-full h-[300px]"
           placeholder="Type your text here..."
           defaultValue=""
           {...register('textValue', {
@@ -64,7 +93,7 @@ export const Training = () => {
         <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
           <input
             type="number"
-            placeholder="Word chunk amount (1-5), default: 1 chunk"
+            placeholder="Word chunk amount (1-5)"
             className="input input-bordered w-full"
             min="1"
             max="5"
@@ -72,7 +101,7 @@ export const Training = () => {
           />
           <input
             type="number"
-            placeholder="Word per minute (100-1000), default: 100 WPM"
+            placeholder="Word per minute (100-1000)"
             className="input input-bordered w-full"
             min="100"
             max="1000"
@@ -81,50 +110,51 @@ export const Training = () => {
         </div>
         {errors.textValue && <span>Error occured</span>}
         <div className="flex space-x-4 justify-end">
-          <button type="submit" className="btn btn-primary no-animation">
+          <button type="submit" className="btn btn-primary no-animation" disabled={isDisabled}>
             Apply settings
           </button>
           <button
             type="reset"
             onClick={() => clearText()}
             className="btn btn-secondary no-animation"
+            disabled={isDisabled}
           >
             Reset
           </button>
         </div>
       </form>
 
-      <div className="w-full lg:w-1/2 mx-auto relative outline outline-offset-0 outline-1 p-0 rounded-md">
-        <span className="overlay-helper left-[25%] -z-1"></span>
-        <span className="overlay-helper left-[50%] -z-1"></span>
-        <span className="overlay-helper left-[75%] -z-1"></span>
-        <pre className="relative whitespace-pre-line text-left text-base font-sans font-normal p-2">
+      <div className="w-full xl:w-1/2 mx-auto relative outline outline-offset-0 outline-1 p-0 rounded-md">
+        {renderFixationLine(fixationCount)}
+        <pre className="relative whitespace-pre-line text-left text-lg font-sans font-normal p-2">
           {watch('textValue')?.length > 0
             ? watch('textValue')
             : 'Your custom text will be shown here'}
         </pre>
         <pre
-          className="absolute top-0 whitespace-pre-line text-left text-base font-sans font-normal p-2 text-cyan-500"
+          className="absolute top-0 whitespace-pre-line text-left text-lg font-sans font-normal p-2 text-gray-900"
           // style={{ color: color?.hex }}
         >
           {watch('textValue')?.length > 0 ? textAnimated : ''}
         </pre>
       </div>
 
-      <div className="flex flex-col w-full lg:w-1/2 mx-auto space-y-4">
-        <p>
-          {watch('textValue')?.length > 0
-            ? 'you are reading ' +
-              getTotalChunks(removeExtraWhitespaces(watch('textValue'))) +
-              ' words at ' +
-              watch('wordsPerMinute') +
-              ' wpm'
-            : 'you are reading ' +
-              getTotalChunks(removeExtraWhitespaces(watch('textValue'))) +
-              ' words at ' +
-              100 +
-              ' wpm'}
-        </p>
+      <div className="flex flex-col w-full xl:w-1/2 mx-auto space-y-4">
+        {isDisabled && (
+          <p>
+            {watch('textValue')?.length > 0 && watch('wordsPerMinute') > 0
+              ? 'you are reading ' +
+                getTotalChunks(removeExtraWhitespaces(watch('textValue'))) +
+                ' words at ' +
+                watch('wordsPerMinute') +
+                ' wpm'
+              : 'you are reading ' +
+                getTotalChunks(removeExtraWhitespaces(watch('textValue'))) +
+                ' words at ' +
+                100 +
+                ' wpm'}
+          </p>
+        )}
         <button
           id="btn-start"
           className={`btn btn-primary no-animation`}
@@ -136,16 +166,33 @@ export const Training = () => {
         >
           Start
         </button>
+        <div>
+          <input
+            type="range"
+            className="range range-xs"
+            step={1}
+            min={0}
+            max={3}
+            value={fixationCount}
+            onChange={(e) => setFixationCount(parseInt(e.target.value))}
+          />
+        </div>
+        <div className="w-full flex justify-between text-xs px-2">
+          <span>0</span>
+          <span>1</span>
+          <span>2</span>
+          <span>3</span>
+        </div>
 
-        {/* <Timer
-              time={timer}
-              setTime={setTimer}
-              wpm={blindWpm}
-              setWpm={setBlindWpm}
-              totalChunk={getTotalChunks(removeExtraWhitespaces(watch('textValue')))}
-            >
-              <br />
-            </Timer> */}
+        <Timer
+          time={timer}
+          setTime={setTimer}
+          wpm={blindWpm}
+          setWpm={setBlindWpm}
+          totalChunk={getTotalChunks(removeExtraWhitespaces(watch('textValue')))}
+        >
+          <br />
+        </Timer>
       </div>
     </div>
   )
