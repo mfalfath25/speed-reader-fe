@@ -1,6 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
+  darkMode: ['class', '[data-theme="night"]'],
   theme: {
     container: {
       center: true,
@@ -14,9 +15,19 @@ module.exports = {
       },
     },
     fontFamily: {
-      sans: ['Source Sans Pro', 'Open Sans', 'sans-serif'],
-      serif: ['Times New Roman', 'Georgia', 'serif'],
+      sans: ['Source Sans Pro', 'Inter', 'Open Sans', 'sans-serif'],
+      serif: ['Literata', 'Times New Roman', 'Georgia', 'serif'],
     },
   },
   plugins: [require('daisyui')],
+  daisyui: {
+    styled: true,
+    themes: ['night', 'winter'],
+    base: true,
+    utils: true,
+    logs: true,
+    rtl: false,
+    prefix: '',
+    darkTheme: 'night',
+  },
 }

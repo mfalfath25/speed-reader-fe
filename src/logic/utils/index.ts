@@ -1,1 +1,6 @@
-export { capitalizeFirstLetter, removeExtraWhitespaces, getTotalChunks } from './stringHelper'
+export {
+  capitalizeFirstLetter,
+  removeExtraWhitespaces,
+  getTotalChunks,
+  customSplitString,
+} from './stringHelper'

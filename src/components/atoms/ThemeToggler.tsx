@@ -1,19 +1,27 @@
 import React, { useEffect } from 'react'
-import { themeChange } from 'theme-change'
+import { useThemeStore } from '../../context/ThemeStore'
 
 export const ThemeToggler = () => {
+  const { theme, toggleTheme } = useThemeStore()
+
   useEffect(() => {
-    themeChange(false)
-  }, [])
+    // document.documentElement.setAttribute('data-theme', theme === 'winter' ? 'winter' : 'summer')
+  }, [theme])
 
   return (
     <>
       <label className="swap swap-rotate">
         <input
           type="checkbox"
-          // className="theme-toggler"
-          data-toggle-theme="night,winter"
-          data-act-class="theme-toggler"
+          className="theme-toggler"
+          checked={theme === 'winter'}
+          onChange={(e) => {
+            toggleTheme()
+            document.documentElement.setAttribute(
+              'data-theme',
+              e.target.checked ? 'winter' : 'night'
+            )
+          }}
         />
         <svg
           className="swap-on fill-current w-6 h-6"

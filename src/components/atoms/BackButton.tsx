@@ -6,7 +6,7 @@ export const BackButton = () => {
   const navigate = useNavigate()
   return (
     <>
-      <button className="btn btn-square absolute" onClick={() => navigate('/')}>
+      <button className="btn btn-square absolute" onClick={() => navigate(-1)}>
         <BiArrowBack size={20} />
       </button>
     </>

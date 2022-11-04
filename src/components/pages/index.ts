@@ -1,4 +1,5 @@
+export { Base } from './Base'
 export { Home } from './Home'
-export { Error404 } from './Error404'
-export { Guide } from './Guide'
 export { Training } from './Training'
+export { Guide } from './Guide'
+export { Error404 } from './Error404'

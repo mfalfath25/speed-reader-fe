@@ -1,82 +1,97 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useForm, SubmitHandler } from 'react-hook-form'
+import { useLocation } from 'react-router-dom'
+import { useAnimationStore } from '../../context/AnimationStore'
 import { startTextAnimation } from '../../logic'
 import { getTotalChunks, removeExtraWhitespaces } from '../../logic/utils'
-import { Timer } from '../organisms'
+import { CustomTraining, Timer, TrainingForm } from '../organisms'
 
-interface FormValues {
-  textValue: string
-  chunkValue: number
-  wordsPerMinute: number
-}
+// interface FormValues {
+//   textValue: string
+//   chunkValue: number
+//   wordsPerMinute: number
+// }
 
 export const Training = () => {
-  const [textAnimated, setTextAnimated] = useState<string | null>(null)
-  const [isDisabled, setIsDisabled] = useState<boolean>(false)
-  const [timer, setTimer] = useState<number>(0)
-  const [blindWpm, setBlindWpm] = useState<number>(0)
-  const [fixationCount, setFixationCount] = useState<number>(0)
+  const location = useLocation()
+  const { animationStatus, rawText } = useAnimationStore()
 
-  const {
-    register,
-    handleSubmit,
-    getValues,
-    watch,
-    reset,
-    formState: { errors },
-  } = useForm<FormValues>()
+  // console.log(animationStatus, rawText)
 
-  const onSubmit: SubmitHandler<FormValues> = (data) => {
-    console.log(data)
-  }
+  // const [textAnimated, setTextAnimated] = useState<string | null>(null)
+  // const [isDisabled, setIsDisabled] = useState<boolean>(false)
+  // const [timer, setTimer] = useState<number>(0)
+  // const [blindWpm, setBlindWpm] = useState<number>(0)
+  // const [fixationCount, setFixationCount] = useState<number>(0)
 
-  const startSimulation = () => {
-    const { textValue, chunkValue, wordsPerMinute } = getValues()
-    startTextAnimation(
-      textValue,
-      wordsPerMinute || 250,
-      chunkValue || 3,
-      setTextAnimated,
-      setIsDisabled
-    )
-  }
+  // const {
+  //   register,
+  //   handleSubmit,
+  //   getValues,
+  //   watch,
+  //   reset,
+  //   formState: { errors },
+  // } = useForm<FormValues>()
 
-  const clearText = () => {
-    setTextAnimated('')
-    reset()
-  }
+  // const onSubmit: SubmitHandler<FormValues> = (data) => {
+  //   console.log(data)
+  // }
 
-  const renderFixationLine = (count: number) => {
-    switch (count) {
-      case 0:
-        return
-      case 1:
-        return (
-          <>
-            <span className="overlay-helper left-1/2 -z-1"></span>
-          </>
-        )
-      case 2:
-        return (
-          <>
-            <span className="overlay-helper left-1/3 -z-1"></span>
-            <span className="overlay-helper left-2/3 -z-1"></span>
-          </>
-        )
-      case 3:
-        return (
-          <>
-            <span className="overlay-helper left-1/4 -z-1"></span>
-            <span className="overlay-helper left-2/4 -z-1"></span>
-            <span className="overlay-helper left-3/4 -z-1"></span>
-          </>
-        )
-    }
-  }
+  // const startSimulation = () => {
+  //   const { textValue, chunkValue, wordsPerMinute } = getValues()
+  //   startTextAnimation(
+  //     textValue,
+  //     wordsPerMinute || 250,
+  //     chunkValue || 3,
+  //     setTextAnimated,
+  //     setIsDisabled
+  //   )
+  // }
+
+  // const clearText = () => {
+  //   setTextAnimated('')
+  //   reset()
+  // }
+
+  // const renderFixationLine = (count: number) => {
+  //   switch (count) {
+  //     case 0:
+  //       return
+  //     case 1:
+  //       return (
+  //         <>
+  //           <span className="overlay-helper left-1/2 -z-1"></span>
+  //         </>
+  //       )
+  //     case 2:
+  //       return (
+  //         <>
+  //           <span className="overlay-helper left-1/3 -z-1"></span>
+  //           <span className="overlay-helper left-2/3 -z-1"></span>
+  //         </>
+  //       )
+  //     case 3:
+  //       return (
+  //         <>
+  //           <span className="overlay-helper left-1/4 -z-1"></span>
+  //           <span className="overlay-helper left-2/4 -z-1"></span>
+  //           <span className="overlay-helper left-3/4 -z-1"></span>
+  //         </>
+  //       )
+  //   }
+  // }
+
+  // console.log(location.pathname)
 
   return (
     <div className="p-2 space-y-4">
-      <form
+      {location.pathname === '/training/custom' && animationStatus === true ? (
+        <CustomTraining />
+      ) : (
+        <TrainingForm />
+      )}
+
+      {/* <form
         className="w-full xl:w-1/2 2xl:w-2/3 mx-auto space-y-4"
         onSubmit={handleSubmit(onSubmit)}
       >
@@ -166,6 +181,8 @@ export const Training = () => {
         >
           Start
         </button>
+
+        <p>Fixation Line Helper</p>
         <div>
           <input
             type="range"
@@ -193,7 +210,7 @@ export const Training = () => {
         >
           <br />
         </Timer>
-      </div>
+      </div> */}
     </div>
   )
 }
