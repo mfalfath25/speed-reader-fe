@@ -1,3 +1,5 @@
-export { CustomTraining } from './CustomTraining'
-export { TrainingForm } from './TrainingForm'
-export { Timer } from './Timer'
+export { TrainingForms } from './TrainingForms'
+export { TrainingSimulations } from './TrainingSimulations'
+export { TrainingComprehension } from './TrainingComprehension'
+export { TrainingResults } from './TrainingResults'
+export { ProfileSections } from './ProfileSections'

@@ -10,9 +10,9 @@ export const useThemeStore = create<ThemeStore>()(
   devtools(
     persist(
       (set) => ({
-        theme: 'night',
+        theme: 'winter',
         toggleTheme: () =>
-          set((state) => ({ theme: state.theme === 'night' ? 'winter' : 'night' })),
+          set((state) => ({ theme: state.theme === 'winter' ? 'night' : 'winter' })),
       }),
       {
         name: 'theme-store',

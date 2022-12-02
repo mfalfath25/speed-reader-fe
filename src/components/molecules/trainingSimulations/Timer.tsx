@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { startTimer } from '../../logic'
+import { startTimer } from '../../../logic'
 
 interface TimerProps extends React.PropsWithChildren<{}> {
   time: number

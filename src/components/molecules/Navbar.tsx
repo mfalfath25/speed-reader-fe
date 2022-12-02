@@ -1,37 +1,18 @@
 import React from 'react'
-import logo from '../../assets/logo/Speedre.png'
+import logo from '../../assets/logo/SpeedReader.png'
 import { Link } from 'react-router-dom'
 import { Loader, ThemeToggler } from '../atoms'
+import { navMenu } from '../../static/staticData'
 
 export const Navbar = () => {
-  const navMenu = [
-    {
-      id: 1,
-      name: 'Train',
-      link: '/training',
-    },
-    {
-      id: 2,
-      name: 'Guide',
-      link: '/guide',
-    },
-    {
-      id: 3,
-      name: 'Profile',
-      link: '/profile',
-    },
-  ]
   return (
     <>
       <Loader />
-      <div className="navbar bg-base-100">
-        <div className="navbar-start">
-          <Link to="/">
-            <img src={logo} className="h-6 sm:h-9" alt="Logo" />
-          </Link>
-        </div>
-        <div className="navbar-end">
-          {}
+      <div className="navbar bg-base-100 justify-center">
+        <Link to="/">
+          <img src={logo} className="h-7 sm:h-9" alt="Logo" />
+        </Link>
+        {/* <div className="navbar-end">
           <div className="dropdown dropdown-end md:hidden">
             <label tabIndex={0} className="btn btn-ghost btn-circle">
               <svg
@@ -75,7 +56,7 @@ export const Navbar = () => {
               <ThemeToggler />
             </li>
           </ul>
-        </div>
+        </div> */}
       </div>
     </>
   )

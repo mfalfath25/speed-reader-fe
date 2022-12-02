@@ -14,3 +14,25 @@
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
 }
+
+/* ===== Scrollbar CSS ===== */
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #057aff;
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 6px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #444857;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #057aff;
+  /* border-radius: 8px; */
+  /* border: 2px solid #ffffff; */
+}

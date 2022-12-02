@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import { useForm, SubmitHandler } from 'react-hook-form'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { useAnimationStore } from '../../context/AnimationStore'
 import { startTextAnimation } from '../../logic'
-import { getTotalChunks, removeExtraWhitespaces } from '../../logic/utils'
-import { CustomTraining, Timer, TrainingForm } from '../organisms'
+import { checkPathnameDepth, getTotalChunks, removeExtraWhitespaces } from '../../logic/utils'
+import { Button } from '../atoms'
+import { BiCog } from 'react-icons/bi'
+import { TrainingForms, TrainingResults, TrainingSimulations } from '../organisms'
+import { setDriver } from 'localforage'
+import { trainingMenu } from '../../static/staticData'
 
 // interface FormValues {
 //   textValue: string
@@ -12,10 +16,80 @@ import { CustomTraining, Timer, TrainingForm } from '../organisms'
 //   wordsPerMinute: number
 // }
 
+const TrainingMenu = () => {
+  const navigate = useNavigate()
+  return (
+    <>
+      <div className="grid grid-cols-1 gap-8 w-full">
+        <div>
+          <p className="flex justify-center items-center sm:text-2xl text-xl mb-4">
+            Pilih mode latihan
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {trainingMenu.map((menu, index) => (
+              <div key={index} className="w-auto h-full">
+                <div className="card-body w-full h-full bg-base-300 shadow-xl outline outline-2 rounded-lg p-4 lg:p-8">
+                  <h2 className="card-title text-base sm:text-xl">{menu.description}</h2>
+                  <p>{menu.info}</p>
+                  <div className="card-actions justify-end">
+                    <Button
+                      text={menu.optionName}
+                      width="full"
+                      weight="primary"
+                      onClick={() => {
+                        navigate(menu.navigateTo)
+                      }}
+                    />
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1">
+          <div className="w-auto h-fits">
+            <p className="flex justify-center items-center sm:text-2xl text-xl mb-4">
+              Ubah tampilan simulasi
+            </p>
+            <div className="flex justify-center">
+              <Button
+                text="Visual Settings"
+                width="full"
+                onClick={() => {
+                  navigate('/training/settings')
+                }}
+              >
+                <BiCog size={24} className="ml-2" />
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  )
+}
+
 export const Training = () => {
   const location = useLocation()
-  const { animationStatus, rawText } = useAnimationStore()
+  let depths = 0
 
+  const renderPart = () => {
+    switch (checkPathnameDepth(location.pathname)) {
+      case 1:
+        return <TrainingMenu />
+      case 2:
+        return <TrainingForms />
+      case 3:
+        if (location.pathname.includes('result')) {
+          return <TrainingResults />
+        } else {
+          return <TrainingSimulations />
+        }
+    }
+  }
+
+  const { animationStatus, rawText } = useAnimationStore()
   // console.log(animationStatus, rawText)
 
   // const [textAnimated, setTextAnimated] = useState<string | null>(null)
@@ -81,15 +155,20 @@ export const Training = () => {
   //   }
   // }
 
-  // console.log(location.pathname)
+  // useEffect(() => {
+  //   depths = checkPathnameDepth(location.pathname)
+  // }, [])
 
   return (
-    <div className="p-2 space-y-4">
-      {location.pathname === '/training/custom' && animationStatus === true ? (
-        <CustomTraining />
-      ) : (
-        <TrainingForm />
-      )}
+    <>
+      {renderPart()}
+      {/* {location.pathname === '/training/custom' && animationStatus === true ? (
+          <CustomTraining />
+        ) : (
+          <>
+            <TrainingForm />
+          </>
+        )} */}
 
       {/* <form
         className="w-full xl:w-1/2 2xl:w-2/3 mx-auto space-y-4"
@@ -211,6 +290,6 @@ export const Training = () => {
           <br />
         </Timer>
       </div> */}
-    </div>
+    </>
   )
 }

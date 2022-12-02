@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { Button } from '../atoms'
 
 export const Error404 = () => {
   return (
@@ -9,10 +10,10 @@ export const Error404 = () => {
           <h2 className="mb-8 font-bold text-9xl dark:text-gray-600">
             <span className="sr-only">Error</span>404
           </h2>
-          <p className="text-2xl font-semibold md:text-3xl">Sorry, we couldn't find this page.</p>
-          <p className="mt-4 mb-8 dark:text-gray-400">Click the button to get right back.</p>
+          <p className="text-2xl font-semibold md:text-3xl">Halaman tidak ditemukan.</p>
+          <p className="mt-4 mb-8 dark:text-gray-400">Klik tombol dibawah untuk kembali ke Home.</p>
           <Link to="/">
-            <button className="btn btn-primary no-animation">Back to Home</button>
+            <Button weight="primary" text="Back to Home" />
           </Link>
         </div>
       </div>
