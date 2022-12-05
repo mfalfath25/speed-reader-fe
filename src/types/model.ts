@@ -1,25 +1,39 @@
-export interface FormValues {
-  textValue: string
-  chunkValue: number
-  wordsPerMinute: number
-  textLevel: string
-  textChoice: string
-  wordCount: number
-}
+// export interface FormValues {
+//   textValue: string
+//   chunkValue: number
+//   wordsPerMinute: number
+//   textLevel: string
+//   textChoice: string
+//   wordCount: number
+// }
+
+// export interface TrainingOld {
+//   id: string
+//   textValue: string
+//   chunkValue: number
+//   wordsPerMinute: number
+// }
+
 export interface Training {
-  id: string
-  textValue: string
-  chunkValue: number
-  wordsPerMinute: number
+  trainingId: string
+  mode: string
+  text: Text
+  chunksCount: number
+  wpm: number
+  accuracy: number
+  readTime: Date
+  readDate: Date
 }
 export interface Text {
-  id: string
+  textId: string
   textLevel: string
   textChoice: string
   textValue: string
+  textWordCount: number
+  questions: Question[]
 }
-export interface Quiz {
-  id: string
+export interface Question {
+  quizId: string
   question: string
   correctAnswer: string
   incorrectAnswers: string[]

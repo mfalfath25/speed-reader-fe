@@ -8,10 +8,12 @@ import { Home } from './Home'
 export const Base = () => {
   const location = useLocation()
   const [title, setTitle] = useState('-')
-  const { trainingText } = useTrainingStore()
+  const { trainingText, animatedText, animationStatus } = useTrainingStore()
 
   useEffect(() => {
-    console.log(trainingText)
+    console.log('Training Data ', trainingText)
+    // console.log('Animated Text ', animatedText)
+    // console.log('Animation Status ', animationStatus)
     const curTitle = titles.find((item) => item.path.includes(location.pathname))
     if (curTitle && curTitle.title) {
       setTitle(curTitle.title)

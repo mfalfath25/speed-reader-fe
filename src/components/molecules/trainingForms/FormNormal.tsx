@@ -1,7 +1,7 @@
 import React from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { BiInfoCircle } from 'react-icons/bi'
-import { FormValues } from '../../../types/model'
+import { Training } from '../../../types/model'
 import { Button } from '../../atoms'
 import cefr from '../../../assets/training/cefr.png'
 import { useNavigate } from 'react-router-dom'
@@ -30,20 +30,27 @@ export const FormNormal = () => {
     watch,
     reset,
     formState: { errors, isSubmitSuccessful },
-  } = useForm<FormValues>()
+  } = useForm<Training>()
 
-  const { addtrainingText } = useTrainingStore()
+  const { addTrainingText } = useTrainingStore()
 
-  const onSubmit: SubmitHandler<FormValues> = (data) => {
-    if (data.textLevel === 'A1' && data.textChoice === 'Text 1') {
-      data.textValue = `The first text is about the history of the English language. It is a very interesting topic. The English language is a West Germanic language that was first spoken in early medieval England and eventually became a global lingua franca. It is named after the Angles, one of the Germanic tribes that migrated to the area of Great Britain that later took their name, England. It is closely related to the Frisian languages, but its vocabulary has been significantly influenced by other Germanic languages, particularly Norse, as well as by Latin and French.`
+  const onSubmit: SubmitHandler<Training> = (data) => {
+    if (data.text.textLevel === 'A1' && data.text.textChoice === 'Text 1') {
+      data.text.textValue = `The first text is about the history of the English language. It is a very interesting topic. The English language is a West Germanic language that was first spoken in early medieval England and eventually became a global lingua franca. It is named after the Angles, one of the Germanic tribes that migrated to the area of Great Britain that later took their name, England. It is closely related to the Frisian languages, but its vocabulary has been significantly influenced by other Germanic languages, particularly Norse, as well as by Latin and French.`
     } else {
-      data.textValue =
+      data.text.textValue =
         'The first text is about the history of the English language. It is a very interesting topic. The English language is a West Germanic language that was first spoken in early medieval England and eventually became a global lingua franca. It is named after the Angles, one of the Germanic tribes that migrated to the area of Great Britain that later took their name, England. It is closely related to the Frisian languages, but its vocabulary has been significantly influenced by other Germanic languages, particularly Norse, as well as by Latin and French.'
     }
-    addtrainingText(data)
+    addTrainingText(
+      (data = {
+        ...data,
+        mode: 'Normal',
+        chunksCount: data.chunksCount ? data.chunksCount : 3,
+        wpm: data.wpm ? data.wpm : 300,
+      })
+    )
     navigate('/training/normal/simulate')
-    console.log(data)
+    console.log('Normal form values: ', data)
   }
 
   return (
@@ -81,8 +88,8 @@ export const FormNormal = () => {
                 <label className="label px-0 pt-0 font-bold">Pilih Level</label>
                 <select
                   className="select select-bordered w-auto"
-                  value={watch('textLevel')}
-                  {...register('textLevel', { required: true })}
+                  value={watch('text.textLevel')}
+                  {...register('text.textLevel', { required: true })}
                 >
                   {textLevelData.map((item) => (
                     <option key={item.value} value={item.value}>
@@ -95,8 +102,8 @@ export const FormNormal = () => {
                 <label className="label px-0 pt-0 font-bold">Pilih Text</label>
                 <select
                   className="select select-bordered w-auto"
-                  value={watch('textChoice')}
-                  {...register('textChoice', { required: true })}
+                  value={watch('text.textChoice')}
+                  {...register('text.textChoice', { required: true })}
                 >
                   {textChoiceData.map((item) => (
                     <option key={item.value} value={item.value}>
@@ -113,7 +120,7 @@ export const FormNormal = () => {
                   className="input input-bordered w-full"
                   min="1"
                   max="5"
-                  {...register('chunkValue')}
+                  {...register('chunksCount')}
                 />
                 <label className="label-text-alt">(default: 3 chunks)</label>
               </div>
@@ -125,7 +132,7 @@ export const FormNormal = () => {
                   className="input input-bordered w-full"
                   min="100"
                   max="1000"
-                  {...register('wordsPerMinute')}
+                  {...register('wpm')}
                 />
                 <label className="label-text-alt">(default: 250 WPM)</label>
               </div>

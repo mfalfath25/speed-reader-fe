@@ -14,10 +14,11 @@ export const startTextAnimation = (
   wpm: number,
   chunk: number,
   setState: React.Dispatch<React.SetStateAction<string | null>>,
-  setLoading: React.Dispatch<React.SetStateAction<boolean>>,
+  setAnimationStatus: React.Dispatch<React.SetStateAction<boolean>>,
   setRunningOnce: React.Dispatch<React.SetStateAction<boolean>>
   // callback: () => void = () => {}
 ): number => {
+  performance.mark('start')
   const totalChunks = splitTextToChunks(text, chunk) // transform text into array of n chunks
   const duration = (text.split(' ').length / wpm) * (60 * 1000) // calculate duration of how animation should run
   let index = 0
@@ -28,20 +29,15 @@ export const startTextAnimation = (
       // if last chunk
       clearInterval(interval) // then stop interval
       // callback()
-      setLoading(false)
+      setAnimationStatus(false)
       setRunningOnce(true)
-      return // and set animation status to false
+      performance.mark('end')
+      return
     }
     setState((prev) => prev + ' ' + totalChunks[index]) // else, set next chunk as the new state
     index++ // increment index
   }, duration / totalChunks.length) // set interval duration based on chunks length
   return interval
-}
-
-export const redirectAfterAnimation = (functionToRun: () => void, duration: number): void => {
-  setTimeout(() => {
-    return functionToRun()
-  }, duration)
 }
 
 export const boldEveryNthCharInText = (text: string, n: number, bold: boolean = true): string => {

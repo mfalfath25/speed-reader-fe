@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useTrainingStore } from '../../../store/TrainingStore'
 import { useSettingStore } from '../../../store/SettingStore'
-import { redirectAfterAnimation, startTextAnimation } from '../../../logic'
+import { startTextAnimation } from '../../../logic'
 import { getTotalChunks, removeExtraWhitespaces } from '../../../logic/utils'
 import { FixationSelect, renderFixationLine } from '../../molecules'
 import { Button } from '../../atoms'
@@ -9,21 +9,19 @@ import { useNavigate } from 'react-router-dom'
 
 export const ModeNormal = () => {
   const navigate = useNavigate()
+  // store states
   const { isFontSerif, isJustified, fixationCount, fontColor } = useSettingStore()
-  const [textAnimated, setTextAnimated] = useState<string | null>(null)
   const { animationStatus, trainingText, animatedText, toggleAnimationStatus, updateAnimatedText } =
     useTrainingStore()
-  const [isRunOnce, setIsRunOnce] = useState<boolean>(false)
-
   const data = useTrainingStore((state) => state.trainingText)
-  // console.log(data)
-  const fixationCounter = useSettingStore((state) => state.fixationCount)
-
-  //simulate
+  // local states
+  const [textAnimated, setTextAnimated] = useState<string | null>(null)
+  const [isRunOnce, setIsRunOnce] = useState<boolean>(false)
+  // initiate simulation
   const startSimulation = () => {
-    const textValue = data[data.length - 1]?.textValue
-    const chunkValue = data[data.length - 1]?.chunkValue
-    const wordsPerMinute = data[data.length - 1]?.wordsPerMinute
+    const textValue = data[data.length - 1]?.text.textValue
+    const chunkValue = data[data.length - 1]?.chunksCount
+    const wordsPerMinute = data[data.length - 1]?.wpm
     startTextAnimation(
       textValue,
       wordsPerMinute || 250,
@@ -45,11 +43,12 @@ export const ModeNormal = () => {
       <div className="w-full xl:w-[800px] 2xl:w-2/3 mx-auto space-y-4">
         <div>
           <label className="label px-0 font-bold">
-            Custom text, Chunk count: {data[data.length - 1]?.chunkValue}, Target WPM:{' '}
-            {data[data.length - 1]?.wordsPerMinute}
+            Text: {data[data.length - 1]?.text.textLevel} - {data[data.length - 1]?.text.textChoice}
+            , Chunk count: {data[data.length - 1]?.chunksCount}, Target WPM:
+            {data[data.length - 1]?.wpm}
           </label>
           <div className="w-full min-h-[400px] relative outline outline-offset-0 outline-1 p-0 rounded-md bg-slate-100">
-            {renderFixationLine(fixationCounter)}
+            {renderFixationLine(fixationCount)}
             <pre
               className="relative whitespace-pre-line text-left text-base sm:text-xl font-normal p-2"
               style={{
@@ -57,11 +56,8 @@ export const ModeNormal = () => {
                 textAlign: isJustified ? 'justify' : 'left',
               }}
             >
-              {/* {trainingText?.length > 0
-            ? trainingText?.[trainingText.length - 1].textValue
-            : 'Your custom text will be shown here'} */}
               {data.length !== 0
-                ? data[data.length - 1].textValue
+                ? data[data.length - 1]?.text.textValue
                 : 'Your custom text will be shown here'}
             </pre>
             <pre
