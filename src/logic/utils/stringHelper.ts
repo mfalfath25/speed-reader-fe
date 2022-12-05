@@ -28,21 +28,3 @@ export const checkCurrentPathname = (checkPath: string[], currentPath: string): 
   })
   return result
 }
-
-// const a: string = '/training/custom'
-// function splitString(text: string, str: string): string[] {
-//   return text.split(str)
-// }
-
-// function capitalizeFirstLetter(text: string[]): string[] {
-//   text.map(element => {
-//     return element.substring(0).charAt(0).toUpperCase() + text.slice(1)
-//   })
-//   return text
-// }
-
-// const b = splitString(a,'/')
-// const x = b.filter(e =>  e)
-
-// const z = capitalizeFirstLetter(x)
-// console.log(z)

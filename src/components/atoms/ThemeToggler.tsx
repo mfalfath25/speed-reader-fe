@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { useThemeStore } from '../../context/ThemeStore'
+import { useThemeStore } from '../../store/ThemeStore'
 
 export const ThemeToggler = () => {
   const { theme, toggleTheme } = useThemeStore()

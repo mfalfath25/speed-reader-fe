@@ -1,9 +1,12 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useTrainingStore } from '../../../store/TrainingStore'
 import { Button } from '../../atoms'
 
 export const Results = () => {
   const navigate = useNavigate()
+  const { trainingText } = useTrainingStore()
+
   return (
     <>
       <div className="grid grid-cols-1 auto-rows-auto gap-10">

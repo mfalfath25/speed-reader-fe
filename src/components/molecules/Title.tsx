@@ -1,6 +1,6 @@
 import React from 'react'
 import { useLocation } from 'react-router-dom'
-import { useAnimationStore } from '../../context/AnimationStore'
+import { useTrainingStore } from '../../store/TrainingStore'
 import { checkCurrentPathname } from '../../logic/utils'
 import { BackButton } from '../atoms'
 
@@ -9,11 +9,11 @@ interface TitleProps {
   children?: React.ReactNode
 }
 
-export const hideBackButton = ['result']
+const hideBackButton = ['result']
 
 export const Title = ({ pageTitle, children }: TitleProps) => {
   const location = useLocation()
-  const { animationStatus } = useAnimationStore()
+  const { animationStatus } = useTrainingStore()
 
   const renderBackButton = checkCurrentPathname(hideBackButton, location.pathname)
   return (

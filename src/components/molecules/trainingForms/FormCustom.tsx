@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
-import { useAnimationStore } from '../../../context/AnimationStore'
+import { useTrainingStore } from '../../../store/TrainingStore'
 import { FormValues } from '../../../types/model'
 import { Button } from '../../atoms'
 
 export const FormCustom = () => {
   // global state
   const navigate = useNavigate()
-  const { animationStatus, addRawText, removeRawText, resetText, toggleAnimationStatus } =
-    useAnimationStore()
+  const { animationStatus, addtrainingText, removetrainingText, resetText, toggleAnimationStatus } =
+    useTrainingStore()
 
   const {
     register,
@@ -21,7 +21,7 @@ export const FormCustom = () => {
   } = useForm<FormValues>()
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
-    addRawText(data)
+    addtrainingText(data)
     navigate('/training/custom/simulate')
     console.log(data)
   }

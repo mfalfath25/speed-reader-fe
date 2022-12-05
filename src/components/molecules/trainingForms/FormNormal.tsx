@@ -1,10 +1,11 @@
 import React from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { BiInfoCircle } from 'react-icons/bi'
-import { FormNormalValues } from '../../../types/model'
+import { FormValues } from '../../../types/model'
 import { Button } from '../../atoms'
 import cefr from '../../../assets/training/cefr.png'
 import { useNavigate } from 'react-router-dom'
+import { useTrainingStore } from '../../../store/TrainingStore'
 
 const textLevelData = [
   { label: 'A1', value: 'A1' },
@@ -29,15 +30,18 @@ export const FormNormal = () => {
     watch,
     reset,
     formState: { errors, isSubmitSuccessful },
-  } = useForm<FormNormalValues>()
+  } = useForm<FormValues>()
 
-  const onSubmit: SubmitHandler<FormNormalValues> = (data) => {
+  const { addtrainingText } = useTrainingStore()
+
+  const onSubmit: SubmitHandler<FormValues> = (data) => {
     if (data.textLevel === 'A1' && data.textChoice === 'Text 1') {
       data.textValue = `The first text is about the history of the English language. It is a very interesting topic. The English language is a West Germanic language that was first spoken in early medieval England and eventually became a global lingua franca. It is named after the Angles, one of the Germanic tribes that migrated to the area of Great Britain that later took their name, England. It is closely related to the Frisian languages, but its vocabulary has been significantly influenced by other Germanic languages, particularly Norse, as well as by Latin and French.`
     } else {
-      data.textValue = 'dummy text'
+      data.textValue =
+        'The first text is about the history of the English language. It is a very interesting topic. The English language is a West Germanic language that was first spoken in early medieval England and eventually became a global lingua franca. It is named after the Angles, one of the Germanic tribes that migrated to the area of Great Britain that later took their name, England. It is closely related to the Frisian languages, but its vocabulary has been significantly influenced by other Germanic languages, particularly Norse, as well as by Latin and French.'
     }
-    // addRawText(data)
+    addtrainingText(data)
     navigate('/training/normal/simulate')
     console.log(data)
   }

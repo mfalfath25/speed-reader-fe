@@ -11,11 +11,13 @@ function App() {
         <Route path="/training/normal" element={<Training />}>
           {/* <Route index element={<Training />} /> */}
           <Route path="/training/normal/simulate" element={<Training />} />
+          <Route path="/training/normal/comprehension" element={<Training />} />
           <Route path="/training/normal/result" element={<Training />} />
         </Route>
         <Route path="/training/blind" element={<Training />}>
           {/* <Route index element={<Training />} /> */}
           <Route path="/training/blind/simulate" element={<Training />} />
+          <Route path="/training/blind/comprehension" element={<Training />} />
           <Route path="/training/blind/result" element={<Training />} />
         </Route>
         <Route path="/training/custom" element={<Training />}>

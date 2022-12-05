@@ -1,5 +1,5 @@
 import React from 'react'
-import { useSettingStore } from '../../../context/SettingStore'
+import { useSettingStore } from '../../../store/SettingStore'
 
 export const JustificationToggler = () => {
   const { isJustified, toggleJustification } = useSettingStore()

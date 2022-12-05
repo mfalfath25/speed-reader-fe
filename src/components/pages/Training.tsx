@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { useAnimationStore } from '../../context/AnimationStore'
+import { useTrainingStore } from '../../store/TrainingStore'
 import { startTextAnimation } from '../../logic'
 import { checkPathnameDepth, getTotalChunks, removeExtraWhitespaces } from '../../logic/utils'
 import { Button } from '../atoms'
@@ -89,8 +89,8 @@ export const Training = () => {
     }
   }
 
-  const { animationStatus, rawText } = useAnimationStore()
-  // console.log(animationStatus, rawText)
+  const { animationStatus, trainingText } = useTrainingStore()
+  // console.log(animationStatus, trainingText)
 
   // const [textAnimated, setTextAnimated] = useState<string | null>(null)
   // const [isDisabled, setIsDisabled] = useState<boolean>(false)

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { useAnimationStore } from '../../../context/AnimationStore'
-import { useSettingStore } from '../../../context/SettingStore'
+import { useTrainingStore } from '../../../store/TrainingStore'
+import { useSettingStore } from '../../../store/SettingStore'
 import { redirectAfterAnimation, startTextAnimation } from '../../../logic'
 import { getTotalChunks, removeExtraWhitespaces } from '../../../logic/utils'
 import { FixationSelect, renderFixationLine } from '../../molecules'
@@ -12,12 +12,12 @@ export const ModeCustom = () => {
   const navigate = useNavigate()
   const { isFontSerif, isJustified, fixationCount, fontColor } = useSettingStore()
   const [textAnimated, setTextAnimated] = useState<string | null>(null)
-  const { animationStatus, rawText, animatedText, toggleAnimationStatus, updateAnimatedText } =
-    useAnimationStore()
+  const { animationStatus, trainingText, animatedText, toggleAnimationStatus, updateAnimatedText } =
+    useTrainingStore()
   const [isRunOnce, setIsRunOnce] = useState<boolean>(false)
   // const [isDisabled, setIsDisabled] = useState<boolean>(false)
 
-  const data = useAnimationStore((state) => state.rawText)
+  const data = useTrainingStore((state) => state.trainingText)
   const fixationCounter = useSettingStore((state) => state.fixationCount)
 
   //additional state (for blind test params)
@@ -62,8 +62,8 @@ export const ModeCustom = () => {
                 textAlign: isJustified ? 'justify' : 'left',
               }}
             >
-              {/* {rawText?.length > 0
-            ? rawText?.[rawText.length - 1].textValue
+              {/* {trainingText?.length > 0
+            ? trainingText?.[trainingText.length - 1].textValue
             : 'Your custom text will be shown here'} */}
               {data.length !== 0
                 ? data[data.length - 1].textValue

@@ -1,46 +1,50 @@
-import { FormValues } from './../types/model'
+import { FormValues } from '../types/model'
 import create from 'zustand'
 import { v4 as uuidv4 } from 'uuid'
-import { CustomTraining } from '../types/model'
+import { Training } from '../types/model'
 import { devtools, persist } from 'zustand/middleware'
+import { getTotalChunks, removeExtraWhitespaces } from '../logic/utils'
 
-interface TrainingFormStore {
+interface TrainingStore {
   animationStatus: boolean
-  rawText: CustomTraining[]
+  trainingText: Training[]
   animatedText: string
 
-  addRawText: (data: FormValues) => void
-  removeRawText: (id: string) => void
+  addtrainingText: (data: FormValues) => void
+  removetrainingText: (id: string) => void
   resetText: () => void
   toggleAnimationStatus: () => void
   updateAnimatedText: (text: string) => void
 }
 
-export const useAnimationStore = create<TrainingFormStore>()(
+export const useTrainingStore = create<TrainingStore>()(
   devtools(
     persist(
       (set) => ({
         animationStatus: false,
-        rawText: [],
-        addRawText: (data: FormValues) => {
+        trainingText: [],
+        addtrainingText: (data: FormValues) => {
           set((state) => ({
-            rawText: [
-              ...state.rawText,
+            trainingText: [
+              ...state.trainingText,
               {
                 id: uuidv4(),
                 textValue: data.textValue,
                 chunkValue: parseInt(data.chunkValue as unknown as string) || 3,
                 wordsPerMinute: parseInt(data.wordsPerMinute as unknown as string) || 250,
+                textLevel: data.textLevel,
+                textChoice: data.textChoice,
+                wordCount: getTotalChunks(removeExtraWhitespaces(data.textValue)),
               },
             ],
           }))
         },
-        removeRawText: (id: string) => {
+        removetrainingText: (id: string) => {
           set((state) => ({
-            rawText: state.rawText.filter((item) => item.id !== id),
+            trainingText: state.trainingText.filter((item) => item.id !== id),
           }))
         },
-        resetText: () => set({ rawText: [] }),
+        resetText: () => set({ trainingText: [] }),
         toggleAnimationStatus: () => set((state) => ({ animationStatus: !state.animationStatus })),
         animatedText: '',
         updateAnimatedText: (text) => set({ animatedText: text }),

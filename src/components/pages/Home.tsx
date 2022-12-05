@@ -1,16 +1,13 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Button } from '../atoms'
-import { Title } from '../molecules'
 import { BiBookReader } from 'react-icons/bi'
 import { homeMenu } from '../../static/staticData'
 
 export const Home = () => {
   const navigate = useNavigate()
-
   return (
     <>
-      <Title pageTitle="Home" />
       <p className="flex justify-center items-center text-xl sm:text-2xl pt-2 mb-4 sm:mb-20">
         Welcome, {'name'}
       </p>

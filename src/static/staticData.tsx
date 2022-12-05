@@ -1,6 +1,30 @@
 import { BiBookOpen, BiHistory, BiLogOut, BiUser } from 'react-icons/bi'
 import { media_1, media_2, media_3 } from '../assets/guides'
 
+export const titles = [
+  { path: '/', title: 'Home' },
+  { path: '/login', title: 'Login' },
+  { path: '/register', title: 'Register' },
+  { path: '/guide', title: 'Reading Guides' },
+  { path: '/history', title: 'Training History' },
+  { path: '/profile', title: 'Profile' },
+  { path: '/profile/edit', title: 'Edit Profile' },
+  { path: '/profile/progress', title: 'My Progress' },
+  { path: '/training', title: 'Training' },
+  { path: '/training/settings', title: 'Visual Settings' },
+  { path: '/training/normal', title: 'Normal Mode' },
+  { path: '/training/normal/simulate', title: 'Normal Mode Training' },
+  { path: '/training/normal/comprehension', title: 'Comprehension Test' },
+  { path: '/training/normal/result', title: 'Training Result' },
+  { path: '/training/blind', title: 'Blind Mode' },
+  { path: '/training/blind/simulate', title: 'Blind Mode Training' },
+  { path: '/training/blind/comprehension', title: 'Comprehension Test' },
+  { path: '/training/blind/result', title: 'Training Result' },
+  { path: '/training/custom', title: 'Custom Mode' },
+  { path: '/training/custom/simulate', title: 'Custom Mode Training' },
+  { path: '/training/custom/result', title: 'Training Result' },
+]
+
 export const navMenu = [
   {
     id: 1,
@@ -68,8 +92,7 @@ export const trainingMenu = [
   {
     id: 3,
     optionName: 'Custom Test',
-    description:
-      'Simulasikan pembacaan cepat menggunakan input dan pengaturan teks kustom sendiri.',
+    description: 'Simulasi membaca cepat menggunakan input dan pengaturan teks kustom sendiri.',
     info: 'Training with custom text input',
     navigateTo: '/training/custom',
   },

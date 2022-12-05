@@ -89,7 +89,7 @@ export const MyProgress = () => {
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis
                   dataKey="testId"
-                  label={{ value: 'Number of tests taken', position: 'insideBottomRight' }}
+                  label={{ value: 'Number of Tests', position: 'insideBottomRight' }}
                 />
                 <YAxis dataKey="wpm" label={{ value: 'WPM', angle: -90, position: 'insideLeft' }} />
                 <Tooltip />
