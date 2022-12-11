@@ -28,3 +28,11 @@ export const checkCurrentPathname = (checkPath: string[], currentPath: string): 
   })
   return result
 }
+
+export const getFirstLetter = (text: string): string => {
+  const firstLetters = text
+    .split(' ')
+    .map((word) => word[0].toUpperCase())
+    .join('')
+  return firstLetters
+}

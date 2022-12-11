@@ -10,7 +10,7 @@ export const Navbar = () => {
       <Loader />
       <div className="navbar bg-base-100 justify-center">
         <Link to="/">
-          <img src={logo} className="h-7 sm:h-9" alt="Logo" />
+          <img src={logo} className="h-7 sm:h-9 mt-4 sm:mt-10" alt="Logo" />
         </Link>
         {/* <div className="navbar-end">
           <div className="dropdown dropdown-end md:hidden">

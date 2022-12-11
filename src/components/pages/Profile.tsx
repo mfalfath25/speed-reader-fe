@@ -1,39 +1,55 @@
 import React from 'react'
+import moment from 'moment'
 import { BiAlarm, BiBarChart, BiBookReader, BiEdit } from 'react-icons/bi'
 import { useNavigate } from 'react-router-dom'
-import { checkPathnameDepth } from '../../logic/utils'
+import { checkPathnameDepth, getFirstLetter } from '../../logic/utils'
+import { useTrainingStore } from '../../store/TrainingStore'
+import { useUserStore } from '../../store/UserStore'
 import { Button } from '../atoms'
 import { ProfileSections } from '../organisms'
 
 const ProfileMenu = () => {
   const navigate = useNavigate()
+  const { trainingData } = useTrainingStore()
+  const { userData } = useUserStore()
+
+  const getTotalReadTime = () => {
+    let totalReadTime = 0
+    let formattedReadTime = ''
+    trainingData.forEach((item) => {
+      totalReadTime += item.readTime
+    })
+    formattedReadTime = moment.utc(totalReadTime).format('HH:mm:ss')
+    console.log(formattedReadTime)
+    return formattedReadTime
+  }
+
   return (
     <>
-      <div className="grid grid-cols-1 grid-rows-0 sm:grid-rows-3 auto-rows-auto gap-10">
-        <div className="flex flex-col justify-center mx-auto gap-2">
+      <div className="grid grid-cols-1 gap-10 sm:gap-20">
+        <div className="flex flex-col justify-center mx-auto gap-4">
           <div className="mx-auto">
             <div className="avatar placeholder">
               <div className="bg-neutral-focus text-neutral-content w-24 mask mask-hexagon">
-                <span className="text-3xl">RX</span>
+                <span className="text-3xl">{getFirstLetter(userData?.username)}</span>
               </div>
             </div>
           </div>
-          <span className="mx-auto text-2xl font-bold">Username</span>
-          <span className="mx-auto text-xl">user@gmail.com</span>
+          <span className="mx-auto text-2xl font-bold">{userData?.username}</span>
           <Button text="Edit Profile" onClick={() => navigate('/profile/edit/1')}>
             <BiEdit size={24} className="ml-2" />
           </Button>
         </div>
 
-        <div className="flex flex-col justify-center items-center mx-auto gap-2 w-full">
+        <div className="flex flex-col justify-center items-center mx-auto gap-4 w-full">
+          <span className="text-xl sm:text-2xl">Lihat detail progress latihan</span>
           <div className="stats stats-vertical sm:stats-horizontal shadow w-full sm:w-fit bg-slate-100">
             <div className="stat">
               <div className="stat-figure text-primary">
                 <BiBookReader size={32} className="ml-2" />
               </div>
               <div className="stat-title text-xl text-black font-bold">Total latihan</div>
-              <div className="stat-value text-primary">25</div>
-              {/* <div className="stat-desc"></div> */}
+              <div className="stat-value text-primary">{trainingData?.length}</div>
             </div>
 
             <div className="stat">
@@ -41,14 +57,9 @@ const ProfileMenu = () => {
                 <BiAlarm size={32} className="ml-2" />
               </div>
               <div className="stat-title text-xl text-black font-bold">Total waktu membaca</div>
-              <div className="stat-value text-primary">35m 20s</div>
-              {/* <div className="stat-desc"></div> */}
+              <div className="stat-value text-primary">{getTotalReadTime()}</div>
             </div>
           </div>
-        </div>
-
-        <div className="flex flex-col justify-start mx-auto gap-2">
-          <span className="text-xl sm:text-2xl">Lihat progress latihan</span>
           <Button
             text="My Progress"
             weight="primary"
@@ -58,6 +69,8 @@ const ProfileMenu = () => {
           </Button>
         </div>
       </div>
+
+      <div className="flex flex-col mx-auto gap-2"></div>
     </>
   )
 }

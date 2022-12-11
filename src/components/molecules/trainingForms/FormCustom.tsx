@@ -8,7 +8,7 @@ import { Button } from '../../atoms'
 export const FormCustom = () => {
   // global state
   const navigate = useNavigate()
-  const { animationStatus, addTrainingText, resetTrainingText } = useTrainingStore()
+  const { animationStatus, addTrainingData, resetTrainingData } = useTrainingStore()
 
   const {
     register,
@@ -20,12 +20,12 @@ export const FormCustom = () => {
   } = useForm<Training>()
 
   const onSubmit: SubmitHandler<Training> = (data) => {
-    addTrainingText(
+    addTrainingData(
       (data = {
         ...data,
         mode: 'Custom',
         chunksCount: data.chunksCount ? data.chunksCount : 3,
-        wpm: data.wpm ? data.wpm : 300,
+        wpm: data.wpm ? data.wpm : 250,
       })
     )
     navigate('/training/custom/simulate')
@@ -33,7 +33,7 @@ export const FormCustom = () => {
   }
 
   const clearText = () => {
-    resetTrainingText()
+    resetTrainingData()
     reset()
   }
 
@@ -72,7 +72,7 @@ export const FormCustom = () => {
                 className="input input-bordered w-full"
                 min="1"
                 max="5"
-                {...register('chunksCount')}
+                {...register('chunksCount', { valueAsNumber: true })}
               />
               <label className="label-text-alt">(default: 3 chunks)</label>
             </div>
@@ -84,7 +84,7 @@ export const FormCustom = () => {
                 className="input input-bordered w-full"
                 min="100"
                 max="1000"
-                {...register('wpm')}
+                {...register('wpm', { valueAsNumber: true })}
               />
               <label className="label-text-alt">(default: 250 WPM)</label>
             </div>

@@ -19,7 +19,7 @@ export const useSettingStore = create<SettingStore>()(
       (set) => ({
         isFontSerif: true,
         toggleFontSerif: () => set((state) => ({ isFontSerif: !state.isFontSerif })),
-        isJustified: true,
+        isJustified: false,
         toggleJustification: () => set((state) => ({ isJustified: !state.isJustified })),
         fixationCount: 0,
         updateFixationCount: (count) => set({ fixationCount: count }),

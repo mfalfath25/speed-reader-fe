@@ -1,50 +1,76 @@
-// export interface FormValues {
-//   textValue: string
-//   chunkValue: number
-//   wordsPerMinute: number
-//   textLevel: string
-//   textChoice: string
-//   wordCount: number
-// }
-
-// export interface TrainingOld {
-//   id: string
-//   textValue: string
-//   chunkValue: number
-//   wordsPerMinute: number
-// }
-
 export interface Training {
   trainingId: string
+  traineeId: string
   mode: string
   text: Text
   chunksCount: number
   wpm: number
   accuracy: number
-  readTime: Date
+  readTime: number
   readDate: Date
+  answers: AnsweredQuestion[]
 }
 export interface Text {
-  textId: string
-  textLevel: string
-  textChoice: string
+  textLevel?: string
+  textChoice?: string
   textValue: string
   textWordCount: number
-  questions: Question[]
+  questionPairId?: number
+  questions?: Questions
+}
+export interface Questions {
+  questionPairId: number
+  allQuestions?: Question[]
 }
 export interface Question {
-  quizId: string
-  question: string
-  correctAnswer: string
-  incorrectAnswers: string[]
+  questionText: string
+  answerOptions: Answer[]
 }
-export interface BlindTraining {
-  id: string
-  wordCount: number
-  timer: number
-  wordsPerMinute: number
+export interface Answer {
+  answerText: string
+  isCorrect: boolean
 }
 
+export interface AnsweredQuestion {
+  answer: string
+}
+export interface History {
+  history: Training[]
+}
+export interface Progress {
+  progress: Training[]
+  averageWpm?: number
+  averageAccuracy?: number
+  totalReadTime?: number
+  totalTraining?: number
+}
+export interface Trainee {
+  userId: string
+  username: string
+  email: string
+  tests: Training[]
+}
 export interface FormEditProfileValues {
   username: string
 }
+export interface FormLoginValues {
+  username: string
+  password: string
+}
+export interface FormRegisterValues {
+  email: string
+  username: string
+  password: string
+}
+
+// export interface Test {
+//   testId: string
+//   traineeId: string
+//   answers?: Answer[]
+//   mode: string
+//   wpm: number
+//   accuracy: number
+//   textWordCount: number
+//   readTime: number
+//   readDate: Date
+// }

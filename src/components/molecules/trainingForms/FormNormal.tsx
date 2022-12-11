@@ -1,25 +1,12 @@
 import React from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { BiInfoCircle } from 'react-icons/bi'
-import { Training } from '../../../types/model'
+import { Question, Questions, Training } from '../../../types/model'
 import { Button } from '../../atoms'
 import cefr from '../../../assets/training/cefr.png'
 import { useNavigate } from 'react-router-dom'
 import { useTrainingStore } from '../../../store/TrainingStore'
-
-const textLevelData = [
-  { label: 'A1', value: 'A1' },
-  { label: 'A2', value: 'A2' },
-  { label: 'B1', value: 'B1' },
-  { label: 'B2', value: 'B2' },
-  { label: 'C1', value: 'C1' },
-]
-
-const textChoiceData = [
-  { label: 'Text 1', value: 'Text 1' },
-  { label: 'Text 2', value: 'Text 2' },
-  { label: 'Text 3', value: 'Text 3' },
-]
+import { QuestionData, textChoiceData, textData, textLevelData } from '../../../static/staticData'
 
 export const FormNormal = () => {
   const navigate = useNavigate()
@@ -32,21 +19,48 @@ export const FormNormal = () => {
     formState: { errors, isSubmitSuccessful },
   } = useForm<Training>()
 
-  const { addTrainingText } = useTrainingStore()
+  const { addTrainingData, setTrainingText } = useTrainingStore()
 
   const onSubmit: SubmitHandler<Training> = (data) => {
-    if (data.text.textLevel === 'A1' && data.text.textChoice === 'Text 1') {
-      data.text.textValue = `The first text is about the history of the English language. It is a very interesting topic. The English language is a West Germanic language that was first spoken in early medieval England and eventually became a global lingua franca. It is named after the Angles, one of the Germanic tribes that migrated to the area of Great Britain that later took their name, England. It is closely related to the Frisian languages, but its vocabulary has been significantly influenced by other Germanic languages, particularly Norse, as well as by Latin and French.`
-    } else {
-      data.text.textValue =
-        'The first text is about the history of the English language. It is a very interesting topic. The English language is a West Germanic language that was first spoken in early medieval England and eventually became a global lingua franca. It is named after the Angles, one of the Germanic tribes that migrated to the area of Great Britain that later took their name, England. It is closely related to the Frisian languages, but its vocabulary has been significantly influenced by other Germanic languages, particularly Norse, as well as by Latin and French.'
+    let textOption = {
+      textValue:
+        textData.find(
+          (item) =>
+            item.textLevel === data.text.textLevel && item.textChoice === data.text.textChoice
+        )?.textValue || '',
+      questionPairId:
+        textData.find(
+          (item) =>
+            item.textLevel === data.text.textLevel && item.textChoice === data.text.textChoice
+        )?.questionPairId || 0,
     }
-    addTrainingText(
+
+    const getAllQuestion = () => {
+      const arrayIndex = QuestionData.findIndex(
+        (item) => item.questionPairId === textOption.questionPairId
+      )
+      return QuestionData[arrayIndex].allQuestions
+    }
+
+    let questionOption: Questions = {
+      questionPairId: textOption.questionPairId,
+      allQuestions: getAllQuestion(),
+    }
+
+    addTrainingData(
       (data = {
         ...data,
         mode: 'Normal',
         chunksCount: data.chunksCount ? data.chunksCount : 3,
-        wpm: data.wpm ? data.wpm : 300,
+        wpm: data.wpm ? data.wpm : 250,
+        text: {
+          ...data.text,
+          textLevel: data.text.textLevel,
+          textChoice: data.text.textChoice,
+          textValue: textOption.textValue,
+          questionPairId: textOption.questionPairId,
+          questions: questionOption,
+        },
       })
     )
     navigate('/training/normal/simulate')
@@ -120,7 +134,7 @@ export const FormNormal = () => {
                   className="input input-bordered w-full"
                   min="1"
                   max="5"
-                  {...register('chunksCount')}
+                  {...register('chunksCount', { valueAsNumber: true })}
                 />
                 <label className="label-text-alt">(default: 3 chunks)</label>
               </div>
@@ -132,7 +146,7 @@ export const FormNormal = () => {
                   className="input input-bordered w-full"
                   min="100"
                   max="1000"
-                  {...register('wpm')}
+                  {...register('wpm', { valueAsNumber: true })}
                 />
                 <label className="label-text-alt">(default: 250 WPM)</label>
               </div>

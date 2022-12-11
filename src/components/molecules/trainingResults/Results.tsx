@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useTrainingStore } from '../../../store/TrainingStore'
 import { Button } from '../../atoms'
@@ -6,7 +6,21 @@ import moment from 'moment'
 
 export const Results = () => {
   const navigate = useNavigate()
-  const data = useTrainingStore((state) => state.trainingText)
+  const data = useTrainingStore((state) => state.trainingData)
+
+  const handleRestart = () => {
+    switch (data[data.length - 1].mode) {
+      case 'Normal':
+        navigate('/training/normal/simulate')
+        break
+      case 'Blind':
+        navigate('/training/blind/simulate')
+        break
+      case 'Custom':
+        navigate('/training/custom/simulate')
+        break
+    }
+  }
 
   return (
     <>
@@ -58,9 +72,8 @@ export const Results = () => {
               {moment(data[data.length - 1].readDate).format('l')}
             </p>
           </div>
-
           <Button text="Home" weight="primary" onClick={() => navigate('/')} />
-          <Button text="Restart" outline onClick={() => navigate('/training/custom/simulate')} />
+          <Button text="Restart" outline onClick={handleRestart} />
         </div>
       </div>
     </>

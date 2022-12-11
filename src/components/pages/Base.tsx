@@ -7,17 +7,26 @@ import { Home } from './Home'
 
 export const Base = () => {
   const location = useLocation()
-  const [title, setTitle] = useState('-')
-  const { trainingText, animatedText, animationStatus } = useTrainingStore()
+  const [title, setTitle] = useState('')
+  const { trainingData, animatedText, animationStatus } = useTrainingStore()
+
+  const matchTitle = (path: string) => {
+    const match = titles.find((title) => title.path.includes(path))
+    if (match) {
+      setTitle(match.title)
+    } else {
+      if (path.includes('profile/edit')) {
+        setTitle('Edit Profile')
+      } else if (path.includes('profile/progress')) {
+        setTitle('My Progress')
+      }
+    }
+  }
 
   useEffect(() => {
-    console.log('Training Data ', trainingText)
-    // console.log('Animated Text ', animatedText)
-    // console.log('Animation Status ', animationStatus)
-    const curTitle = titles.find((item) => item.path.includes(location.pathname))
-    if (curTitle && curTitle.title) {
-      setTitle(curTitle.title)
-    }
+    console.log('Training Data ', trainingData)
+    // console.log('animationStatus ', animationStatus)
+    matchTitle(location.pathname)
   }, [location])
   return (
     <>
@@ -33,7 +42,6 @@ export const Base = () => {
         ) : (
           <>
             <div className="p-2 pt-0 mt-0">
-              <Title pageTitle={title} />
               <Home />
             </div>
           </>

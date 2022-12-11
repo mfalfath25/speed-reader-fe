@@ -5,6 +5,7 @@ import { Button } from './Button'
 
 interface BackButtonProps {
   isAnimationActive?: boolean
+  isRestarted?: boolean
 }
 
 export const BackButton = (props: BackButtonProps) => {
@@ -12,7 +13,10 @@ export const BackButton = (props: BackButtonProps) => {
   return (
     <>
       <div className="absolute">
-        <Button disabled={props.isAnimationActive} onClick={() => navigate(-1)}>
+        <Button
+          disabled={props.isAnimationActive || props.isRestarted}
+          onClick={() => navigate(-1)}
+        >
           <BiArrowBack size={24} />
         </Button>
       </div>

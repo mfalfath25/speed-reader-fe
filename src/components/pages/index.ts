@@ -1,4 +1,5 @@
 export { Base } from './Base'
+export { Authenticate } from './Authenticate'
 export { Home } from './Home'
 export { Training } from './Training'
 export { Guide } from './Guide'

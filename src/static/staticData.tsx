@@ -1,5 +1,6 @@
 import { BiBookOpen, BiHistory, BiLogOut, BiUser } from 'react-icons/bi'
 import { media_1, media_2, media_3 } from '../assets/guides'
+import { Question, Questions } from '../types/model'
 
 export const titles = [
   { path: '/', title: 'Home' },
@@ -8,21 +9,177 @@ export const titles = [
   { path: '/guide', title: 'Reading Guides' },
   { path: '/history', title: 'Training History' },
   { path: '/profile', title: 'Profile' },
-  { path: '/profile/edit', title: 'Edit Profile' },
-  { path: '/profile/progress', title: 'My Progress' },
+  // { path: '/profile/edit', title: 'Edit Profile' },
+  // { path: '/profile/progress', title: 'My Progress' },
   { path: '/training', title: 'Training' },
   { path: '/training/settings', title: 'Visual Settings' },
   { path: '/training/normal', title: 'Normal Mode' },
   { path: '/training/normal/simulate', title: 'Normal Mode Training' },
-  { path: '/training/normal/comprehension', title: 'Comprehension Test' },
+  { path: '/training/normal/simulate/comprehension', title: 'Comprehension Test' },
   { path: '/training/normal/result', title: 'Training Result' },
   { path: '/training/blind', title: 'Blind Mode' },
   { path: '/training/blind/simulate', title: 'Blind Mode Training' },
-  { path: '/training/blind/comprehension', title: 'Comprehension Test' },
+  { path: '/training/blind/simulate/comprehension', title: 'Comprehension Test' },
   { path: '/training/blind/result', title: 'Training Result' },
   { path: '/training/custom', title: 'Custom Mode' },
   { path: '/training/custom/simulate', title: 'Custom Mode Training' },
   { path: '/training/custom/result', title: 'Training Result' },
+]
+
+export const textLevelData = [
+  { label: 'A1', value: 'A1' },
+  { label: 'A2', value: 'A2' },
+  { label: 'B1', value: 'B1' },
+  { label: 'B2', value: 'B2' },
+  { label: 'C1', value: 'C1' },
+]
+
+export const textChoiceData = [
+  { label: 'Text 1', value: 'Text 1' },
+  { label: 'Text 2', value: 'Text 2' },
+  { label: 'Text 3', value: 'Text 3' },
+]
+
+export const textData = [
+  {
+    textLevel: 'A1',
+    textChoice: 'Text 1',
+    textValue: 'A1 T1 Lorem ipsum dolor sit amet consectetur adipisicing elit.',
+    questionPairId: 1,
+  },
+  {
+    textLevel: 'A1',
+    textChoice: 'Text 2',
+    textValue: 'A1 T2 Lorem ipsum dolor sit amet consectetur adipisicing elit.',
+    questionPairId: 2,
+  },
+  {
+    textLevel: 'A1',
+    textChoice: 'Text 3',
+    textValue: 'A1 T3 Lorem ipsum dolor sit amet consectetur adipisicing elit.',
+    questionPairId: 3,
+  },
+  {
+    textLevel: 'A2',
+    textChoice: 'Text 1',
+    textValue: 'A2 T1 Lorem ipsum dolor sit amet consectetur adipisicing elit.',
+    questionPairId: 4,
+  },
+  {
+    textLevel: 'A2',
+    textChoice: 'Text 2',
+    textValue: 'A2 T2 Lorem ipsum dolor sit amet consectetur adipisicing elit.',
+    questionPairId: 5,
+  },
+  {
+    textLevel: 'A2',
+    textChoice: 'Text 3',
+    textValue: 'A2 T3 Lorem ipsum dolor sit amet consectetur adipisicing elit.',
+    questionPairId: 6,
+  },
+  {
+    textLevel: 'B1',
+    textChoice: 'Text 1',
+    textValue: 'B1 T1 Lorem ipsum dolor sit amet consectetur adipisicing elit.',
+    questionPairId: 7,
+  },
+  {
+    textLevel: 'B1',
+    textChoice: 'Text 2',
+    textValue: 'B2 T2 Lorem ipsum dolor sit amet consectetur adipisicing elit.',
+    questionPairId: 8,
+  },
+  {
+    textLevel: 'B1',
+    textChoice: 'Text 3',
+    textValue: 'B3 T3 Lorem ipsum dolor sit amet consectetur adipisicing elit.',
+    questionPairId: 9,
+  },
+]
+
+export const QuestionData: Questions[] = [
+  {
+    questionPairId: 1,
+    allQuestions: [
+      {
+        questionText: 'What is the capital of France?',
+        answerOptions: [
+          { answerText: 'New York', isCorrect: false },
+          { answerText: 'London', isCorrect: false },
+          { answerText: 'Paris', isCorrect: true },
+          { answerText: 'Dublin', isCorrect: false },
+        ],
+      },
+      {
+        questionText: 'Who is CEO of Tesla?',
+        answerOptions: [
+          { answerText: 'Elon Musk', isCorrect: true },
+          { answerText: 'Jeff Bezos', isCorrect: false },
+          { answerText: 'Bill Gates', isCorrect: false },
+          { answerText: 'Tony Stark', isCorrect: false },
+        ],
+      },
+      {
+        questionText: 'The iPhone was created by which company?',
+        answerOptions: [
+          { answerText: 'Apple', isCorrect: true },
+          { answerText: 'Intel', isCorrect: false },
+          { answerText: 'Amazon', isCorrect: false },
+          { answerText: 'Microsoft', isCorrect: false },
+        ],
+      },
+      {
+        questionText: 'How many Harry Potter books are there?',
+        answerOptions: [
+          { answerText: '1', isCorrect: false },
+          { answerText: '4', isCorrect: false },
+          { answerText: '6', isCorrect: false },
+          { answerText: '7', isCorrect: true },
+        ],
+      },
+    ],
+  },
+  {
+    questionPairId: 2,
+    allQuestions: [
+      {
+        questionText: 'What is the capital of France?',
+        answerOptions: [
+          { answerText: 'New York', isCorrect: false },
+          { answerText: 'London', isCorrect: false },
+          { answerText: 'Paris', isCorrect: true },
+          { answerText: 'Dublin', isCorrect: false },
+        ],
+      },
+      {
+        questionText: 'Who is CEO of Tesla?',
+        answerOptions: [
+          { answerText: 'Elon Musk', isCorrect: true },
+          { answerText: 'Jeff Bezos', isCorrect: false },
+          { answerText: 'Bill Gates', isCorrect: false },
+          { answerText: 'Tony Stark', isCorrect: false },
+        ],
+      },
+      {
+        questionText: 'The iPhone was created by which company?',
+        answerOptions: [
+          { answerText: 'Apple', isCorrect: true },
+          { answerText: 'Intel', isCorrect: false },
+          { answerText: 'Amazon', isCorrect: false },
+          { answerText: 'Microsoft', isCorrect: false },
+        ],
+      },
+      {
+        questionText: 'How many Harry Potter books are there?',
+        answerOptions: [
+          { answerText: '1', isCorrect: false },
+          { answerText: '4', isCorrect: false },
+          { answerText: '6', isCorrect: false },
+          { answerText: '7', isCorrect: true },
+        ],
+      },
+    ],
+  },
 ]
 
 export const navMenu = [

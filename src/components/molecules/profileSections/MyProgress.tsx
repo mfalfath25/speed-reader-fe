@@ -1,35 +1,124 @@
 import React from 'react'
 import { BiInfoCircle } from 'react-icons/bi'
 import {
-  XAxis,
-  YAxis,
-  CartesianGrid,
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
   Tooltip,
-  Label,
-  Area,
-  AreaChart,
-  ResponsiveContainer,
-} from 'recharts'
-
-const data = [
-  {
-    testId: 1,
-    wpm: 250,
-    accuracy: 100,
-  },
-  {
-    testId: 2,
-    wpm: 300,
-    accuracy: 50,
-  },
-  {
-    testId: 3,
-    wpm: 275,
-    accuracy: 80,
-  },
-]
+  Legend,
+} from 'chart.js'
+import { Line, Scatter } from 'react-chartjs-2'
+import { useTrainingStore } from '../../../store/TrainingStore'
+import moment from 'moment'
+import { getAverageAccuracy, getAverageWpm } from '../../../logic'
 
 export const MyProgress = () => {
+  const { trainingData } = useTrainingStore()
+  const trainingCount = () => {
+    let x = []
+    for (let i = 0; i < trainingData.length; i++) {
+      if (trainingData[i].mode === 'Normal' || trainingData[i].mode === 'Blind') {
+        // x.push(`${i + 1}`)
+        x.push(moment(trainingData[i].readDate).format('DD MMM YY'))
+      }
+    }
+    return x
+  }
+
+  const plotWpm = () => {
+    let x = []
+    for (let i = 0; i < trainingData.length; i++) {
+      if (trainingData[i].mode === 'Normal' || trainingData[i].mode === 'Blind') {
+        x.push(trainingData[i].wpm)
+      }
+    }
+    return x
+  }
+
+  const plotAccuracy = () => {
+    let x = []
+    for (let i = 0; i < trainingData.length; i++) {
+      if (trainingData[i].mode === 'Normal' || trainingData[i].mode === 'Blind') {
+        x.push(trainingData[i].accuracy)
+      }
+    }
+    return x
+  }
+  const labels = trainingCount()
+
+  const data = {
+    labels,
+    datasets: [
+      // {
+      //   label: 'WPM Overtime',
+      //   data: Array.from(trainingData, (item) => ({
+      //     x: item.accuracy,
+      //     y: item.wpm,
+      //   })),
+      //   borderColor: 'rgb(255, 99, 132)',
+      //   backgroundColor: 'rgba(255, 99, 132, 0.5)',
+      // },
+
+      {
+        label: 'WPM',
+        // data: trainingData.map((item) =>
+        //   item.mode === 'Normal' || item.mode === 'Blind' ? item.wpm : null
+        // ),
+        data: trainingData.map((item) => item.wpm),
+        borderColor: 'rgb(53, 162, 235)',
+        backgroundColor: 'rgba(53, 162, 235, 0.5)',
+        yAxisID: 'y',
+      },
+      {
+        label: 'Akurasi %',
+        data: trainingData.map((item) => item.accuracy),
+        borderColor: 'rgb(255, 99, 132)',
+        backgroundColor: 'rgba(255, 99, 132, 0.5)',
+        yAxisID: 'y1',
+      },
+    ],
+  }
+
+  ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend)
+
+  const options = {
+    responsive: true,
+    interaction: {
+      mode: 'index' as const,
+      intersect: false,
+    },
+    scales: {
+      y: {
+        title: {
+          display: true,
+          text: 'Kecepatan Membaca (WPM)',
+        },
+        grid: {
+          drawOnChartArea: true,
+        },
+      },
+      y1: {
+        title: {
+          display: true,
+          text: 'Akurasi Pemahaman (%)',
+        },
+        position: 'right' as const,
+        grid: {
+          drawOnChartArea: false,
+        },
+      },
+      x: {
+        title: {
+          display: true,
+          text: 'Timeline Latihan',
+        },
+      },
+    },
+  }
+
   return (
     <>
       <div className="grid grid-cols-1 auto-rows-auto gap-10">
@@ -43,7 +132,8 @@ export const MyProgress = () => {
                 <div className="flex flex-col">
                   <span className="ml-2 font-bold text-base sm:text-xl">Info</span>
                   <span className="ml-2 mb-auto text-base sm:text-xl">
-                    Skor rerata dikalkulasi berdasarkan hasil latihan Normal Test dan Blind Test.
+                    Skor rerata dikalkulasi berdasarkan hasil latihan pada mode Normal dan mode
+                    Blind.
                   </span>
                 </div>
               </div>
@@ -57,14 +147,18 @@ export const MyProgress = () => {
               <div className="stat-title text-xl text-black font-bold text-center">
                 Avg Reading Speed
               </div>
-              <div className="stat-value text-primary mx-auto">285 WPM</div>
+              <div className="stat-value text-primary mx-auto">
+                {getAverageWpm(trainingData)} WPM
+              </div>
             </div>
 
             <div className="stat">
               <div className="stat-title text-xl text-black font-bold text-center">
                 Avg Comprehension
               </div>
-              <div className="stat-value text-primary mx-auto">85%</div>
+              <div className="stat-value text-primary mx-auto">
+                {getAverageAccuracy(trainingData)} %
+              </div>
             </div>
           </div>
         </div>
@@ -73,54 +167,9 @@ export const MyProgress = () => {
           <p className="text-xl sm:text-2xl font-bold">Grafik Perkembangan Latihan</p>
           <div style={{ width: '100%' }}>
             <p className="text-xl font-semibold my-2">Reading Speed Overtime</p>
-            <ResponsiveContainer width="100%" height={200}>
-              <AreaChart
-                width={500}
-                height={400}
-                data={data}
-                syncId="anyId"
-                margin={{
-                  top: 10,
-                  right: 30,
-                  left: 0,
-                  bottom: 0,
-                }}
-              >
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis
-                  dataKey="testId"
-                  label={{ value: 'Number of Tests', position: 'insideBottomRight' }}
-                />
-                <YAxis dataKey="wpm" label={{ value: 'WPM', angle: -90, position: 'insideLeft' }} />
-                <Tooltip />
-                <Area type="linear" dataKey="wpm" stroke="#BA7ED0" fill="#9791F3" />
-              </AreaChart>
-            </ResponsiveContainer>
+            <Line options={options} data={data} />
 
-            <p className="text-xl font-semibold my-2">Comprehension Accuracy compared to WPM</p>
-            <ResponsiveContainer width="100%" height={200}>
-              <AreaChart
-                width={500}
-                height={200}
-                data={data}
-                syncId="anyId"
-                margin={{
-                  top: 10,
-                  right: 30,
-                  left: 0,
-                  bottom: 0,
-                }}
-              >
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="wpm" label={{ value: 'WPM', position: 'insideBottomRight' }} />
-                <YAxis
-                  dataKey="accuracy"
-                  label={{ value: 'Accuracy', angle: -90, position: 'insideLeft' }}
-                />
-                <Tooltip />
-                <Area type="linear" dataKey="accuracy" stroke="#BA7ED0" fill="#9791F3" />
-              </AreaChart>
-            </ResponsiveContainer>
+            {/* <p className="text-xl font-semibold my-2">Comprehension Accuracy compared to WPM</p> */}
           </div>
         </div>
       </div>

@@ -12,8 +12,8 @@ export const Loader = () => {
   }, [location])
   return (
     <>
-      <LoadingBar color="#f11946" ref={ref} shadow={true} height={3} />
-      {/* <LoadingBar color="#057AFF" ref={ref} shadow={true} height={4} /> */}
+      {/* <LoadingBar color="#f11946" ref={ref} shadow={true} height={3} /> */}
+      <LoadingBar color="#057AFF" ref={ref} shadow={true} height={4} />
     </>
   )
 }

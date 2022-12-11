@@ -5,13 +5,15 @@ import { devtools, persist } from 'zustand/middleware'
 import { getTotalChunks, removeExtraWhitespaces } from '../logic/utils'
 
 interface TrainingStore {
-  trainingText: Training[]
+  trainingData: Training[]
   animatedText: string
   animationStatus: boolean
 
-  addTrainingText: (data: Training) => void // add new trainingText
-  removeTrainingText: (id: string) => void // remove trainingText by id
-  resetTrainingText: () => void // reset trainingText value
+  addTrainingData: (data: Training) => void // add new TrainingData
+  setTrainingText: (text: string) => void // set TrainingData text
+  modifyTrainingData: (id: string, data: Training) => void // modify TrainingData by id
+  removeTrainingData: (id: string) => void // remove TrainingData by id
+  resetTrainingData: () => void // reset TrainingData value
   toggleAnimationStatus: () => void // toggle animation status
   updateAnimatedText: (text: string) => void // update animated text value
   clearAnimatedText: () => void // clear animated text value
@@ -22,53 +24,79 @@ export const useTrainingStore = create<TrainingStore>()(
     persist(
       (set) => ({
         animationStatus: false,
-        trainingText: [],
-        addTrainingText: (data) => {
+        trainingData: [],
+        addTrainingData: (data) => {
           set((state) => ({
-            trainingText: [
-              ...state.trainingText,
+            trainingData: [
+              ...state.trainingData,
               {
                 trainingId: uuidv4(),
+                traineeId: data.traineeId,
                 mode: data.mode,
                 text: {
-                  textId: uuidv4(),
-                  textLevel: data.text.textLevel,
-                  textChoice: data.text.textChoice,
-                  textValue: data.text.textValue,
+                  textLevel: data.text.textLevel || '-',
+                  textChoice: data.text.textChoice || '-',
+                  textValue: data.text.textValue || '-',
                   textWordCount: getTotalChunks(removeExtraWhitespaces(data.text.textValue)),
-                  questions: [],
+                  questionPairId: data.text.questionPairId || 0,
+                  questions: data.text.questions || undefined,
                 },
-                chunksCount: data.chunksCount,
-                wpm: data.wpm,
+                chunksCount: data.chunksCount || 0,
+                wpm: data.wpm || 0,
                 accuracy: 0,
-                readTime: new Date(),
+                readTime: data.readTime || 0,
                 readDate: new Date(),
+                answers: data.answers,
               },
             ],
           }))
         },
-        // addtrainingText: (data: Training) => {
-        //   set((state) => ({
-        //     trainingText: [
-        //       ...state.trainingText,
-        //       {
-        //         id: uuidv4(),
-        //         textValue: data.textValue,
-        //         chunkValue: parseInt(data.chunkValue as unknown as string) || 3,
-        //         wordsPerMinute: parseInt(data.wordsPerMinute as unknown as string) || 250,
-        //         textLevel: data.textLevel,
-        //         textChoice: data.textChoice,
-        //         wordCount: getTotalChunks(removeExtraWhitespaces(data.textValue)),
-        //       },
-        //     ],
-        //   }))
-        // },
-        removeTrainingText: (id: string) => {
+        setTrainingText: (text) => {
           set((state) => ({
-            trainingText: state.trainingText.filter((item) => item.trainingId !== id),
+            trainingData: state.trainingData.map((item) => ({
+              ...item,
+              text: {
+                ...item.text,
+                textValue: text,
+                textWordCount: getTotalChunks(removeExtraWhitespaces(text)),
+              },
+            })),
           }))
         },
-        resetTrainingText: () => set({ trainingText: [] }),
+        modifyTrainingData: (id, data) => {
+          set((state) => ({
+            trainingData: state.trainingData.map((item) => {
+              if (item.trainingId === id) {
+                return {
+                  ...item,
+                  mode: data.mode,
+                  text: {
+                    textId: uuidv4(),
+                    textLevel: data.text.textLevel || '-',
+                    textChoice: data.text.textChoice || '-',
+                    textValue: data.text.textValue || '-',
+                    textWordCount: getTotalChunks(removeExtraWhitespaces(data.text.textValue)),
+                    questionPairId: data.text.questionPairId || 0,
+                    questions: data.text.questions || undefined,
+                  },
+                  chunksCount: data.chunksCount || 0,
+                  wpm: data.wpm || 0,
+                  accuracy: 0,
+                  readTime: data.readTime || 0,
+                  readDate: new Date(),
+                  answers: data.answers,
+                }
+              }
+              return item
+            }),
+          }))
+        },
+        removeTrainingData: (id: string) => {
+          set((state) => ({
+            trainingData: state.trainingData.filter((item) => item.trainingId !== id),
+          }))
+        },
+        resetTrainingData: () => set({ trainingData: [] }),
         toggleAnimationStatus: () => set((state) => ({ animationStatus: !state.animationStatus })),
         animatedText: '',
         updateAnimatedText: (text) => set({ animatedText: text }),

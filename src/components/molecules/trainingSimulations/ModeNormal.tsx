@@ -6,17 +6,25 @@ import { getTotalChunks, removeExtraWhitespaces } from '../../../logic/utils'
 import { FixationSelect, renderFixationLine } from '../../molecules'
 import { Button } from '../../atoms'
 import { useNavigate } from 'react-router-dom'
+import { TrainingComprehension } from '../../organisms'
 
 export const ModeNormal = () => {
   const navigate = useNavigate()
   // store states
   const { isFontSerif, isJustified, fixationCount, fontColor } = useSettingStore()
-  const { animationStatus, trainingText, animatedText, toggleAnimationStatus, updateAnimatedText } =
-    useTrainingStore()
-  const data = useTrainingStore((state) => state.trainingText)
+  const {
+    animationStatus,
+    trainingData,
+    animatedText,
+    toggleAnimationStatus,
+    updateAnimatedText,
+    modifyTrainingData,
+  } = useTrainingStore()
+  const data = useTrainingStore((state) => state.trainingData)
   // local states
   const [textAnimated, setTextAnimated] = useState<string | null>(null)
   const [isRunOnce, setIsRunOnce] = useState<boolean>(false)
+  const [textReadTime, setTextReadTime] = useState<number>(0)
   // initiate simulation
   const startSimulation = () => {
     const textValue = data[data.length - 1]?.text.textValue
@@ -28,13 +36,19 @@ export const ModeNormal = () => {
       chunkValue || 3,
       setTextAnimated,
       toggleAnimationStatus,
-      setIsRunOnce
+      setIsRunOnce,
+      setTextReadTime
     )
   }
 
   useEffect(() => {
     if (isRunOnce === true) {
-      navigate('/training/normal/result')
+      textReadTime !== 0 &&
+        modifyTrainingData(data[data.length - 1]?.trainingId, {
+          ...data[data.length - 1],
+          readTime: textReadTime,
+        })
+      navigate('/training/normal/simulate/comprehension')
     }
   }, [isRunOnce])
 

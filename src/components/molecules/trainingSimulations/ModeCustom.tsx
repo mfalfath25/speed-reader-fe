@@ -12,12 +12,19 @@ export const ModeCustom = () => {
   const navigate = useNavigate()
   // store states
   const { isFontSerif, isJustified, fixationCount, fontColor } = useSettingStore()
-  const { animationStatus, trainingText, animatedText, toggleAnimationStatus, updateAnimatedText } =
-    useTrainingStore()
-  const data = useTrainingStore((state) => state.trainingText)
+  const {
+    animationStatus,
+    trainingData,
+    animatedText,
+    modifyTrainingData,
+    toggleAnimationStatus,
+    updateAnimatedText,
+  } = useTrainingStore()
+  const data = useTrainingStore((state) => state.trainingData)
   // local states
   const [isRunOnce, setIsRunOnce] = useState<boolean>(false)
   const [textAnimated, setTextAnimated] = useState<string | null>(null)
+  const [textReadTime, setTextReadTime] = useState<number>(0)
   // additional state (for blind test params)
   const [timer, setTimer] = useState<number>(0)
   const [blindWpm, setBlindWpm] = useState<number>(0)
@@ -26,18 +33,26 @@ export const ModeCustom = () => {
     const textValue = data[data.length - 1]?.text.textValue
     const chunkValue = data[data.length - 1]?.chunksCount
     const wordsPerMinute = data[data.length - 1]?.wpm
+
     startTextAnimation(
       textValue,
       wordsPerMinute || 250,
       chunkValue || 3,
       setTextAnimated,
       toggleAnimationStatus,
-      setIsRunOnce
+      setIsRunOnce,
+      setTextReadTime
     )
   }
 
   useEffect(() => {
+    // console.log(isRunOnce)
     if (isRunOnce === true) {
+      textReadTime !== 0 &&
+        modifyTrainingData(data[data.length - 1]?.trainingId, {
+          ...data[data.length - 1],
+          readTime: textReadTime,
+        })
       navigate('/training/custom/result')
     }
   }, [isRunOnce])

@@ -5,4 +5,5 @@ export {
   getTotalChunks,
   customSplitString,
   checkCurrentPathname,
+  getFirstLetter,
 } from './stringHelper'
