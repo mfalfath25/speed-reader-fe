@@ -166,10 +166,8 @@ export const MyProgress = () => {
         <div className="flex flex-col items-center justify-center">
           <p className="text-xl sm:text-2xl font-bold">Grafik Perkembangan Latihan</p>
           <div style={{ width: '100%' }}>
-            <p className="text-xl font-semibold my-2">Reading Speed Overtime</p>
+            <p className="text-xl font-semibold my-2">Kecepatan membaca dari waktu ke waktu</p>
             <Line options={options} data={data} />
-
-            {/* <p className="text-xl font-semibold my-2">Comprehension Accuracy compared to WPM</p> */}
           </div>
         </div>
       </div>

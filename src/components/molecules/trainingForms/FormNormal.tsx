@@ -151,7 +151,7 @@ export const FormNormal = () => {
                 <label className="label-text-alt">(default: 250 WPM)</label>
               </div>
             </div>
-            <div className="mx-none">
+            <div className="flex justify-center mt-2 sm:mx-auto sm:w-[200px]">
               <Button text="Set Options" type="submit" weight="primary" width="full" />
             </div>
           </div>

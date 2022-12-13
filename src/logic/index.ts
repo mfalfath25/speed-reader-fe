@@ -6,4 +6,6 @@ export {
   getAverageWpm,
   getAverageAccuracy,
   filterModes,
+  getTotalAccuracy,
+  getAccuracyPercentage,
 } from './calculations'

@@ -22,6 +22,64 @@ export const Results = () => {
     }
   }
 
+  const renderStats = () => {
+    switch (data[data.length - 1].mode) {
+      case 'Normal':
+        return (
+          <>
+            <div className="flex flex-row">
+              <div className="stat">
+                <div className="stat-title text-xl text-black font-bold text-center">
+                  Word Count
+                </div>
+                <div className="stat-value text-primary mx-auto">
+                  {data[data.length - 1].text.textWordCount} words
+                </div>
+              </div>
+              <div className="stat">
+                <div className="stat-title text-xl text-black font-bold text-center">Accuracy</div>
+                <div className="stat-value text-primary mx-auto">
+                  {data[data.length - 1].accuracy}%
+                </div>
+              </div>
+            </div>
+          </>
+        )
+      case 'Blind':
+        return (
+          <>
+            <div className="flex flex-row">
+              <div className="stat">
+                <div className="stat-title text-xl text-black font-bold text-center">
+                  Word Count
+                </div>
+                <div className="stat-value text-primary mx-auto">
+                  {data[data.length - 1].text.textWordCount} words
+                </div>
+              </div>
+              <div className="stat">
+                <div className="stat-title text-xl text-black font-bold text-center">Accuracy</div>
+                <div className="stat-value text-primary mx-auto">
+                  {data[data.length - 1].accuracy}%
+                </div>
+              </div>
+            </div>
+          </>
+        )
+      case 'Custom':
+        return (
+          <>
+            <div className="stat">
+              <div className="stat-title text-xl text-black font-bold text-center">Word Count</div>
+              <div className="stat-value text-primary mx-auto">
+                {data[data.length - 1].text.textWordCount} words
+              </div>
+            </div>
+          </>
+        )
+    }
+  }
+
   return (
     <>
       <div className="grid grid-cols-1 auto-rows-auto gap-10">
@@ -37,33 +95,7 @@ export const Results = () => {
               </div>
               <div className="stat-value text-primary mx-auto">{data[data.length - 1].wpm} WPM</div>
             </div>
-            <div className="stat">
-              <div className="stat-title text-xl text-black font-bold text-center">Word Count</div>
-              <div className="stat-value text-primary mx-auto">
-                {data[data.length - 1].text.textWordCount} words
-              </div>
-            </div>
-
-            {data[data.length - 1].mode === ('normal' || 'blind') && (
-              <div className="flex flex-row">
-                <div className="stat">
-                  <div className="stat-title text-xl text-black font-bold text-center">
-                    Word Count
-                  </div>
-                  <div className="stat-value text-primary mx-auto">
-                    {data[data.length - 1].text.textWordCount} words
-                  </div>
-                </div>
-                <div className="stat">
-                  <div className="stat-title text-xl text-black font-bold text-center">
-                    Accuracy
-                  </div>
-                  <div className="stat-value text-primary mx-auto">
-                    {data[data.length - 1].accuracy}%
-                  </div>
-                </div>
-              </div>
-            )}
+            {renderStats()}
           </div>
 
           <div className="flex flex-col">
