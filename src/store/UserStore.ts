@@ -6,6 +6,7 @@ import { Trainee } from '../types/model'
 interface UserStore {
   userData: Trainee
   setUserData: (data: Trainee) => void
+  editUsername: (data: string) => void
   clearUserData: () => void
 }
 
@@ -26,6 +27,14 @@ export const useUserStore = create<UserStore>()(
               username: data.username,
               email: data.email,
               tests: data.tests,
+            },
+          }))
+        },
+        editUsername: (data) => {
+          set((state) => ({
+            userData: {
+              ...state.userData,
+              username: data,
             },
           }))
         },

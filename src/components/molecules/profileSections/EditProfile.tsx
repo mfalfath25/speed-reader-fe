@@ -1,6 +1,7 @@
 import React from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
+import { useUserStore } from '../../../store/UserStore'
 import { FormEditProfileValues } from '../../../types/model'
 import { Button } from '../../atoms'
 
@@ -15,7 +16,10 @@ export const EditProfile = () => {
     formState: { errors, isSubmitSuccessful },
   } = useForm<FormEditProfileValues>()
 
+  const { userData, editUsername } = useUserStore()
+
   const onSubmit: SubmitHandler<FormEditProfileValues> = (data) => {
+    editUsername(data.username)
     navigate('/profile', { replace: true })
     console.log(data)
   }
@@ -33,12 +37,11 @@ export const EditProfile = () => {
               type="text"
               placeholder="Username"
               className="input input-bordered w-full"
-              defaultValue={''}
+              defaultValue={userData.username}
               minLength={3}
               maxLength={20}
               {...register('username', { required: true })}
             />
-            {/* <label className="label-text-alt"></label> */}
             <div className="flex justify-end">
               {errors.username && <span className="text-red-400">Username cannot be empty</span>}
             </div>

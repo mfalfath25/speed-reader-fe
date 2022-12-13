@@ -113,19 +113,20 @@ export const Home = () => {
         <>
           <div className="grid grid-cols-auto rows-auto-rows gap-20 pt-2 mt-4 sm:mt-20">
             <div className="flex mx-auto">
-              <h1 className="text-2xl font-bold">
-                Latih kemampuan membaca cepat dengan teks Bahasa Inggris
+              <h1 className="text-2xl font-base">
+                Latih kemampuan membaca cepat secara senyap{' '}
+                <span className="font-bold">(silet speed reading)</span> dengan teks Bahasa Inggris
               </h1>
             </div>
             <div className="flex flex-col mx-auto gap-4 w-full sm:w-[300px]">
-              <span className="text-xl mx-auto">Terdaftar sebagai Trainee?</span>
+              <span className="text-xl font-bold mx-auto">Terdaftar sebagai Trainee?</span>
               <Button
                 text="Login"
                 weight="primary"
                 width="full"
                 onClick={() => navigate('/login')}
               />
-              <span className="text-xl mx-auto">atau</span>
+              <span className="text-xl font-bold mx-auto">atau</span>
               <Button text="Register" onClick={() => navigate('/register')} />
             </div>
           </div>

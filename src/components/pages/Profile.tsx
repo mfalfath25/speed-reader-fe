@@ -20,7 +20,7 @@ const ProfileMenu = () => {
       totalReadTime += item.readTime
     })
     formattedReadTime = moment.utc(totalReadTime).format('HH:mm:ss')
-    console.log(formattedReadTime)
+    // console.log(formattedReadTime)
     return formattedReadTime
   }
 
