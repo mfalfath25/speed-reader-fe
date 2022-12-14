@@ -46,7 +46,7 @@ export const Settings = () => {
 
         <div className="flex flex-col md:flex-row gap-6 my-6">
           <div>
-            <p className="font-bold">Fontface</p>
+            <p className="font-bold">Tipe fontface</p>
             <FontfaceToggler />
           </div>
 
@@ -56,12 +56,12 @@ export const Settings = () => {
           </div> */}
 
           <div>
-            <p className="font-bold">Fixation Line Helper</p>
+            <p className="font-bold">Garis bantu fiksasi</p>
             <FixationSelect />
           </div>
 
           <div>
-            <p className="font-bold">Word Highlight Color</p>
+            <p className="font-bold">Warna highlight kata</p>
             <ColorPick />
           </div>
         </div>

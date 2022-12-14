@@ -19,7 +19,7 @@ export const FormBlind = () => {
     formState: { errors, isSubmitSuccessful },
   } = useForm<Training>()
 
-  const { addTrainingData, setTrainingText } = useTrainingStore()
+  const { addTrainingData } = useTrainingStore()
 
   const onSubmit: SubmitHandler<Training> = (data) => {
     let textOption = {
@@ -64,7 +64,7 @@ export const FormBlind = () => {
       })
     )
     navigate('/training/blind/simulate')
-    console.log('Blind form values: ', data)
+    // console.log('Blind form values: ', data)
   }
 
   return (
@@ -126,30 +126,6 @@ export const FormBlind = () => {
                   ))}
                 </select>
               </div>
-              {/* <div className="w-full sm:w-[22.5%]">
-                <label className="label px-0 pt-0 font-bold">Word Chunks</label>
-                <input
-                  type="number"
-                  placeholder="(1-5)"
-                  className="input input-bordered w-full"
-                  min="1"
-                  max="5"
-                  {...register('chunksCount', { valueAsNumber: true })}
-                />
-                <label className="label-text-alt">(default: 3 chunks)</label>
-              </div>
-              <div className="w-full sm:w-[22.5%]">
-                <label className="label px-0 pt-0 font-bold">Target WPM</label>
-                <input
-                  type="number"
-                  placeholder="(100-1000)"
-                  className="input input-bordered w-full"
-                  min="100"
-                  max="1000"
-                  {...register('wpm', { valueAsNumber: true })}
-                />
-                <label className="label-text-alt">(default: 250 WPM)</label>
-              </div> */}
             </div>
             <div className="flex justify-center mt-2 sm:mx-auto sm:w-[200px]">
               <Button text="Set Options" type="submit" weight="primary" width="full" />

@@ -7,6 +7,7 @@ export const Loader = () => {
   const ref = useRef<any>(null)
 
   useEffect(() => {
+    window.scrollTo(0, 0)
     ref.current?.complete()
     // console.log(location)
   }, [location])

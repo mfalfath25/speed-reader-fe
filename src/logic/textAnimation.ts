@@ -19,7 +19,7 @@ export const startTextAnimation = (
   setStateReadTime: React.Dispatch<React.SetStateAction<number>>
   // callback: () => void = () => {}
 ): number => {
-  let start = performance.now() // start execution timer
+  const startTime = performance.now() // start execution timer
   const totalChunks = splitTextToChunks(text, chunk) // transform text into array of n chunks
   const duration = (text.split(' ').length / wpm) * (60 * 1000) // calculate duration of how animation should run
   let index = 0
@@ -32,9 +32,9 @@ export const startTextAnimation = (
       // callback()
       setAnimationStatus(false)
       setRunningOnce(true)
-      let end = performance.now() // stop execution timer
-      let elapsedTime = end - start // calculate execution time
-      setStateReadTime(elapsedTime) // set execution time (Read Time)
+      const endTime = performance.now() // stop execution timer
+      const elapsedTime = endTime - startTime // calculate execution time
+      setStateReadTime(Math.round(elapsedTime / 1000) * 1000) // set execution time (Read Time)
       return
     }
     setState((prev) => prev + ' ' + totalChunks[index]) // else, set next chunk as the new state
@@ -43,14 +43,14 @@ export const startTextAnimation = (
   return interval
 }
 
-export const boldEveryNthCharInText = (text: string, n: number, bold: boolean = true): string => {
-  let result = ''
-  for (let i = 0; i < text.length; i++) {
-    if (i % n === 0) {
-      result += bold ? `<b>${text[i]}</b>` : text[i]
-    } else {
-      result += text[i]
-    }
-  }
-  return result
-}
+// export const boldEveryNthCharInText = (text: string, n: number, bold: boolean = true): string => {
+//   let result = ''
+//   for (let i = 0; i < text.length; i++) {
+//     if (i % n === 0) {
+//       result += bold ? `<b>${text[i]}</b>` : text[i]
+//     } else {
+//       result += text[i]
+//     }
+//   }
+//   return result
+// }

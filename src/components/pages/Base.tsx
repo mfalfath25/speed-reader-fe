@@ -24,7 +24,7 @@ export const Base = () => {
   }
 
   useEffect(() => {
-    console.log('Training Data ', trainingData)
+    // console.log('Training Data ', trainingData)
     // console.log('animationStatus ', animationStatus)
     matchTitle(location.pathname)
   }, [location])

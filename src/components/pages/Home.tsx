@@ -44,7 +44,7 @@ export const Home = () => {
       {localStorage.getItem('user') !== null ? (
         <>
           <p className="flex justify-center items-center text-xl sm:text-2xl pt-2 mb-4 sm:mb-20">
-            Welcome, {userData.username}
+            Selamat datang, {userData.username}
           </p>
           <div className="grid grid-cols-1 space-y-2 sm:space-y-20">
             <div className="card-body w-full bg-base-300 outline outline-2 outline-blue-400 rounded-lg p-4 lg:p-8">
@@ -67,7 +67,7 @@ export const Home = () => {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-6">
                 {homeMenu.map((menu, index) => (
                   <div key={index} className="m-0 w-full">
-                    <div className="card-body bg-base-300 outline outline-2 rounded-lg p-4 lg:p-8">
+                    <div className="card-body bg-base-300 outline outline-2 rounded-lg p-4 xl:p-8">
                       <h1 className="card-title mx-auto text-lg md:text-2xl mb-2">
                         {menu.description}
                       </h1>
@@ -81,18 +81,6 @@ export const Home = () => {
                             {menu.buttonIcon}
                           </label>
                         ) : (
-                          // <Button
-                          //   htmlFor="logout-modal"
-                          //   text="Logout"
-                          //   width="full"
-                          //   status="error"
-                          //   onClick={() => {
-                          //     localStorage.removeItem('user')
-                          //     navigate(menu.navitgateTo)
-                          //   }}
-                          // >
-                          //   {menu.buttonIcon}
-                          // </Button>
                           <Button
                             text={menu.optionName}
                             width="full"
@@ -115,19 +103,20 @@ export const Home = () => {
             <div className="flex mx-auto">
               <h1 className="text-2xl font-base">
                 Latih kemampuan membaca cepat secara senyap{' '}
-                <span className="font-bold">(silet speed reading)</span> dengan teks Bahasa Inggris
+                <span className="font-bold">(silent speed reading)</span> dengan teks Bahasa Inggris
               </h1>
             </div>
             <div className="flex flex-col mx-auto gap-4 w-full sm:w-[300px]">
               <span className="text-xl font-bold mx-auto">Terdaftar sebagai Trainee?</span>
               <Button
-                text="Login"
                 weight="primary"
+                text="Login"
                 width="full"
                 onClick={() => navigate('/login')}
               />
               <span className="text-xl font-bold mx-auto">atau</span>
               <Button text="Register" onClick={() => navigate('/register')} />
+              {/* <button className="btn btn-primary hidden">a</button> */}
             </div>
           </div>
         </>

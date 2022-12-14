@@ -1,4 +1,3 @@
-export { getBlindTestResult, startTimer, stopTimer } from './blindTest'
 export { splitTextToChunks, startTextAnimation } from './textAnimation'
 export {
   getTotalReadTime,
@@ -8,4 +7,9 @@ export {
   filterModes,
   getTotalAccuracy,
   getAccuracyPercentage,
+  getFormattedReadTime,
+  getTotalFormattedReadTime,
+  getCurrentBlindWpm,
+  startTimer,
+  stopTimer,
 } from './calculations'

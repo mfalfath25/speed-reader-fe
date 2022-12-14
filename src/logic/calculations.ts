@@ -1,12 +1,6 @@
 import moment from 'moment'
 import { AnsweredQuestion, Training } from '../types/model'
 
-export const getTotalReadTime = (data: Training[]): number => {
-  const totalReadTime = data.reduce((acc, curr) => acc + curr.readTime, 0)
-  // const output = moment.utc(totalReadTime).format('HH:mm:ss')
-  return totalReadTime
-}
-
 export const getTotalTraining = (data: Training[]): number => {
   return data.length
 }
@@ -44,21 +38,56 @@ export const getTotalAccuracy = (data: Training, answer: AnsweredQuestion[]): nu
         }
       }
     }
-    // totalCorrectAnswers = data.answers.reduce(
-    //   (acc, curr, index) =>
-    //     questions[index].answerOptions[index].isCorrect === true &&
-    //     curr.answer === questions[index].answerOptions[index].answerText
-    //       ? acc + 1
-    //       : acc,
-    //   0
-    // )
   } else {
     totalCorrectAnswers = 0
   }
-  return getAccuracyPercentage(totalCorrectAnswers)
+  return getAccuracyPercentage(totalCorrectAnswers, answer)
 }
 
-export const getAccuracyPercentage = (correctAnswers: number = 0): number => {
-  const totalCorrectAnswers = (correctAnswers / 4) * 100
+export const getAccuracyPercentage = (
+  correctAnswers: number = 0,
+  answer: AnsweredQuestion[]
+): number => {
+  const totalCorrectAnswers = (correctAnswers / answer.length) * 100
   return Math.round(totalCorrectAnswers)
+}
+
+export const getTotalReadTime = (data: Training[]): number => {
+  const totalReadTime = data.reduce((acc, curr) => acc + curr.readTime, 0)
+  return totalReadTime
+}
+
+export const getFormattedReadTime = (readTime: number): string => {
+  const output = moment.utc(readTime).format('mm[m]:ss[s]')
+  return output
+}
+
+export const getTotalFormattedReadTime = (data: Training[]): string => {
+  const totalReadTime = getTotalReadTime(data)
+  const output = getFormattedReadTime(totalReadTime)
+  return output
+}
+
+export const getCurrentBlindWpm = (totalWords: number, duration: number): number => {
+  return Math.round((totalWords / duration) * 60)
+}
+
+export const startTimer = (
+  setReadTime: React.Dispatch<React.SetStateAction<number>>,
+  setWpm: React.Dispatch<React.SetStateAction<number>>,
+  totalWords: number
+) => {
+  let elapsedTime = 0 // in seconds
+  let result = 0 // in wpm
+  const interval = window.setInterval(() => {
+    elapsedTime++ // increment time every second
+    result = getCurrentBlindWpm(totalWords, elapsedTime) // calculate wpm every second
+    setWpm(result) // update wpm every second
+    setReadTime(elapsedTime * 1000) // update readTime every second
+  }, 1000)
+  return interval // return interval to be used in stopTimer()
+}
+
+export const stopTimer = (interval: number): void => {
+  window.clearInterval(interval) // stop timer
 }

@@ -32,6 +32,12 @@ export const ButtonWidth = {
   AUTO: 'auto',
 }
 
+export const ButtonWeight = {
+  PRIMARY: 'primary',
+  SECONDARY: 'secondary',
+  GHOST: 'ghost',
+}
+
 export const Button = (props: Props): React.ReactElement => {
   const { type, size, weight, width, status, outline, onClick, children, disabled, text } = props
   const classProps: string = className(
@@ -63,10 +69,10 @@ export const Button = (props: Props): React.ReactElement => {
 Button.defaultProps = {
   text: '',
   className: '',
+  weight: '',
   type: ButtonType.BUTTON,
   size: ButtonSize.MEDIUM,
   width: ButtonWidth.AUTO,
-  weight: '',
   status: '',
   outline: false,
   disabled: false,

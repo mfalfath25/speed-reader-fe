@@ -10,7 +10,7 @@ interface TrainingStore {
   animationStatus: boolean
 
   addTrainingData: (data: Training) => void // add new TrainingData
-  setTrainingText: (text: string) => void // set TrainingData text
+  // setTrainingText: (text: string) => void // set TrainingData text
   modifyTrainingData: (id: string, data: Training) => void // modify TrainingData by id
   removeTrainingData: (id: string) => void // remove TrainingData by id
   resetTrainingData: () => void // reset TrainingData value
@@ -51,18 +51,18 @@ export const useTrainingStore = create<TrainingStore>()(
             ],
           }))
         },
-        setTrainingText: (text) => {
-          set((state) => ({
-            trainingData: state.trainingData.map((item) => ({
-              ...item,
-              text: {
-                ...item.text,
-                textValue: text,
-                textWordCount: getTotalChunks(removeExtraWhitespaces(text)),
-              },
-            })),
-          }))
-        },
+        // setTrainingText: (text) => {
+        //   set((state) => ({
+        //     trainingData: state.trainingData.map((item) => ({
+        //       ...item,
+        //       text: {
+        //         ...item.text,
+        //         textValue: text,
+        //         textWordCount: getTotalChunks(removeExtraWhitespaces(text)),
+        //       },
+        //     })),
+        //   }))
+        // },
         modifyTrainingData: (id, data) => {
           set((state) => ({
             trainingData: state.trainingData.map((item) => {

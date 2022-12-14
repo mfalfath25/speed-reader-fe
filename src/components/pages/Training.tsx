@@ -23,7 +23,7 @@ const TrainingMenu = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {trainingMenu.map((menu, index) => (
               <div key={index} className="w-auto h-full">
-                <div className="card-body w-full h-full bg-base-300 shadow-xl outline outline-2 rounded-lg p-4 lg:p-8">
+                <div className="card-body w-full h-full bg-base-300 shadow-xl outline outline-2 rounded-lg p-4 xl:p-8">
                   <h2 className="card-title text-base sm:text-xl">{menu.description}</h2>
                   <p>{menu.info}</p>
                   <div className="card-actions justify-end">
@@ -47,7 +47,7 @@ const TrainingMenu = () => {
             <p className="flex justify-center items-center sm:text-2xl text-xl mb-4">
               Ubah tampilan simulasi
             </p>
-            <div className="flex justify-center">
+            <div className="flex justify-center mt-2 sm:mx-auto sm:w-[200px]">
               <Button
                 text="Visual Settings"
                 width="full"

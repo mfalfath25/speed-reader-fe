@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { useTrainingStore } from '../../../store/TrainingStore'
 import { Button } from '../../atoms'
 import moment from 'moment'
+import { getFormattedReadTime } from '../../../logic'
 
 export const Results = () => {
   const navigate = useNavigate()
@@ -98,11 +99,19 @@ export const Results = () => {
             {renderStats()}
           </div>
 
-          <div className="flex flex-col">
-            <p className="text-xl">Date taken</p>
-            <p className="text-2xl font-bold">
-              {moment(data[data.length - 1].readDate).format('l')}
-            </p>
+          <div className="flex flex-row justify-between">
+            <div>
+              <p className="text-xl">Date taken</p>
+              <p className="text-2xl font-bold">
+                {moment(data[data.length - 1].readDate).format('l')}
+              </p>
+            </div>
+            <div>
+              <p className="text-xl text-right">Reading Time</p>
+              <p className="text-2xl font-bold text-right">
+                {getFormattedReadTime(data[data.length - 1].readTime)}
+              </p>
+            </div>
           </div>
           <Button text="Home" weight="primary" onClick={() => navigate('/')} />
           <Button text="Restart" outline onClick={handleRestart} />

@@ -29,7 +29,7 @@ export const FormCustom = () => {
       })
     )
     navigate('/training/custom/simulate')
-    console.log('Custom form values: ', data)
+    // console.log('Custom form values: ', data)
   }
 
   const clearText = () => {

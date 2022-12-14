@@ -1,5 +1,4 @@
 import React from 'react'
-import moment from 'moment'
 import { BiAlarm, BiBarChart, BiBookReader, BiEdit } from 'react-icons/bi'
 import { useNavigate } from 'react-router-dom'
 import { checkPathnameDepth, getFirstLetter } from '../../logic/utils'
@@ -7,22 +6,12 @@ import { useTrainingStore } from '../../store/TrainingStore'
 import { useUserStore } from '../../store/UserStore'
 import { Button } from '../atoms'
 import { ProfileSections } from '../organisms'
+import { getTotalFormattedReadTime } from '../../logic'
 
 const ProfileMenu = () => {
   const navigate = useNavigate()
   const { trainingData } = useTrainingStore()
   const { userData } = useUserStore()
-
-  const getTotalReadTime = () => {
-    let totalReadTime = 0
-    let formattedReadTime = ''
-    trainingData.forEach((item) => {
-      totalReadTime += item.readTime
-    })
-    formattedReadTime = moment.utc(totalReadTime).format('HH:mm:ss')
-    // console.log(formattedReadTime)
-    return formattedReadTime
-  }
 
   return (
     <>
@@ -42,8 +31,8 @@ const ProfileMenu = () => {
         </div>
 
         <div className="flex flex-col justify-center items-center mx-auto gap-4 w-full">
-          <span className="text-xl sm:text-2xl">Lihat detail progress latihan</span>
-          <div className="stats stats-vertical sm:stats-horizontal shadow w-full sm:w-fit bg-slate-100">
+          <span className="text-xl sm:text-2xl">Overview Latihan</span>
+          <div className="stats stats-vertical sm:stats-horizontal shadow w-full sm:w-fit bg-slate-100 mb-6">
             <div className="stat">
               <div className="stat-figure text-primary">
                 <BiBookReader size={32} className="ml-2" />
@@ -57,9 +46,13 @@ const ProfileMenu = () => {
                 <BiAlarm size={32} className="ml-2" />
               </div>
               <div className="stat-title text-xl text-black font-bold">Total waktu membaca</div>
-              <div className="stat-value text-primary">{getTotalReadTime()}</div>
+              <div className="stat-value text-primary">
+                {getTotalFormattedReadTime(trainingData)}
+              </div>
             </div>
           </div>
+
+          <span className="text-xl sm:text-2xl">Lihat detail progress latihan</span>
           <Button
             text="My Progress"
             weight="primary"
@@ -76,7 +69,6 @@ const ProfileMenu = () => {
 }
 
 export const Profile = () => {
-  // const navigate = useNavigate()
   const renderPart = () => {
     switch (checkPathnameDepth(location.pathname)) {
       case 1:

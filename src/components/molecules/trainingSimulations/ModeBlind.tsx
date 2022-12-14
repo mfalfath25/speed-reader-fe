@@ -23,7 +23,7 @@ export const ModeBlind = () => {
   } = useTrainingStore()
   const data = useTrainingStore((state) => state.trainingData)
   // local states
-  const [textAnimated, setTextAnimated] = useState<string | null>(null)
+  // const [textAnimated, setTextAnimated] = useState<string | null>(null)
   const [isRunOnce, setIsRunOnce] = useState<boolean>(false)
   const [textReadTime, setTextReadTime] = useState<number>(0)
   const [timer, setTimer] = useState<number>(0)
@@ -44,8 +44,8 @@ export const ModeBlind = () => {
     <>
       <div className="w-full xl:w-[800px] 2xl:w-2/3 mx-auto space-y-0">
         <Timer
-          time={timer}
-          setTime={setTimer}
+          readTime={timer}
+          setReadTime={setTimer}
           wpm={blindWpm}
           setWpm={setBlindWpm}
           totalChunk={getTotalChunks(removeExtraWhitespaces(data[data.length - 1]?.text.textValue))}
@@ -64,7 +64,7 @@ export const ModeBlind = () => {
                   ? data[data.length - 1]?.text.textValue
                   : 'Your custom text will be shown here'}
               </pre>
-              <pre
+              {/* <pre
                 className="absolute top-0 whitespace-pre-line text-left text-base sm:text-xl font-normal p-2 text-black dark:text-slate-200"
                 // text-transparent bg-clip-text bg-gradient-to-r from-slate-200 to-red-400
                 style={{
@@ -74,7 +74,7 @@ export const ModeBlind = () => {
                 }}
               >
                 {textAnimated}
-              </pre>
+              </pre> */}
             </div>
           </div>
         </Timer>
