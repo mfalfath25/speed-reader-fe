@@ -2,7 +2,7 @@ import React from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import { FormRegisterValues } from '../../../types/model'
-import { Button } from '../../atoms'
+import { Button, ToastAlert } from '../../atoms'
 
 export const FormRegister = () => {
   const navigate = useNavigate()
@@ -17,6 +17,7 @@ export const FormRegister = () => {
   } = useForm<FormRegisterValues>()
 
   const onSubmit: SubmitHandler<FormRegisterValues> = (data) => {
+    ToastAlert('Registrasi berhasil', 'promise')
     navigate('/login')
     console.log('Register form values: ', data)
   }

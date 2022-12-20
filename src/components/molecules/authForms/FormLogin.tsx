@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom'
 import { useUserStore } from '../../../store/UserStore'
 import { FormLoginValues } from '../../../types/model'
 import { Button } from '../../atoms'
+import { ToastAlert } from '../../atoms'
+// import toast from 'react-hot-toast'
 
 export const FormLogin = () => {
   const navigate = useNavigate()
@@ -21,7 +23,10 @@ export const FormLogin = () => {
   const onSubmit: SubmitHandler<FormLoginValues> = (data) => {
     localStorage.setItem('user', JSON.stringify(data.username))
     setUserData({ ...userData, username: data.username, email: data.username + '@gmail.com' })
-    navigate('/')
+    ToastAlert('Login berhasil', 'promise')
+    setTimeout(() => {
+      navigate('/')
+    }, 1000)
     console.log('Login form values: ', data)
   }
 

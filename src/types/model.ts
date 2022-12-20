@@ -30,7 +30,6 @@ export interface Answer {
   answerText: string
   isCorrect: boolean
 }
-
 export interface AnsweredQuestion {
   answer: string
 }
