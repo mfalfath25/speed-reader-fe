@@ -61,8 +61,7 @@ export const ModeNormal = () => {
             , Chunk count: {data[data.length - 1]?.chunksCount}, Target WPM:
             {data[data.length - 1]?.wpm}
           </label>
-          <div className="w-full min-h-[400px] relative outline outline-offset-0 outline-1 p-0 rounded-md bg-slate-100">
-            {renderFixationLine(fixationCount)}
+          <div className="w-full max-h-[500px] overflow-y-auto relative outline outline-offset-0 outline-1 p-0 rounded-md bg-slate-100">
             <pre
               className="relative whitespace-pre-line text-left text-base sm:text-xl font-normal p-2"
               style={{
@@ -70,6 +69,7 @@ export const ModeNormal = () => {
                 textAlign: isJustified ? 'justify' : 'left',
               }}
             >
+              {renderFixationLine(fixationCount)}
               {data.length !== 0
                 ? data[data.length - 1]?.text.textValue
                 : 'Your custom text will be shown here'}

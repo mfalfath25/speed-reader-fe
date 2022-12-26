@@ -8,22 +8,22 @@ export const renderFixationLine = (count: number) => {
     case 1:
       return (
         <>
-          <span className="overlay-helper left-1/2 -z-1"></span>
+          <span className="overlay-helper left-1/2"></span>
         </>
       )
     case 2:
       return (
         <>
-          <span className="overlay-helper left-1/3 -z-1"></span>
-          <span className="overlay-helper left-2/3 -z-1"></span>
+          <span className="overlay-helper left-1/3"></span>
+          <span className="overlay-helper left-2/3"></span>
         </>
       )
     case 3:
       return (
         <>
-          <span className="overlay-helper left-1/4 -z-1"></span>
-          <span className="overlay-helper left-2/4 -z-1"></span>
-          <span className="overlay-helper left-3/4 -z-1"></span>
+          <span className="overlay-helper left-1/4"></span>
+          <span className="overlay-helper left-2/4"></span>
+          <span className="overlay-helper left-3/4"></span>
         </>
       )
   }
