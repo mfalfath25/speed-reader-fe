@@ -39,7 +39,7 @@ export const Settings = () => {
                 color: fontColor,
               }}
             >
-              {loremPlaceholder[0].loremLong}
+              {loremPlaceholder[0].loremShort}
             </pre>
           </div>
         </div>

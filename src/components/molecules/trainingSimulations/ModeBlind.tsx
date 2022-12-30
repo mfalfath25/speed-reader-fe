@@ -51,7 +51,7 @@ export const ModeBlind = () => {
           totalChunk={getTotalChunks(removeExtraWhitespaces(data[data.length - 1]?.text.textValue))}
         >
           <div>
-            <div className="w-full min-h-[500px] relative outline outline-offset-0 outline-1 p-0 rounded-md bg-slate-100">
+            <div className="w-full max-h-[500px] overflow-y-auto relative outline outline-offset-0 outline-1 p-0 rounded-md bg-slate-100">
               <pre
                 className="relative whitespace-pre-line text-left text-base sm:text-xl font-normal p-2"
                 style={{

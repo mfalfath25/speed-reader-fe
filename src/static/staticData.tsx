@@ -753,17 +753,18 @@ export const guidesMenu = [
     optionName: 'Fiksasi dan Saccade',
     definition1: 'Fiksasi',
     definition2: 'Saccade',
-    description1: 'Kemampuan mata dalam berhenti dan memfokuskan pandangan pada suatu titik',
-    description2: 'Gerakan mata yang cepat di antara titik fiksasi.',
+    description1: 'Kemampuan mata dalam berhenti dan memfokuskan pandangan pada suatu titik.',
+    description2:
+      'Gerakan mata yang cepat yang menggeser pusat pandangan dari satu area ke area lainnya.',
     tips: [
       {
         tip: 'Ekor mata kita dapat melihat lebih dari 1 kata setiap fiksasinya.',
       },
       {
-        tip: 'Membaca dengan lebih dari 1 kata setiap kali fiksasi dengan memanfaatkan penglihatan tepi (peripheral vision).',
+        tip: 'Berlatih menambah jumlah kata yang dibaca sekaligus dengan memanfaatkan penglihatan tepi (peripheral vision).',
       },
       {
-        tip: null,
+        tip: 'Mengontrol pola saccade dapat membantu mengurangi gerakan mata yang tidak efisien.',
       },
     ],
     image: media_1,
@@ -773,11 +774,12 @@ export const guidesMenu = [
     optionName: 'Regresi / Backtracking',
     definition1: 'Regresi',
     definition2: null,
-    description1: 'Membaca kembali kata yang baru saja dibaca.',
+    description1:
+      'Membaca kembali kata yang baru saja dibaca. Biasanya dilakukan ketika pembaca memastikan bahwa apa yang baru saja dibaca itu benar. Regresi dapat menyebabkan pembaca untuk kehilangan "flow" atau ritme saat membaca.',
     description2: null,
     tips: [
       {
-        tip: 'Regresi dalam membaca sebaiknya dihindari dan hanya dilakukan bila sangat diperlukan saja untuk memahami suatu kalimat penting.',
+        tip: 'Regresi dalam membaca sebaiknya dihindari dan hanya dilakukan bila sangat diperlukan saja untuk memahami suatu kalimat yang rumit. (contoh: teks ilmiah yang memperlihatkan penggunaan rumus matematis)',
       },
       {
         tip: 'Mengurangi regresi dapat dilakukan dengan bantuan sebuah pointer atau penunjuk (dengan jari, pena atau kursor).',
@@ -793,17 +795,18 @@ export const guidesMenu = [
     optionName: 'Subvokalisasi',
     definition1: 'Subvokalisasi',
     definition2: null,
-    description1: 'Keadaan dimana pembaca membaca kembali kata atau frasa dalam pikiran. ',
+    description1:
+      'Keadaan dimana pembaca mengartikulasikan/mengucapkan kata dalam pikiran, memberikan gambaran terkait bunyi dari kata saat sedang dibaca. Biasanya, subvokalisasi adalah bagian yang tidak terpisahkan dari kegiatan membaca dan memahami sebuah kata.',
     description2: null,
     tips: [
       {
-        tip: 'Membaca dan memahami konteks bacaan dapat dilakukan tanpa bantuan subvokalisasi dengan menerapkan silent reading.',
+        tip: 'Membaca dan memahami konteks bacaan dengan kompeten dan menghemat penggunaan subvokalisasi.',
       },
       {
         tip: 'Mendistraksikan diri dengan membaca sambil mendengarkan suara lain atau musik instrumental.',
       },
       {
-        tip: 'Menggunakana teknik scan & read. Membaca dengan meringkas kalimat utuh dan mengambil kata intinya saja.',
+        tip: 'Menggunakana teknik scan & read. Membaca dengan meringkas kalimat utuh dan mengambil kata intinya saja. (mempermudah pemahaman konteks kalimat)',
       },
     ],
     image: media_3,

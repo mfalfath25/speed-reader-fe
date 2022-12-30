@@ -5,18 +5,23 @@ import App from './App'
 import './index.css'
 import { Toaster } from 'react-hot-toast'
 import { ToastStyles } from './components/atoms'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+
+const queryClient = new QueryClient()
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <BrowserRouter>
-      <App />
-      <Toaster
-        position="bottom-right"
-        reverseOrder={false}
-        toastOptions={{
-          style: ToastStyles,
-        }}
-      />
+      <QueryClientProvider client={queryClient}>
+        <App />
+        <Toaster
+          position="bottom-right"
+          reverseOrder={false}
+          toastOptions={{
+            style: ToastStyles,
+          }}
+        />
+      </QueryClientProvider>
     </BrowserRouter>
   </React.StrictMode>
 )

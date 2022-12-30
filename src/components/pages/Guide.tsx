@@ -17,7 +17,7 @@ export const Guide = () => {
     <>
       <div className="flex flex-col gap-4">
         <h2 className="mx-auto text-lg sm:text-2xl">
-          Unsur penting dalam membaca cepat
+          Konsep dan unsur dalam membaca cepat
           <BiBookOpen size={24} className="inline ml-2" />
         </h2>
         {guidesMenu.map((menu, index) => (
@@ -45,7 +45,7 @@ export const Guide = () => {
                 </>
               )}
               <br />
-              <p className="font-bold text-sm sm:text-lg">Tips:</p>
+              <p className="font-bold text-sm sm:text-lg">Tips / Info:</p>
               <ul>
                 {menu.tips.map(
                   (item, index) =>

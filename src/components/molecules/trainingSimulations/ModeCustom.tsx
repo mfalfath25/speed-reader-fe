@@ -65,7 +65,7 @@ export const ModeCustom = () => {
             Custom text, Chunk count: {data[data.length - 1]?.chunksCount}, Target WPM:
             {data[data.length - 1]?.wpm}
           </label>
-          <div className="w-full min-h-[500px] relative outline outline-offset-0 outline-1 p-0 rounded-md bg-slate-100">
+          <div className="w-full max-h-[500px] overflow-y-auto relative outline outline-offset-0 outline-1 p-0 rounded-md bg-slate-100">
             <pre
               className="relative whitespace-pre-line text-left text-base sm:text-xl font-normal p-2"
               style={{
