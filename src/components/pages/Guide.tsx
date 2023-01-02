@@ -3,11 +3,11 @@ import { BiBookOpen, BiRightArrowAlt } from 'react-icons/bi'
 import { guidesMenu } from '../../static/staticData'
 
 export const Guide = () => {
-  const [currentOpen, setCurrentOpen] = useState(0)
+  const [currentOpen, setCurrentOpen] = useState('')
 
-  const handleOpen = (id: number) => {
+  const handleOpen = (id: string) => {
     if (currentOpen === id) {
-      setCurrentOpen(0)
+      setCurrentOpen('')
     } else {
       setCurrentOpen(id)
     }
@@ -26,7 +26,11 @@ export const Guide = () => {
             tabIndex={0}
             className="collapse collapse-arrow border border-base-300 bg-slate-100 rounded-box"
           >
-            <input type="checkbox" />
+            <input
+              type="checkbox"
+              onClick={() => handleOpen(menu.id)}
+              checked={currentOpen === menu.id}
+            />
             <div className="collapse-title text-lg sm:text-xl font-bold">{menu.optionName}</div>
             <div className="collapse-content">
               <p className="font-bold text-sm sm:text-lg">{menu.definition1}</p>

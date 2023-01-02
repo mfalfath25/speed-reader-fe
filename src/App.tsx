@@ -1,65 +1,119 @@
 import './App.css'
-import { Route, Routes } from 'react-router-dom'
+import { useRoutes } from 'react-router-dom'
+import { Error404, Guide, Base, History, Authenticate, Home, Settings } from './components/pages'
+import { ProfileMenu, TrainingMenu } from './components/organisms'
 import {
-  Error404,
-  Guide,
-  Base,
-  Training,
-  Settings,
-  Profile,
-  History,
-  Authenticate,
-} from './components/pages'
+  EditProfile,
+  FormBlind,
+  FormComprehension,
+  FormCustom,
+  FormNormal,
+  ModeBlind,
+  ModeCustom,
+  ModeNormal,
+  MyProgress,
+  Results,
+} from './components/molecules'
 
 function App() {
-  return (
-    <Routes>
-      <Route path="/" element={<Base />} />
+  const routes = useRoutes([
+    {
+      path: '/',
+      element: <Home />,
+    },
+    {
+      path: '/',
+      element: <Base />,
+      children: [
+        {
+          path: '/login',
+          element: <Authenticate />,
+        },
+        {
+          path: '/register',
+          element: <Authenticate />,
+        },
+        {
+          path: '/guide',
+          element: <Guide />,
+        },
+        {
+          path: '/history',
+          element: <History />,
+        },
+        {
+          path: '/profile',
+          element: <ProfileMenu />,
+        },
+        {
+          path: '/profile/edit/:userId',
+          element: <EditProfile />,
+        },
+        {
+          path: '/profile/progress/:userId',
+          element: <MyProgress />,
+        },
+        {
+          path: '/training',
+          element: <TrainingMenu />,
+        },
+        {
+          path: '/training/settings',
+          element: <Settings />,
+        },
+        {
+          path: '/training/normal',
+          element: <FormNormal />,
+        },
+        {
+          path: '/training/normal/simulate',
+          element: <ModeNormal />,
+        },
+        {
+          path: '/training/normal/simulate/comprehension',
+          element: <FormComprehension />,
+        },
+        {
+          path: '/training/normal/result',
+          element: <Results />,
+        },
+        {
+          path: '/training/blind',
+          element: <FormBlind />,
+        },
+        {
+          path: '/training/blind/simulate',
+          element: <ModeBlind />,
+        },
+        {
+          path: '/training/blind/simulate/comprehension',
+          element: <FormComprehension />,
+        },
+        {
+          path: '/training/blind/result',
+          element: <Results />,
+        },
+        {
+          path: '/training/custom',
+          element: <FormCustom />,
+        },
+        {
+          path: '/training/custom/simulate',
+          element: <ModeCustom />,
+        },
+        {
+          path: '/training/custom/result',
+          element: <Results />,
+        },
+      ],
+    },
+    {
+      path: '*',
+      element: <Error404 />,
+    },
+  ])
 
-      <Route path="/login" element={<Base />}>
-        <Route index element={<Authenticate />} />
-      </Route>
-
-      <Route path="/register" element={<Base />}>
-        <Route index element={<Authenticate />} />
-      </Route>
-
-      <Route path="/training" element={<Base />}>
-        <Route index element={<Training />} />
-        <Route path="/training/normal" element={<Training />}>
-          <Route path="/training/normal/simulate" element={<Training />} />
-          <Route path="/training/normal/simulate/comprehension" element={<Training />} />
-          <Route path="/training/normal/result" element={<Training />} />
-        </Route>
-        <Route path="/training/blind" element={<Training />}>
-          <Route path="/training/blind/simulate" element={<Training />} />
-          <Route path="/training/blind/simulate/comprehension" element={<Training />} />
-          <Route path="/training/blind/result" element={<Training />} />
-        </Route>
-        <Route path="/training/custom" element={<Training />}>
-          <Route path="/training/custom/simulate" element={<Training />} />
-          <Route path="/training/custom/result" element={<Training />} />
-        </Route>
-        <Route path="/training/settings" element={<Settings />} />
-      </Route>
-
-      <Route path="/guide" element={<Base />}>
-        <Route index element={<Guide />} />
-      </Route>
-
-      <Route path="/profile" element={<Base />}>
-        <Route index element={<Profile />} />
-        <Route path="/profile/edit/:userId" element={<Profile />} />
-        <Route path="/profile/progress/:userId" element={<Profile />} />
-      </Route>
-
-      <Route path="/history" element={<Base />}>
-        <Route index element={<History />} />
-      </Route>
-
-      <Route path="*" element={<Error404 />} />
-    </Routes>
-  )
+  return <>{routes}</>
 }
 
 export default App

@@ -3,7 +3,6 @@ import { Outlet, useLocation } from 'react-router-dom'
 import { titles } from '../../static/staticData'
 import { useTrainingStore } from '../../store/TrainingStore'
 import { Navbar, Title } from '../molecules'
-import { Home } from './Home'
 
 export const Base = () => {
   const location = useLocation()
@@ -32,20 +31,10 @@ export const Base = () => {
     <>
       <div className="container h-screen">
         <Navbar />
-        {location.pathname !== '/' ? (
-          <>
-            <Title pageTitle={title} />
-            <div className="my-auto p-2 mt-0 sm:mt-20">
-              <Outlet />
-            </div>
-          </>
-        ) : (
-          <>
-            <div className="p-2 pt-0 mt-0">
-              <Home />
-            </div>
-          </>
-        )}
+        <Title pageTitle={title} />
+        <div className="my-auto p-2 mt-0 sm:mt-20">
+          <Outlet />
+        </div>
       </div>
     </>
   )

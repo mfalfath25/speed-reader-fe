@@ -749,7 +749,7 @@ export const trainingMenu = [
 
 export const guidesMenu = [
   {
-    id: 1,
+    id: '1',
     optionName: 'Fiksasi dan Saccade',
     definition1: 'Fiksasi',
     definition2: 'Saccade',
@@ -770,7 +770,7 @@ export const guidesMenu = [
     image: media_1,
   },
   {
-    id: 2,
+    id: '2',
     optionName: 'Regresi / Backtracking',
     definition1: 'Regresi',
     definition2: null,
@@ -791,7 +791,7 @@ export const guidesMenu = [
     image: media_2,
   },
   {
-    id: 3,
+    id: '3',
     optionName: 'Subvokalisasi',
     definition1: 'Subvokalisasi',
     definition2: null,

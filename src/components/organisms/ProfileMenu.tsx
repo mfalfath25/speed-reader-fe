@@ -1,14 +1,13 @@
 import React from 'react'
 import { BiAlarm, BiBarChart, BiBookReader, BiEdit } from 'react-icons/bi'
 import { useNavigate } from 'react-router-dom'
-import { checkPathnameDepth, getFirstLetter } from '../../logic/utils'
+import { getTotalFormattedReadTime } from '../../logic'
+import { getFirstLetter } from '../../logic/utils'
 import { useTrainingStore } from '../../store/TrainingStore'
 import { useUserStore } from '../../store/UserStore'
 import { Button } from '../atoms'
-import { ProfileSections } from '../organisms'
-import { getTotalFormattedReadTime } from '../../logic'
 
-const ProfileMenu = () => {
+export const ProfileMenu = () => {
   const navigate = useNavigate()
   const { trainingData } = useTrainingStore()
   const { userData } = useUserStore()
@@ -66,17 +65,4 @@ const ProfileMenu = () => {
       <div className="flex flex-col mx-auto gap-2"></div>
     </>
   )
-}
-
-export const Profile = () => {
-  const renderPart = () => {
-    switch (checkPathnameDepth(location.pathname)) {
-      case 1:
-        return <ProfileMenu />
-      case 3:
-        return <ProfileSections />
-    }
-  }
-
-  return <>{renderPart()}</>
 }

@@ -1,5 +1,2 @@
-export { TrainingForms } from './TrainingForms'
-export { TrainingSimulations } from './TrainingSimulations'
-export { TrainingComprehension } from './TrainingComprehension'
-export { TrainingResults } from './TrainingResults'
-export { ProfileSections } from './ProfileSections'
+export { TrainingMenu } from './TrainingMenu'
+export { ProfileMenu } from './ProfileMenu'

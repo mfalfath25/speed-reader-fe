@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { startTimer, stopTimer } from '../../../logic'
 import { useTrainingStore } from '../../../store/TrainingStore'
-import { Button } from '../../atoms'
+import { Button, ToastAlert } from '../../atoms'
 
 interface TimerProps extends React.PropsWithChildren<{}> {
   readTime: number
@@ -41,11 +41,11 @@ export const Timer = (props: TimerProps) => {
 
   return (
     <>
-      {/* <p>{props.time > 0 ? `${props.time} seconds` : ''}</p>
+      {/* <p>{props.readTime > 0 ? `${props.readTime} seconds` : ''}</p>
       <p>{props.wpm > 0 ? `${props.wpm} wpm` : ''}</p> */}
       <div className="flex flex-row justify-between">
         <label className="label px-0 font-bold">
-          Text: {data[data.length - 1]?.text.textLevel} - {data[data.length - 1]?.text.textChoice}
+          Teks: {data[data.length - 1]?.text.textLevel} - {data[data.length - 1]?.text.textChoice}
         </label>
         <label className="label px-0 font-bold">{props.wpm > 0 ? `${props.wpm} WPM` : ''}</label>
       </div>
@@ -59,7 +59,10 @@ export const Timer = (props: TimerProps) => {
             onClick={() => {
               setRunning(false)
               modifyWpm()
-              navigate('/training/blind/simulate/comprehension')
+              ToastAlert('loading', 'loading', 1000)
+              setTimeout(() => {
+                navigate('/training/blind/simulate/comprehension')
+              }, 1000)
             }}
           />
         ) : (

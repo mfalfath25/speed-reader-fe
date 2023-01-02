@@ -25,7 +25,7 @@ export const Settings = () => {
             <pre
               className="relative whitespace-pre-line text-left text-base sm:text-xl font-normal  p-2"
               style={{
-                fontFamily: isFontSerif ? 'Literata' : 'Source Sans Pro',
+                fontFamily: isFontSerif ? 'serif' : 'sans-serif',
                 textAlign: isJustified ? 'justify' : 'left',
               }}
             >
@@ -34,7 +34,7 @@ export const Settings = () => {
             <pre
               className="absolute top-0 whitespace-pre-line text-left text-base sm:text-xl font-normal p-2 text-black dark:text-slate-200"
               style={{
-                fontFamily: isFontSerif ? 'Literata' : 'Source Sans Pro',
+                fontFamily: isFontSerif ? 'serif' : 'sans-serif',
                 textAlign: isJustified ? 'justify' : 'left',
                 color: fontColor,
               }}

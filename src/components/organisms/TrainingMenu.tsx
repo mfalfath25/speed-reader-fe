@@ -1,17 +1,10 @@
 import React from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
-import { checkPathnameDepth } from '../../logic/utils'
-import { Button } from '../atoms'
 import { BiCog } from 'react-icons/bi'
-import {
-  TrainingComprehension,
-  TrainingForms,
-  TrainingResults,
-  TrainingSimulations,
-} from '../organisms'
+import { useNavigate } from 'react-router-dom'
 import { trainingMenu } from '../../static/staticData'
+import { Button } from '../atoms'
 
-const TrainingMenu = () => {
+export const TrainingMenu = () => {
   const navigate = useNavigate()
   return (
     <>
@@ -63,27 +56,4 @@ const TrainingMenu = () => {
       </div>
     </>
   )
-}
-
-export const Training = () => {
-  const location = useLocation()
-
-  const renderPart = () => {
-    switch (checkPathnameDepth(location.pathname)) {
-      case 1:
-        return <TrainingMenu />
-      case 2:
-        return <TrainingForms />
-      case 3:
-        if (location.pathname.includes('result')) {
-          return <TrainingResults />
-        } else {
-          return <TrainingSimulations />
-        }
-      case 4:
-        return <TrainingComprehension />
-    }
-  }
-
-  return <>{renderPart()}</>
 }
