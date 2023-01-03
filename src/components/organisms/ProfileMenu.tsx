@@ -3,8 +3,8 @@ import { BiAlarm, BiBarChart, BiBookReader, BiEdit } from 'react-icons/bi'
 import { useNavigate } from 'react-router-dom'
 import { getTotalFormattedReadTime } from '../../logic'
 import { getFirstLetter } from '../../logic/utils'
-import { useTrainingStore } from '../../store/TrainingStore'
-import { useUserStore } from '../../store/UserStore'
+import { useTrainingStore } from '../../stores/TrainingStore'
+import { useUserStore } from '../../stores/UserStore'
 import { Button } from '../atoms'
 
 export const ProfileMenu = () => {

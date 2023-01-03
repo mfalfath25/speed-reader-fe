@@ -29,8 +29,13 @@ function App() {
           element: <Base />,
           children: [
             {
-              element: <Home />,
+              path: '/',
+              element: <Navigate to="/home" />,
               index: true,
+            },
+            {
+              path: '/home',
+              element: <Home />,
             },
             {
               path: '/guide',

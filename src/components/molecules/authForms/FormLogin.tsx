@@ -1,47 +1,47 @@
 import React from 'react'
+import { AxiosError } from 'axios'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { toast } from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
 import { useLoginMutation } from '../../../api/mutation'
-import { useUserStore } from '../../../store/UserStore'
+import { useUserStore } from '../../../stores/UserStore'
 import { FormLoginValues } from '../../../types/model'
 import { Button } from '../../atoms'
 import { ToastAlert } from '../../atoms'
 
 export const FormLogin = () => {
   const navigate = useNavigate()
-  const { userData, setUserData } = useUserStore()
+  const { setUserData } = useUserStore()
 
   const {
     register,
     handleSubmit,
-    getValues,
-    watch,
-    reset,
     formState: { errors },
   } = useForm<FormLoginValues>()
 
   const { mutate, isLoading } = useLoginMutation()
 
   const onSubmit: SubmitHandler<FormLoginValues> = (data) => {
-    console.log('Login form values: ', data)
-
+    // console.log('Login form values: ', data)
     mutate(data, {
       onSuccess: (data) => {
+        setUserData({
+          userId: data.data.userId,
+          username: data.data.username,
+          email: data.data.email,
+          token: data.data.token,
+        })
+
         setTimeout(() => {
-          setUserData({
-            userId: data.data.userId,
-            username: data.data.email,
-            email: data.data.email + '@gmail.com',
-            token: data.data.token,
-          })
           ToastAlert('Login berhasil', 'success')
           navigate('/', { replace: true })
         }, 1000)
       },
       onError: (err) => {
-        console.log(err)
-        ToastAlert('Login gagal', 'error')
+        if (err instanceof AxiosError) {
+          ToastAlert(err?.response?.data.message, 'error')
+        } else {
+          ToastAlert('Login gagal', 'error')
+        }
       },
     })
   }
@@ -77,7 +77,7 @@ export const FormLogin = () => {
             </div>
           </div>
 
-          <Button text="Sign In" type="submit" weight="primary" />
+          <Button text="Sign In" type="submit" weight="primary" disabled={isLoading} />
         </div>
       </form>
     </>

@@ -1,17 +1,31 @@
 import { useEffect } from 'react'
-import { Outlet, useLocation, useNavigate } from 'react-router-dom'
-import { useUserStore } from '../store/UserStore'
+import { Outlet, useNavigate } from 'react-router-dom'
+import { useGlobalStore } from '../stores'
+import { useUserStore } from '../stores/UserStore'
+import logo from '../assets/logo/SpeedReaderLoader.png'
 
 export const Public = () => {
   const navigate = useNavigate()
-  const location = useLocation()
   const { userData } = useUserStore()
+  const { isLoading, setIsLoading } = useGlobalStore()
 
   useEffect(() => {
     if (userData.token !== '') {
+      setIsLoading(true)
       navigate('/', { replace: true })
     }
-  }, [location])
+    setIsLoading(false)
+  }, [])
 
-  return <Outlet />
+  return (
+    <>
+      {isLoading ? (
+        <div className="grid h-screen place-items-center">
+          <img src={logo} className="h-7 sm:h-9 mt-4 sm:mt-10 animate-pulse" alt="Loader" />
+        </div>
+      ) : (
+        <Outlet />
+      )}
+    </>
+  )
 }

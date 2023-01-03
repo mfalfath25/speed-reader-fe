@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { useTrainingStore } from '../../../store/TrainingStore'
-import { useSettingStore } from '../../../store/SettingStore'
+import { useTrainingStore } from '../../../stores/TrainingStore'
+import { useSettingStore } from '../../../stores/SettingStore'
 import { startTextAnimation } from '../../../logic'
 import { renderFixationLine } from '../../molecules'
 import { Button } from '../../atoms'

@@ -2,7 +2,7 @@ import React from 'react'
 import { SubmitHandler, useFieldArray, useForm } from 'react-hook-form'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { getTotalAccuracy } from '../../../logic'
-import { useTrainingStore } from '../../../store/TrainingStore'
+import { useTrainingStore } from '../../../stores/TrainingStore'
 import { Training } from '../../../types/model'
 import { Button } from '../../atoms'
 

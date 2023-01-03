@@ -1,7 +1,7 @@
 import React from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
-import { useUserStore } from '../../../store/UserStore'
+import { useUserStore } from '../../../stores/UserStore'
 import { FormEditProfileValues } from '../../../types/model'
 import { Button } from '../../atoms'
 

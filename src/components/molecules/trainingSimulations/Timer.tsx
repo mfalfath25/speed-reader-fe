@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { startTimer, stopTimer } from '../../../logic'
-import { useTrainingStore } from '../../../store/TrainingStore'
+import { useTrainingStore } from '../../../stores/TrainingStore'
 import { Button, ToastAlert } from '../../atoms'
 
 interface TimerProps extends React.PropsWithChildren<{}> {

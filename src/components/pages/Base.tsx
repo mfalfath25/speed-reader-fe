@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
 import { titles } from '../../static/staticData'
-import { useTrainingStore } from '../../store/TrainingStore'
-import { useUserStore } from '../../store/UserStore'
+import { useTrainingStore } from '../../stores/TrainingStore'
 import { Navbar, Title } from '../molecules'
 
 export const Base = () => {

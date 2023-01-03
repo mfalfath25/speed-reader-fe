@@ -1,5 +1,5 @@
 import React from 'react'
-import { useSettingStore } from '../../../store/SettingStore'
+import { useSettingStore } from '../../../stores/SettingStore'
 
 export const renderFixationLine = (count: number) => {
   switch (count) {

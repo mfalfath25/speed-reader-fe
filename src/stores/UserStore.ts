@@ -1,12 +1,10 @@
-import { useLoginMutation } from './../api/mutation/useLoginMutation'
 import create from 'zustand'
 import { devtools, persist } from 'zustand/middleware'
-import { FormLoginValues, Trainee } from '../types/model'
+import { Trainee } from '../types/model'
 
 interface UserStore {
   userData: Trainee
   setUserData: (data: Trainee) => void
-  // fetchUserData: (formData: FormLoginValues) => void
   editUsername: (data: string) => void
   clearUserData: () => void
 }
@@ -32,22 +30,6 @@ export const useUserStore = create<UserStore>()(
             },
           }))
         },
-        // fetchUserData: (formData) => {
-        //   const { mutate } = useLoginMutation()
-        //   mutate(formData, {
-        //     onSuccess: (data) => {
-        //       set((state) => ({
-        //         userData: {
-        //           ...state.userData,
-        //           userId: data.data.userId,
-        //           username: data.data.username,
-        //           email: data.data.email,
-        //           token: data.data.token,
-        //         },
-        //       }))
-        //     },
-        //   })
-        // },
         editUsername: (data) => {
           set((state) => ({
             userData: {

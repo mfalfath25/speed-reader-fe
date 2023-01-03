@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import { useTrainingStore } from '../../../store/TrainingStore'
-import { useSettingStore } from '../../../store/SettingStore'
+import { useTrainingStore } from '../../../stores/TrainingStore'
+import { useSettingStore } from '../../../stores/SettingStore'
 import { getTotalChunks, removeExtraWhitespaces } from '../../../logic/utils'
 import { renderFixationLine } from '../../molecules'
 import { useNavigate } from 'react-router-dom'

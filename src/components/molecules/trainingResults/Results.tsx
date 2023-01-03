@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useTrainingStore } from '../../../store/TrainingStore'
+import { useTrainingStore } from '../../../stores/TrainingStore'
 import { Button } from '../../atoms'
 import moment from 'moment'
 import { getFormattedReadTime } from '../../../logic'

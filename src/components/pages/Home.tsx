@@ -3,14 +3,13 @@ import { useNavigate } from 'react-router-dom'
 import { Button } from '../atoms'
 import { BiBookReader } from 'react-icons/bi'
 import { homeMenu } from '../../static/staticData'
-import { useUserStore } from '../../store/UserStore'
+import { useUserStore } from '../../stores/UserStore'
 
 export const Home = () => {
   const navigate = useNavigate()
   const { userData, clearUserData } = useUserStore()
 
   const handleLogout = () => {
-    localStorage.removeItem('Auth')
     clearUserData()
     navigate('/login', { replace: true })
   }

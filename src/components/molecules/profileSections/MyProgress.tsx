@@ -11,7 +11,7 @@ import {
   Legend,
 } from 'chart.js'
 import { Line, Scatter } from 'react-chartjs-2'
-import { useTrainingStore } from '../../../store/TrainingStore'
+import { useTrainingStore } from '../../../stores/TrainingStore'
 import moment from 'moment'
 import { getAverageAccuracy, getAverageWpm } from '../../../logic'
 

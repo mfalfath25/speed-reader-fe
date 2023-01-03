@@ -1,5 +1,5 @@
 import React from 'react'
-import { useSettingStore } from '../../../store/SettingStore'
+import { useSettingStore } from '../../../stores/SettingStore'
 import { ColorPreset } from '../../../static/staticData'
 
 export const ColorPick = () => {

@@ -1,8 +1,9 @@
 import { BiBookOpen, BiHistory, BiLogOut, BiUser } from 'react-icons/bi'
 import { media_1, media_2, media_3 } from '../assets/guides'
-import { Question, Questions } from '../types/model'
+import { Questions } from '../types/model'
 
 export const titles = [
+  { path: '/auth', title: '' },
   { path: '/home', title: 'Home' },
   { path: '/login', title: 'Login' },
   { path: '/register', title: 'Register' },

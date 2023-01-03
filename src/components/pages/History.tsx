@@ -1,6 +1,6 @@
 import moment from 'moment'
 import React from 'react'
-import { useTrainingStore } from '../../store/TrainingStore'
+import { useTrainingStore } from '../../stores/TrainingStore'
 
 export const History = () => {
   const { trainingData } = useTrainingStore()

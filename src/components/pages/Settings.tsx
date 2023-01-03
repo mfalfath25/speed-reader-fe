@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useSettingStore } from '../../store/SettingStore'
+import { useSettingStore } from '../../stores/SettingStore'
 import { loremPlaceholder } from '../../static/staticData'
 import { Button } from '../atoms'
 import {
