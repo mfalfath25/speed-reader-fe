@@ -1,112 +1,149 @@
 import './App.css'
-import { useRoutes } from 'react-router-dom'
-import { Error404, Guide, Base, History, Authenticate, Home, Settings } from './components/pages'
+import { Navigate, useRoutes } from 'react-router-dom'
+import { Error404, Auth, Guide, Base, History, Home, Settings } from './components/pages'
 import { ProfileMenu, TrainingMenu } from './components/organisms'
 import {
   EditProfile,
   FormBlind,
   FormComprehension,
   FormCustom,
+  FormLogin,
   FormNormal,
+  FormRegister,
   ModeBlind,
   ModeCustom,
   ModeNormal,
   MyProgress,
   Results,
 } from './components/molecules'
+import { Private } from './routes/Private'
+import { Public } from './routes/Public'
 
 function App() {
   const routes = useRoutes([
     {
       path: '/',
-      element: <Home />,
-    },
-    {
-      path: '/',
-      element: <Base />,
+      element: <Private />,
       children: [
         {
-          path: '/login',
-          element: <Authenticate />,
-        },
-        {
-          path: '/register',
-          element: <Authenticate />,
-        },
-        {
-          path: '/guide',
-          element: <Guide />,
-        },
-        {
-          path: '/history',
-          element: <History />,
-        },
-        {
-          path: '/profile',
-          element: <ProfileMenu />,
-        },
-        {
-          path: '/profile/edit/:userId',
-          element: <EditProfile />,
-        },
-        {
-          path: '/profile/progress/:userId',
-          element: <MyProgress />,
-        },
-        {
-          path: '/training',
-          element: <TrainingMenu />,
-        },
-        {
-          path: '/training/settings',
-          element: <Settings />,
-        },
-        {
-          path: '/training/normal',
-          element: <FormNormal />,
-        },
-        {
-          path: '/training/normal/simulate',
-          element: <ModeNormal />,
-        },
-        {
-          path: '/training/normal/simulate/comprehension',
-          element: <FormComprehension />,
-        },
-        {
-          path: '/training/normal/result',
-          element: <Results />,
-        },
-        {
-          path: '/training/blind',
-          element: <FormBlind />,
-        },
-        {
-          path: '/training/blind/simulate',
-          element: <ModeBlind />,
-        },
-        {
-          path: '/training/blind/simulate/comprehension',
-          element: <FormComprehension />,
-        },
-        {
-          path: '/training/blind/result',
-          element: <Results />,
-        },
-        {
-          path: '/training/custom',
-          element: <FormCustom />,
-        },
-        {
-          path: '/training/custom/simulate',
-          element: <ModeCustom />,
-        },
-        {
-          path: '/training/custom/result',
-          element: <Results />,
+          element: <Base />,
+          children: [
+            {
+              element: <Home />,
+              index: true,
+            },
+            {
+              path: '/guide',
+              element: <Guide />,
+            },
+            {
+              path: '/history',
+              element: <History />,
+            },
+            {
+              path: '/profile',
+              element: <ProfileMenu />,
+            },
+            {
+              path: '/profile/edit/:userId',
+              element: <EditProfile />,
+            },
+            {
+              path: '/profile/progress/:userId',
+              element: <MyProgress />,
+            },
+            {
+              path: '/training',
+              element: <TrainingMenu />,
+            },
+            {
+              path: '/training/settings',
+              element: <Settings />,
+            },
+            {
+              path: '/training/normal',
+              element: <FormNormal />,
+            },
+            {
+              path: '/training/normal/simulate',
+              element: <ModeNormal />,
+            },
+            {
+              path: '/training/normal/simulate/comprehension',
+              element: <FormComprehension />,
+            },
+            {
+              path: '/training/normal/result',
+              element: <Results />,
+            },
+            {
+              path: '/training/blind',
+              element: <FormBlind />,
+            },
+            {
+              path: '/training/blind/simulate',
+              element: <ModeBlind />,
+            },
+            {
+              path: '/training/blind/simulate/comprehension',
+              element: <FormComprehension />,
+            },
+            {
+              path: '/training/blind/result',
+              element: <Results />,
+            },
+            {
+              path: '/training/custom',
+              element: <FormCustom />,
+            },
+            {
+              path: '/training/custom/simulate',
+              element: <ModeCustom />,
+            },
+            {
+              path: '/training/custom/result',
+              element: <Results />,
+            },
+          ],
         },
       ],
     },
+    {
+      element: <Public />,
+      children: [
+        {
+          element: <Base />,
+          children: [
+            {
+              path: '/auth',
+              element: <Auth />,
+            },
+            {
+              path: '/login',
+              element: <FormLogin />,
+            },
+            {
+              path: '/register',
+              element: <FormRegister />,
+            },
+            {
+              element: <Private />,
+              children: [
+                {
+                  path: '/',
+                  element: <Navigate to="/home" />,
+                },
+                {
+                  path: '/home',
+                  element: <Home />,
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+
     {
       path: '*',
       element: <Error404 />,

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
 import { titles } from '../../static/staticData'
 import { useTrainingStore } from '../../store/TrainingStore'
+import { useUserStore } from '../../store/UserStore'
 import { Navbar, Title } from '../molecules'
 
 export const Base = () => {
@@ -27,12 +28,13 @@ export const Base = () => {
     // console.log('animationStatus ', animationStatus)
     matchTitle(location.pathname)
   }, [location])
+
   return (
     <>
       <div className="container h-screen">
         <Navbar />
         <Title pageTitle={title} />
-        <div className="my-auto p-2 mt-0 sm:mt-20">
+        <div className="my-auto p-2 mt-0 sm:mt-10">
           <Outlet />
         </div>
       </div>

@@ -17,11 +17,11 @@ export const ProfileMenu = () => {
       <div className="grid grid-cols-1 gap-10 sm:gap-20">
         <div className="flex flex-col justify-center mx-auto gap-4">
           <div className="mx-auto">
-            <div className="avatar placeholder">
+            {/* <div className="avatar placeholder">
               <div className="bg-neutral-focus text-neutral-content w-24 mask mask-hexagon">
                 <span className="text-3xl">{getFirstLetter(userData?.username)}</span>
               </div>
-            </div>
+            </div> */}
           </div>
           <span className="mx-auto text-2xl font-bold">{userData?.username}</span>
           <Button text="Edit Profile" onClick={() => navigate('/profile/edit/1')}>

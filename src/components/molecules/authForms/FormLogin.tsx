@@ -1,11 +1,12 @@
 import React from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
+import { toast } from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
+import { useLoginMutation } from '../../../api/mutation'
 import { useUserStore } from '../../../store/UserStore'
 import { FormLoginValues } from '../../../types/model'
 import { Button } from '../../atoms'
 import { ToastAlert } from '../../atoms'
-// import toast from 'react-hot-toast'
 
 export const FormLogin = () => {
   const navigate = useNavigate()
@@ -17,17 +18,32 @@ export const FormLogin = () => {
     getValues,
     watch,
     reset,
-    formState: { errors, isSubmitSuccessful },
+    formState: { errors },
   } = useForm<FormLoginValues>()
 
+  const { mutate, isLoading } = useLoginMutation()
+
   const onSubmit: SubmitHandler<FormLoginValues> = (data) => {
-    localStorage.setItem('user', JSON.stringify(data.username))
-    setUserData({ ...userData, username: data.username, email: data.username + '@gmail.com' })
-    ToastAlert('Login berhasil', 'promise')
-    setTimeout(() => {
-      navigate('/')
-    }, 1000)
     console.log('Login form values: ', data)
+
+    mutate(data, {
+      onSuccess: (data) => {
+        setTimeout(() => {
+          setUserData({
+            userId: data.data.userId,
+            username: data.data.email,
+            email: data.data.email + '@gmail.com',
+            token: data.data.token,
+          })
+          ToastAlert('Login berhasil', 'success')
+          navigate('/', { replace: true })
+        }, 1000)
+      },
+      onError: (err) => {
+        console.log(err)
+        ToastAlert('Login gagal', 'error')
+      },
+    })
   }
 
   return (
@@ -35,15 +51,15 @@ export const FormLogin = () => {
       <form className="w-full sm:w-[300px] mx-auto space-y-4" onSubmit={handleSubmit(onSubmit)}>
         <div className="grid grid-cols-1 gap-4">
           <div className="w-auto">
-            <label className="label px-0 pt-0 font-bold">Username</label>
+            <label className="label px-0 pt-0 font-bold">Email</label>
             <input
-              type="text"
-              placeholder="username"
+              type="email"
+              placeholder="email"
               className="input input-bordered w-full"
-              {...register('username', { required: true })}
+              {...register('email', { required: true })}
             />
             <div className="flex justify-end">
-              {errors.username && <span className="text-red-400">Username Incorrect</span>}
+              {errors.email && <span className="text-red-400">Email Incorrect</span>}
             </div>
           </div>
           <div className="w-auto">

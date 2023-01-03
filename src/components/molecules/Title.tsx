@@ -9,7 +9,7 @@ interface TitleProps {
   children?: React.ReactNode
 }
 
-const hideBackButton = ['result', 'simulate', 'comprehension', 'settings']
+const hideBackButton = ['home', 'auth', 'result', 'simulate', 'comprehension', 'settings']
 
 export const Title = ({ pageTitle, children }: TitleProps) => {
   const location = useLocation()

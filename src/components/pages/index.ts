@@ -1,5 +1,5 @@
 export { Base } from './Base'
-export { Authenticate } from './Authenticate'
+export { Auth } from './Auth'
 export { Home } from './Home'
 export { Guide } from './Guide'
 export { Error404 } from './Error404'

@@ -47,13 +47,14 @@ export interface Trainee {
   userId: string
   username: string
   email: string
-  tests: Training[]
+  token: string
+  // tests: Training[]
 }
 export interface FormEditProfileValues {
   username: string
 }
 export interface FormLoginValues {
-  username: string
+  email: string
   password: string
 }
 export interface FormRegisterValues {
