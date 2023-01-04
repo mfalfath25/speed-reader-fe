@@ -5,7 +5,7 @@ import { Trainee } from '../types/model'
 interface UserStore {
   userData: Trainee
   setUserData: (data: Trainee) => void
-  editUsername: (data: string) => void
+  editUserData: (data: string) => void
   clearUserData: () => void
 }
 
@@ -30,7 +30,7 @@ export const useUserStore = create<UserStore>()(
             },
           }))
         },
-        editUsername: (data) => {
+        editUserData: (data) => {
           set((state) => ({
             userData: {
               ...state.userData,

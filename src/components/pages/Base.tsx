@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
 import { titles } from '../../static/staticData'
 import { useTrainingStore } from '../../stores/TrainingStore'
-import { Navbar, Title } from '../molecules'
+import { Breadcrumb, Navbar, Title } from '../molecules'
 
 export const Base = () => {
   const location = useLocation()
@@ -23,7 +23,7 @@ export const Base = () => {
   }
 
   useEffect(() => {
-    // console.log('Training Data ', trainingData)
+    console.log('Training Data ', trainingData)
     // console.log('animationStatus ', animationStatus)
     matchTitle(location.pathname)
   }, [location])
@@ -32,8 +32,9 @@ export const Base = () => {
     <>
       <div className="container h-screen">
         <Navbar />
+        {/* <Breadcrumb /> */}
         <Title pageTitle={title} />
-        <div className="my-auto p-2 mt-0 sm:mt-10">
+        <div className="my-auto p-2 mt-0 sm:mt-4">
           <Outlet />
         </div>
       </div>

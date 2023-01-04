@@ -19,7 +19,7 @@ export const Title = ({ pageTitle, children }: TitleProps) => {
 
   return (
     <>
-      <div className="navbar bg-base-100">
+      <div className="navbar">
         {renderBackButton === false && pageTitle !== 'Home' ? (
           <BackButton isAnimationActive={animationStatus} />
         ) : null}

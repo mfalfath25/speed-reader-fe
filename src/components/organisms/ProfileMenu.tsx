@@ -14,22 +14,25 @@ export const ProfileMenu = () => {
 
   return (
     <>
-      <div className="grid grid-cols-1 gap-10 sm:gap-20">
-        <div className="flex flex-col justify-center mx-auto gap-4">
+      <div className="grid grid-cols-1 gap-8 sm:gap-20">
+        <div className="flex flex-col justify-center mx-auto gap-3">
           <div className="mx-auto">
-            {/* <div className="avatar placeholder">
+            <div className="avatar placeholder">
               <div className="bg-neutral-focus text-neutral-content w-24 mask mask-hexagon">
-                <span className="text-3xl">{getFirstLetter(userData?.username)}</span>
+                <span className="text-3xl">
+                  {userData.username !== '' ? getFirstLetter(userData?.username) : '-'}
+                </span>
               </div>
-            </div> */}
+            </div>
           </div>
           <span className="mx-auto text-2xl font-bold">{userData?.username}</span>
-          <Button text="Edit Profile" onClick={() => navigate('/profile/edit/1')}>
+          <span className="mx-auto text-xl font-normal">{userData?.email}</span>
+          <Button text="Edit Profile" onClick={() => navigate(`/profile/edit/${userData.userId}`)}>
             <BiEdit size={24} className="ml-2" />
           </Button>
         </div>
 
-        <div className="flex flex-col justify-center items-center mx-auto gap-4 w-full">
+        <div className="flex flex-col justify-center items-center mx-auto gap-3 w-full">
           <span className="text-xl sm:text-2xl">Overview Latihan</span>
           <div className="stats stats-vertical sm:stats-horizontal shadow w-full sm:w-fit bg-slate-100 mb-6">
             <div className="stat">

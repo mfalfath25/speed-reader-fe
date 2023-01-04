@@ -1,27 +1,43 @@
 import React from 'react'
+import { AxiosError } from 'axios'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
+import { useEditProfileMutation } from '../../../api/mutation/useEditProfileMutation'
 import { useUserStore } from '../../../stores/UserStore'
 import { FormEditProfileValues } from '../../../types/model'
-import { Button } from '../../atoms'
+import { Button, ToastAlert } from '../../atoms'
 
 export const EditProfile = () => {
   const navigate = useNavigate()
+  const { userData, editUserData } = useUserStore()
   const {
     register,
     handleSubmit,
-    getValues,
-    watch,
-    reset,
-    formState: { errors, isSubmitSuccessful },
+    formState: { errors },
   } = useForm<FormEditProfileValues>()
 
-  const { userData, editUsername } = useUserStore()
+  const { mutate, isLoading } = useEditProfileMutation()
 
   const onSubmit: SubmitHandler<FormEditProfileValues> = (data) => {
-    editUsername(data.username)
-    navigate('/profile', { replace: true })
-    console.log(data)
+    // console.log('Edit profile form values: ', data)
+    mutate(data, {
+      onSuccess: (data) => {
+        editUserData(data.data.data.username)
+        ToastAlert(data.data.message, 'success')
+
+        setTimeout(() => {
+          navigate(-1)
+        }, 1000)
+      },
+      onError: (err) => {
+        console.log('HIT ERROR')
+        if (err instanceof AxiosError) {
+          ToastAlert(err?.response?.data.message, 'error')
+        } else {
+          ToastAlert('Edit profile gagal', 'error')
+        }
+      },
+    })
   }
 
   return (
@@ -40,15 +56,21 @@ export const EditProfile = () => {
               defaultValue={userData.username}
               minLength={3}
               maxLength={20}
-              {...register('username', { required: true })}
+              {...register('username', {
+                required: true,
+                pattern: {
+                  value: /^[a-zA-Z][a-zA-Z0-9.,$;]+$/,
+                  message: 'Username tidak valid',
+                },
+              })}
             />
             <div className="flex justify-end">
-              {errors.username && <span className="text-red-400">Username cannot be empty</span>}
+              {errors.username && <span className="text-red-400">{errors.username.message}</span>}
             </div>
           </div>
 
           <div className="w-full sm:w-1/3">
-            <Button text="Save" type="submit" weight="primary" width="full" />
+            <Button text="Save" type="submit" weight="primary" width="full" disabled={isLoading} />
           </div>
         </form>
       </div>

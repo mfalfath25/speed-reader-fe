@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { BiBookOpen, BiRightArrowAlt } from 'react-icons/bi'
 import { guidesMenu } from '../../static/staticData'
 
@@ -28,8 +28,10 @@ export const Guide = () => {
           >
             <input
               type="checkbox"
-              onClick={() => handleOpen(menu.id)}
+              id={menu.id}
+              name={menu.id}
               checked={currentOpen === menu.id}
+              onChange={() => handleOpen(menu.id)}
             />
             <div className="collapse-title text-lg sm:text-xl font-bold">{menu.optionName}</div>
             <div className="collapse-content">

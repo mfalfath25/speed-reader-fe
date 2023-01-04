@@ -11,6 +11,20 @@ export const Private = () => {
   const { isLoading, setIsLoading } = useGlobalStore()
 
   useEffect(() => {
+    const token = userData.token
+
+    // intercept request
+    baseAPI.interceptors.request.use((config) => {
+      if (!config.headers) {
+        config.headers = {
+          'Content-Type': 'application/json',
+        }
+      }
+      config.headers.Authorization = token ? `${token}` : ''
+      return config
+    })
+
+    // intercept response
     baseAPI.interceptors.response.use(
       (res) => {
         return res
@@ -23,11 +37,14 @@ export const Private = () => {
       }
     )
 
+    // check if somehow token is empty
+    setIsLoading(true)
     if (userData.token === '') {
-      setIsLoading(true)
       navigate('/auth', { replace: true })
     }
-    setIsLoading(false)
+    setTimeout(() => {
+      setIsLoading(false)
+    }, 1000)
   }, [])
 
   return (
