@@ -9,7 +9,7 @@ import { Timer } from './Timer'
 export const ModeBlind = () => {
   const navigate = useNavigate()
   // store states
-  const { isFontSerif, isJustified, fixationCount } = useSettingStore()
+  const { settingData } = useSettingStore()
   const data = useTrainingStore((state) => state.trainingData)
   // local states
   const [timer, setTimer] = useState<number>(0)
@@ -30,11 +30,11 @@ export const ModeBlind = () => {
               <pre
                 className="relative whitespace-pre-line text-left text-base sm:text-xl font-normal p-2"
                 style={{
-                  fontFamily: isFontSerif ? 'serif' : 'sans-serif',
-                  textAlign: isJustified ? 'justify' : 'left',
+                  fontFamily: settingData.isFontSerif ? 'serif' : 'sans-serif',
+                  // textAlign: isJustified ? 'justify' : 'left',
                 }}
               >
-                {renderFixationLine(fixationCount)}
+                {renderFixationLine(settingData.fixationCount)}
                 {data.length !== 0
                   ? data[data.length - 1]?.text.textValue
                   : 'Your custom text will be shown here'}

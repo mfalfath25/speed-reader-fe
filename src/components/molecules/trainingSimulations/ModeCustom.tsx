@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom'
 export const ModeCustom = () => {
   const navigate = useNavigate()
   // store states
-  const { isFontSerif, isJustified, fixationCount, fontColor } = useSettingStore()
+  const { settingData } = useSettingStore()
   const { animationStatus, modifyTrainingData, toggleAnimationStatus } = useTrainingStore()
   const data = useTrainingStore((state) => state.trainingData)
   // local states
@@ -60,11 +60,11 @@ export const ModeCustom = () => {
             <pre
               className="relative whitespace-pre-line text-left text-base sm:text-xl font-normal p-2"
               style={{
-                fontFamily: isFontSerif ? 'serif' : 'sans-serif',
-                textAlign: isJustified ? 'justify' : 'left',
+                fontFamily: settingData.isFontSerif ? 'serif' : 'sans-serif',
+                // textAlign: isJustified ? 'justify' : 'left',
               }}
             >
-              {renderFixationLine(fixationCount)}
+              {renderFixationLine(settingData.fixationCount)}
               {data.length !== 0
                 ? data[data.length - 1].text.textValue
                 : 'Your custom text will be shown here'}
@@ -72,9 +72,9 @@ export const ModeCustom = () => {
             <pre
               className="absolute top-0 whitespace-pre-line text-left text-base sm:text-xl font-normal p-2 text-black dark:text-slate-200"
               style={{
-                fontFamily: isFontSerif ? 'serif' : 'sans-serif',
-                textAlign: isJustified ? 'justify' : 'left',
-                color: fontColor,
+                fontFamily: settingData.isFontSerif ? 'serif' : 'sans-serif',
+                // textAlign: isJustified ? 'justify' : 'left',
+                color: settingData.fontColor,
               }}
             >
               {textAnimated}

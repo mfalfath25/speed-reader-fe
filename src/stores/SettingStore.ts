@@ -14,6 +14,7 @@ interface SettingStore {
   updateFontColor: (color: string) => void
   updateFixationCount: (count: number) => void
   setSettingData: (data: SettingsValues) => void
+  clearSettingData: () => void
 }
 
 export const useSettingStore = create<SettingStore>()(
@@ -40,6 +41,15 @@ export const useSettingStore = create<SettingStore>()(
               isFontSerif: data.isFontSerif,
               fixationCount: data.fixationCount,
               fontColor: data.fontColor,
+            },
+          })),
+        clearSettingData: () =>
+          set((state) => ({
+            settingData: {
+              ...state.settingData,
+              isFontSerif: true,
+              fixationCount: 0,
+              fontColor: '#000000',
             },
           })),
       }),

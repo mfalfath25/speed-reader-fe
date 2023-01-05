@@ -1,18 +1,22 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Button } from '../atoms'
+import { Button, ToastAlert } from '../atoms'
 import { BiBookReader } from 'react-icons/bi'
 import { homeMenu } from '../../static/staticData'
 import { useUserStore } from '../../stores/UserStore'
 import { fetchUserData } from '../../hooks'
+import { useSettingStore } from '../../stores'
 
 export const Home = () => {
   const navigate = useNavigate()
   const { userData, clearUserData } = useUserStore()
-  const fetcher = fetchUserData()
+  const { clearSettingData } = useSettingStore()
+  // const fetcher = fetchUserData()
 
   const handleLogout = () => {
     clearUserData()
+    clearSettingData()
+    ToastAlert('Logout berhasil', 'success')
     navigate('/login', { replace: true })
   }
 

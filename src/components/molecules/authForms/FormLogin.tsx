@@ -7,10 +7,12 @@ import { useUserStore } from '../../../stores/UserStore'
 import { FormLoginValues } from '../../../types/model'
 import { Button } from '../../atoms'
 import { ToastAlert } from '../../atoms'
+import { useSettingStore } from '../../../stores'
 
 export const FormLogin = () => {
   const navigate = useNavigate()
   const { userData, setUserData } = useUserStore()
+  const { settingData, setSettingData } = useSettingStore()
 
   const {
     register,
@@ -31,7 +33,12 @@ export const FormLogin = () => {
           email: data?.data.email,
           token: data?.data.token,
         })
-        console.log(data)
+        setSettingData({
+          ...settingData,
+          fixationCount: data?.data.setting.fixationCount,
+          isFontSerif: data?.data.setting.isFontSerif,
+          fontColor: data?.data.setting.fontColor,
+        })
 
         setTimeout(() => {
           ToastAlert('Login berhasil', 'success')
