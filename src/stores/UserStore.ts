@@ -18,6 +18,7 @@ export const useUserStore = create<UserStore>()(
           username: '',
           email: '',
           token: '',
+          trainings: [],
         },
         setUserData: (data) => {
           set((state) => ({
@@ -27,6 +28,7 @@ export const useUserStore = create<UserStore>()(
               username: data.username,
               email: data.email,
               token: data.token,
+              trainings: data.trainings,
             },
           }))
         },
@@ -45,6 +47,7 @@ export const useUserStore = create<UserStore>()(
               username: '',
               email: '',
               token: '',
+              trainings: [],
             },
           }))
         },

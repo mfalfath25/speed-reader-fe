@@ -1,13 +1,13 @@
 import React from 'react'
 import logo from '../../assets/logo/SpeedReader.png'
 import { Link } from 'react-router-dom'
-import { Loader, ThemeToggler } from '../atoms'
+import { LoaderBar, ThemeToggler } from '../atoms'
 import { navMenu } from '../../static/staticData'
 
 export const Navbar = () => {
   return (
     <>
-      <Loader />
+      <LoaderBar />
       <div className="navbar bg-base-100 justify-center">
         <Link to="/">
           <img src={logo} className="h-7 sm:h-9 mt-4 sm:mt-10" alt="Logo" />

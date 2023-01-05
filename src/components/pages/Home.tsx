@@ -4,10 +4,12 @@ import { Button } from '../atoms'
 import { BiBookReader } from 'react-icons/bi'
 import { homeMenu } from '../../static/staticData'
 import { useUserStore } from '../../stores/UserStore'
+import { fetchUserData } from '../../hooks'
 
 export const Home = () => {
   const navigate = useNavigate()
   const { userData, clearUserData } = useUserStore()
+  const fetcher = fetchUserData()
 
   const handleLogout = () => {
     clearUserData()

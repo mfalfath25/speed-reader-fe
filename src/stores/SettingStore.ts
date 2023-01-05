@@ -1,16 +1,19 @@
 import create from 'zustand'
 import { devtools, persist } from 'zustand/middleware'
+import { Settings } from '../types/model'
 
 interface SettingStore {
   isFontSerif: boolean
   isJustified: boolean
   fixationCount: number
   fontColor: string
+  settingData: Settings
 
   toggleFontSerif: () => void
   toggleJustification: () => void
   updateFontColor: (color: string) => void
   updateFixationCount: (count: number) => void
+  setSettingData: (data: Settings) => void
 }
 
 export const useSettingStore = create<SettingStore>()(
@@ -25,6 +28,20 @@ export const useSettingStore = create<SettingStore>()(
         updateFixationCount: (count) => set({ fixationCount: count }),
         fontColor: '#000000',
         updateFontColor: (color) => set({ fontColor: color }),
+        settingData: {
+          isFontSerif: true,
+          fixationCount: 0,
+          fontColor: '#000000',
+        },
+        setSettingData: (data) =>
+          set((state) => ({
+            settingData: {
+              ...state.settingData,
+              isFontSerif: data.isFontSerif,
+              fixationCount: data.fixationCount,
+              fontColor: data.fontColor,
+            },
+          })),
       }),
       {
         name: 'setting-store',

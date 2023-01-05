@@ -10,7 +10,7 @@ import { ToastAlert } from '../../atoms'
 
 export const FormLogin = () => {
   const navigate = useNavigate()
-  const { setUserData } = useUserStore()
+  const { userData, setUserData } = useUserStore()
 
   const {
     register,
@@ -25,11 +25,13 @@ export const FormLogin = () => {
     mutate(data, {
       onSuccess: (data) => {
         setUserData({
-          userId: data.data.userId,
-          username: data.data.username,
-          email: data.data.email,
-          token: data.data.token,
+          ...userData,
+          userId: data?.data.userId,
+          username: data?.data.username,
+          email: data?.data.email,
+          token: data?.data.token,
         })
+        console.log(data)
 
         setTimeout(() => {
           ToastAlert('Login berhasil', 'success')

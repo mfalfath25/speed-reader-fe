@@ -34,7 +34,19 @@ export interface AnsweredQuestion {
   answer: string
 }
 export interface History {
-  history: Training[]
+  trainingId: String
+  traineeId: String
+  mode: String
+  text: {
+    textLevel: String
+    textChoice: String
+    textWordCount: Number
+  }
+  chunksCount: Number
+  wpm: Number
+  accuracy: Number
+  readTime: Number
+  readDate: Date
 }
 export interface Progress {
   progress: Training[]
@@ -48,7 +60,14 @@ export interface Trainee {
   username: string
   email: string
   token: string
-  // tests: Training[]
+  trainings: History[]
+}
+
+export interface Settings {
+  isFontSerif: boolean
+  // isJustified: boolean
+  fixationCount: number
+  fontColor: string
 }
 export interface FormEditProfileValues {
   username: string

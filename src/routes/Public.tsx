@@ -1,17 +1,17 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Outlet, useNavigate } from 'react-router-dom'
-import { useGlobalStore } from '../stores'
 import { useUserStore } from '../stores/UserStore'
 import logo from '../assets/logo/SpeedReaderLoader.png'
 
 export const Public = () => {
+  const [isLoading, setIsLoading] = useState(false)
+
   const navigate = useNavigate()
   const { userData } = useUserStore()
-  const { isLoading, setIsLoading } = useGlobalStore()
 
   useEffect(() => {
+    setIsLoading(true)
     if (userData.token !== '') {
-      setIsLoading(true)
       navigate('/', { replace: true })
     }
     setIsLoading(false)
