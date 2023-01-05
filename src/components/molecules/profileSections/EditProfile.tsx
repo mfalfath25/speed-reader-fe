@@ -2,10 +2,10 @@ import React from 'react'
 import { AxiosError } from 'axios'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
-import { useEditProfileMutation } from '../../../api/mutation/useEditProfileMutation'
 import { useUserStore } from '../../../stores/UserStore'
 import { FormEditProfileValues } from '../../../types/model'
 import { Button, ToastAlert } from '../../atoms'
+import { useEditProfileMutation } from '../../../api/mutation'
 
 export const EditProfile = () => {
   const navigate = useNavigate()
@@ -30,7 +30,6 @@ export const EditProfile = () => {
         }, 1000)
       },
       onError: (err) => {
-        console.log('HIT ERROR')
         if (err instanceof AxiosError) {
           ToastAlert(err?.response?.data.message, 'error')
         } else {

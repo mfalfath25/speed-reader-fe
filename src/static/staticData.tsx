@@ -817,22 +817,22 @@ export const guidesMenu = [
 export const ColorPreset = [
   {
     id: 1,
-    name: 'B',
+    name: 'Black',
     hex: '#000000',
   },
   {
     id: 2,
-    name: 'R',
+    name: 'Red',
     hex: '#EF3E35',
   },
   {
     id: 3,
-    name: 'G',
+    name: 'Green',
     hex: '#55B949',
   },
   {
     id: 4,
-    name: 'B',
+    name: 'Blue',
     hex: '#057AFF',
   },
 ]

@@ -3,7 +3,7 @@ import { useSettingStore } from '../../../stores/SettingStore'
 import { ColorPreset } from '../../../static/staticData'
 
 export const ColorPick = () => {
-  const { updateFontColor } = useSettingStore()
+  const { settingData, setSettingData } = useSettingStore()
 
   return (
     <>
@@ -13,9 +13,14 @@ export const ColorPick = () => {
             <button
               className="btn btn-circle border-none"
               style={{ backgroundColor: color?.hex }}
-              onClick={() => updateFontColor(color?.hex)}
+              onClick={() =>
+                setSettingData({
+                  ...settingData,
+                  fontColor: color?.hex,
+                })
+              }
             >
-              {color.name}
+              <p className="text-white">{color.name}</p>
             </button>
           </div>
         ))}
