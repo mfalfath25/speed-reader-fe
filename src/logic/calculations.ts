@@ -1,5 +1,5 @@
 import moment from 'moment'
-import { AnsweredQuestion, Training } from '../types/model'
+import { AnsweredQuestion, Training, History } from '../types/model'
 
 export const getTotalTraining = (data: Training[]): number => {
   return data.length
@@ -52,7 +52,12 @@ export const getAccuracyPercentage = (
   return Math.round(totalCorrectAnswers)
 }
 
-export const getTotalReadTime = (data: Training[]): number => {
+// export const getTotalReadTime = (data: Training[]): number => {
+//   const totalReadTime = data.reduce((acc, curr) => acc + curr.readTime, 0)
+//   return totalReadTime
+// }
+
+export const getTotalReadTime = (data: History[]): number => {
   const totalReadTime = data.reduce((acc, curr) => acc + curr.readTime, 0)
   return totalReadTime
 }
@@ -62,7 +67,13 @@ export const getFormattedReadTime = (readTime: number): string => {
   return output
 }
 
-export const getTotalFormattedReadTime = (data: Training[]): string => {
+// export const getTotalFormattedReadTime = (data: Training[]): string => {
+//   const totalReadTime = getTotalReadTime(data)
+//   const output = getFormattedReadTime(totalReadTime)
+//   return output
+// }
+
+export const getTotalFormattedReadTime = (data: History[]): string => {
   const totalReadTime = getTotalReadTime(data)
   const output = getFormattedReadTime(totalReadTime)
   return output

@@ -14,8 +14,10 @@ import { Line, Scatter } from 'react-chartjs-2'
 import { useTrainingStore } from '../../../stores/TrainingStore'
 import moment from 'moment'
 import { getAverageAccuracy, getAverageWpm } from '../../../logic'
+import { fetchUserData } from '../../../hooks'
 
 export const MyProgress = () => {
+  const fetcher = fetchUserData()
   const { trainingData } = useTrainingStore()
   const trainingCount = () => {
     let x = []

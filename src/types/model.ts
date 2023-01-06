@@ -34,18 +34,18 @@ export interface AnsweredQuestion {
   answer: string
 }
 export interface History {
-  trainingId: String
-  traineeId: String
-  mode: String
+  trainingId: string
+  traineeId: string
+  mode: string
   text: {
-    textLevel: String
-    textChoice: String
-    textWordCount: Number
+    textLevel: string
+    textChoice: string
+    textWordCount: number
   }
-  chunksCount: Number
-  wpm: Number
-  accuracy: Number
-  readTime: Number
+  chunksCount: number
+  wpm: number
+  accuracy: number
+  readTime: number
   readDate: Date
 }
 export interface Progress {

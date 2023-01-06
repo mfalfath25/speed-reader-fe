@@ -2,37 +2,11 @@ import React from 'react'
 import moment from 'moment'
 import { useUserStore } from '../../stores'
 import { fetchUserData } from '../../hooks'
+import { getFormattedReadTime } from '../../logic'
 
 export const History = () => {
   const fetcher = fetchUserData()
   const { userData } = useUserStore()
-
-  const renderTrainings = () => {
-    if (userData.trainings?.length !== 0 && fetcher.isFetched) {
-      return userData.trainings?.map((data, index) => (
-        <tr key={index}>
-          <th>{index + 1}</th>
-          <td>{data.mode}</td>
-          <td>
-            {data?.text.textLevel} - {data.text.textChoice}
-          </td>
-          <td>{data?.text.textWordCount?.toString()}</td>
-          <td>{data.wpm?.toString()}</td>
-          <td>{data.accuracy?.toString()}</td>
-          <td>{data.readTime?.toString()}</td>
-          <td>{moment(data.readDate).format('DD MMMM YYYY')}</td>
-        </tr>
-      ))
-    } else if (userData.trainings?.length === 0 && fetcher.isFetched) {
-      return (
-        <tr>
-          <td colSpan={7} className="text-center">
-            Data latihan kosong
-          </td>
-        </tr>
-      )
-    }
-  }
 
   return (
     <>
@@ -50,7 +24,36 @@ export const History = () => {
               <th>Tanggal</th>
             </tr>
           </thead>
-          <tbody>{renderTrainings()}</tbody>
+          <tbody>
+            {fetcher.isLoading === true ? (
+              <tr>
+                <td colSpan={7} className="text-center">
+                  <progress className="progress w-10"></progress>
+                </td>
+              </tr>
+            ) : userData.trainings.length !== 0 && fetcher.isError !== true ? (
+              userData.trainings?.map((data, index) => (
+                <tr key={index}>
+                  <th>{index + 1}</th>
+                  <td>{data.mode}</td>
+                  <td>
+                    {data?.text.textLevel} - {data.text.textChoice}
+                  </td>
+                  <td>{data?.text.textWordCount}</td>
+                  <td>{data.wpm}</td>
+                  <td>{data.accuracy} %</td>
+                  <td>{getFormattedReadTime(data.readTime)}</td>
+                  <td>{moment(data.readDate).format('DD MMMM YYYY')}</td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan={7} className="text-center">
+                  Data latihan kosong
+                </td>
+              </tr>
+            )}
+          </tbody>
         </table>
       </div>
     </>

@@ -1,15 +1,15 @@
 import React from 'react'
 import { BiAlarm, BiBarChart, BiBookReader, BiEdit } from 'react-icons/bi'
 import { useNavigate } from 'react-router-dom'
+import { fetchUserData } from '../../hooks'
 import { getTotalFormattedReadTime } from '../../logic'
 import { getFirstLetter } from '../../logic/utils'
-import { useTrainingStore } from '../../stores/TrainingStore'
 import { useUserStore } from '../../stores/UserStore'
 import { Button } from '../atoms'
 
 export const ProfileMenu = () => {
   const navigate = useNavigate()
-  const { trainingData } = useTrainingStore()
+  const fetcher = fetchUserData()
   const { userData } = useUserStore()
 
   return (
@@ -40,7 +40,13 @@ export const ProfileMenu = () => {
                 <BiBookReader size={32} className="ml-2" />
               </div>
               <div className="stat-title text-xl text-black font-bold">Total latihan</div>
-              <div className="stat-value text-primary">{trainingData?.length}</div>
+              <div className="stat-value text-primary">
+                {fetcher.isLoading
+                  ? 'Loading...'
+                  : userData.trainings.length !== 0 && fetcher.isError !== true
+                  ? userData.trainings.length
+                  : '0'}
+              </div>
             </div>
 
             <div className="stat">
@@ -49,7 +55,11 @@ export const ProfileMenu = () => {
               </div>
               <div className="stat-title text-xl text-black font-bold">Total waktu membaca</div>
               <div className="stat-value text-primary">
-                {getTotalFormattedReadTime(trainingData)}
+                {fetcher.isLoading
+                  ? 'Loading...'
+                  : userData.trainings.length !== 0 && fetcher.isError !== true
+                  ? getTotalFormattedReadTime(userData.trainings)
+                  : getTotalFormattedReadTime([])}
               </div>
             </div>
           </div>

@@ -41,7 +41,7 @@ export const useUserStore = create<UserStore>()(
           }))
         },
         clearUserData: () => {
-          set((state) => ({
+          set(() => ({
             userData: {
               userId: '',
               username: '',
