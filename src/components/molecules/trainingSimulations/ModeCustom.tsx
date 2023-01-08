@@ -11,7 +11,7 @@ export const ModeCustom = () => {
   const navigate = useNavigate()
   // store states
   const { settingData } = useSettingStore()
-  const { animationStatus, modifyTrainingData, toggleAnimationStatus } = useTrainingStore()
+  const { animationStatus, setTrainingData, toggleAnimationStatus } = useTrainingStore()
   const data = useTrainingStore((state) => state.trainingData)
   // local states
   const [isRunOnce, setIsRunOnce] = useState<boolean>(false)
@@ -37,7 +37,7 @@ export const ModeCustom = () => {
   useEffect(() => {
     if (isRunOnce === true) {
       textReadTime !== 0 &&
-        modifyTrainingData(data[data.length - 1]?.trainingId, {
+        setTrainingData(data[data.length - 1]?.trainingId, {
           ...data[data.length - 1],
           readTime: textReadTime,
         })

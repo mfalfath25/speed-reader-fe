@@ -5,7 +5,7 @@ export const getTotalTraining = (data: Training[]): number => {
   return data.length
 }
 
-export const getAverageWpm = (data: Training[]): number => {
+export const getAverageWpm = (data: History[]): number => {
   const totalWpm = data.reduce(
     (acc, curr) => (filterModes(data).length === 0 ? 0 : acc + curr.wpm),
     0
@@ -13,7 +13,7 @@ export const getAverageWpm = (data: Training[]): number => {
   return Math.round(totalWpm / data.length)
 }
 
-export const getAverageAccuracy = (data: Training[]): number => {
+export const getAverageAccuracy = (data: History[]): number => {
   const totalAccuracy = data.reduce(
     (acc, curr) => (filterModes(data).length === 0 ? 0 : acc + curr.accuracy),
     0
@@ -21,7 +21,7 @@ export const getAverageAccuracy = (data: Training[]): number => {
   return Math.round(totalAccuracy / data.length)
 }
 
-export const filterModes = (data: Training[]): Training[] => {
+export const filterModes = (data: History[]): History[] => {
   return data.filter((item) => item.mode !== 'Custom')
 }
 
@@ -52,11 +52,6 @@ export const getAccuracyPercentage = (
   return Math.round(totalCorrectAnswers)
 }
 
-// export const getTotalReadTime = (data: Training[]): number => {
-//   const totalReadTime = data.reduce((acc, curr) => acc + curr.readTime, 0)
-//   return totalReadTime
-// }
-
 export const getTotalReadTime = (data: History[]): number => {
   const totalReadTime = data.reduce((acc, curr) => acc + curr.readTime, 0)
   return totalReadTime
@@ -67,15 +62,24 @@ export const getFormattedReadTime = (readTime: number): string => {
   return output
 }
 
-// export const getTotalFormattedReadTime = (data: Training[]): string => {
-//   const totalReadTime = getTotalReadTime(data)
-//   const output = getFormattedReadTime(totalReadTime)
-//   return output
-// }
-
 export const getTotalFormattedReadTime = (data: History[]): string => {
   const totalReadTime = getTotalReadTime(data)
   const output = getFormattedReadTime(totalReadTime)
+  return output
+}
+
+export const getFormattedReadDate = (date: History[] = [], mode: string): string[] => {
+  let output = []
+  for (const item of date) {
+    if (item.mode === mode) {
+      output.push(moment(item.readDate).format('DD/MM/YYYY'))
+    }
+  }
+  return output
+}
+
+export const getFilteredData = (data: History[], mode: string): History[] => {
+  let output = data.filter((item) => item.mode === mode)
   return output
 }
 

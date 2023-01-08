@@ -12,17 +12,19 @@ export const Private = () => {
 
   useEffect(() => {
     const token = userData.token
-
+    if (token !== undefined || token !== '') {
+      baseAPI.defaults.headers.common.Authorization = token
+    }
     // intercept request (fallback if somehow react-query doesn't include header)
-    baseAPI.interceptors.request.use((config) => {
-      if (!config.headers) {
-        config.headers = {
-          'Content-Type': 'application/json',
-        }
-      }
-      config.headers.Authorization = token ? `${token}` : ''
-      return config
-    })
+    // baseAPI.interceptors.request.use((config) => {
+    //   if (!config.headers) {
+    //     config.headers = {
+    //       'Content-Type': 'application/json',
+    //     }
+    //   }
+    //   config.headers.Authorization = token
+    //   return config
+    // })
 
     // intercept response
     baseAPI.interceptors.response.use(
@@ -30,8 +32,11 @@ export const Private = () => {
         return res
       },
       (err) => {
-        if (err.response.status === 403 || err.response.status === 401) {
-          navigate('/login', { replace: true })
+        if (!err.response) {
+          console.log("Please check your internet connection or the server's status")
+          return Promise.reject(err)
+        } else if (err.response.status === 403 || err.response.status === 401) {
+          navigate('/login')
         }
         return err
       }

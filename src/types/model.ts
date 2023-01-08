@@ -1,6 +1,5 @@
 export interface Training {
   trainingId: string
-  traineeId: string
   mode: string
   text: Text
   chunksCount: number
@@ -79,15 +78,3 @@ export interface SettingsValues {
   fixationCount: number
   fontColor: string
 }
-
-// export interface Test {
-//   testId: string
-//   traineeId: string
-//   answers?: Answer[]
-//   mode: string
-//   wpm: number
-//   accuracy: number
-//   textWordCount: number
-//   readTime: number
-//   readDate: Date
-// }

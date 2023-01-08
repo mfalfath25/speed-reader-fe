@@ -7,6 +7,7 @@ import { getFormattedReadTime } from '../../../logic'
 
 export const Results = () => {
   const navigate = useNavigate()
+  const { resetTrainingData } = useTrainingStore()
   const data = useTrainingStore((state) => state.trainingData)
 
   const handleRestart = () => {
@@ -21,6 +22,11 @@ export const Results = () => {
         navigate('/training/custom/simulate')
         break
     }
+  }
+
+  const handleHome = () => {
+    resetTrainingData()
+    navigate('/')
   }
 
   const renderStats = () => {
@@ -113,7 +119,7 @@ export const Results = () => {
               </p>
             </div>
           </div>
-          <Button text="Home" weight="primary" onClick={() => navigate('/')} />
+          <Button text="Home" weight="primary" onClick={handleHome} />
           <Button text="Restart" outline onClick={handleRestart} />
         </div>
       </div>

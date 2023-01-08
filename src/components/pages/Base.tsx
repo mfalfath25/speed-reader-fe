@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
 import { titles } from '../../static/staticData'
+import { useUserStore } from '../../stores'
 import { useTrainingStore } from '../../stores/TrainingStore'
 import { Breadcrumb, Navbar, Title } from '../molecules'
 
 export const Base = () => {
   const location = useLocation()
+  const { userData } = useUserStore()
   const [title, setTitle] = useState('')
   const { trainingData, animatedText, animationStatus } = useTrainingStore()
 
@@ -23,6 +25,7 @@ export const Base = () => {
   }
 
   useEffect(() => {
+    // console.log(userData)
     // console.log('Training Data ', trainingData)
     // console.log('animationStatus ', animationStatus)
     matchTitle(location.pathname)

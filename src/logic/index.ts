@@ -10,6 +10,8 @@ export {
   getFormattedReadTime,
   getTotalFormattedReadTime,
   getCurrentBlindWpm,
+  getFormattedReadDate,
+  getFilteredData,
   startTimer,
   stopTimer,
 } from './calculations'

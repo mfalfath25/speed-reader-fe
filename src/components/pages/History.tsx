@@ -27,7 +27,7 @@ export const History = () => {
           <tbody>
             {fetcher.isLoading === true ? (
               <tr>
-                <td colSpan={7} className="text-center">
+                <td colSpan={8} className="text-center">
                   <progress className="progress w-10"></progress>
                 </td>
               </tr>
@@ -48,7 +48,7 @@ export const History = () => {
               ))
             ) : (
               <tr>
-                <td colSpan={7} className="text-center">
+                <td colSpan={8} className="text-center">
                   Data latihan kosong
                 </td>
               </tr>

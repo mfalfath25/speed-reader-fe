@@ -19,14 +19,14 @@ export const FormComprehension = () => {
     formState: { errors, isSubmitSuccessful },
   } = useForm<Training>()
 
-  const { trainingData, modifyTrainingData } = useTrainingStore()
+  const { trainingData, setTrainingData } = useTrainingStore()
   const { fields, append, prepend, remove, swap, move, insert } = useFieldArray({
     control,
     name: 'answers',
   })
 
   const onSubmit: SubmitHandler<Training> = (data) => {
-    modifyTrainingData(trainingData[trainingData.length - 1].trainingId, {
+    setTrainingData(trainingData[trainingData.length - 1].trainingId, {
       ...trainingData[trainingData.length - 1],
       answers: data.answers,
       accuracy: getTotalAccuracy(trainingData[trainingData.length - 1], data.answers),

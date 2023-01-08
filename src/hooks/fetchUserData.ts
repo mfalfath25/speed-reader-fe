@@ -16,7 +16,7 @@ export const fetchUserData = () => {
         // console.log('data training is not empty')
         setUserData({
           ...userData,
-          trainings: data?.data.data.trainings,
+          trainings: data?.data.data.trainings || [],
         })
       } else {
         // console.log('data training is empty')

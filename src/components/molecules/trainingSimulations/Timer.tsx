@@ -16,11 +16,11 @@ export const Timer = (props: TimerProps) => {
   const navigate = useNavigate()
   const [running, setRunning] = useState<boolean>(false)
 
-  const { modifyTrainingData } = useTrainingStore()
+  const { setTrainingData } = useTrainingStore()
   const data = useTrainingStore((state) => state.trainingData)
 
   const modifyWpm = () => {
-    modifyTrainingData(data[data.length - 1]?.trainingId, {
+    setTrainingData(data[data.length - 1]?.trainingId, {
       ...data[data.length - 1],
       readTime: props.readTime,
       wpm: props.wpm,

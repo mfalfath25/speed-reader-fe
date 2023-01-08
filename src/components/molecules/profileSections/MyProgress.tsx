@@ -11,72 +11,56 @@ import {
   Legend,
 } from 'chart.js'
 import { Line, Scatter } from 'react-chartjs-2'
-import { useTrainingStore } from '../../../stores/TrainingStore'
-import moment from 'moment'
-import { getAverageAccuracy, getAverageWpm } from '../../../logic'
+import {
+  getAverageAccuracy,
+  getAverageWpm,
+  getFilteredData,
+  getFormattedReadDate,
+} from '../../../logic'
 import { fetchUserData } from '../../../hooks'
+import { useUserStore } from '../../../stores'
 
 export const MyProgress = () => {
   const fetcher = fetchUserData()
-  const { trainingData } = useTrainingStore()
-  const trainingCount = () => {
-    let x = []
-    for (let i = 0; i < trainingData.length; i++) {
-      if (trainingData[i].mode === 'Normal' || trainingData[i].mode === 'Blind') {
-        // x.push(`${i + 1}`)
-        x.push(moment(trainingData[i].readDate).format('DD MMM YY'))
-      }
-    }
-    return x
-  }
+  const { userData } = useUserStore()
+  const labelNormalMode = getFormattedReadDate(userData.trainings, 'Normal')
+  const labelBlindMode = getFormattedReadDate(userData.trainings, 'Blind')
+  const filteredNormalMode = getFilteredData(userData.trainings, 'Normal')
+  const filteredBlindMode = getFilteredData(userData.trainings, 'Blind')
 
-  const plotWpm = () => {
-    let x = []
-    for (let i = 0; i < trainingData.length; i++) {
-      if (trainingData[i].mode === 'Normal' || trainingData[i].mode === 'Blind') {
-        x.push(trainingData[i].wpm)
-      }
-    }
-    return x
-  }
-
-  const plotAccuracy = () => {
-    let x = []
-    for (let i = 0; i < trainingData.length; i++) {
-      if (trainingData[i].mode === 'Normal' || trainingData[i].mode === 'Blind') {
-        x.push(trainingData[i].accuracy)
-      }
-    }
-    return x
-  }
-  const labels = trainingCount()
-
-  const data = {
-    labels,
+  const dataNormalMode = {
+    labels: labelNormalMode,
     datasets: [
-      // {
-      //   label: 'WPM Overtime',
-      //   data: Array.from(trainingData, (item) => ({
-      //     x: item.accuracy,
-      //     y: item.wpm,
-      //   })),
-      //   borderColor: 'rgb(255, 99, 132)',
-      //   backgroundColor: 'rgba(255, 99, 132, 0.5)',
-      // },
-
       {
         label: 'WPM',
-        // data: trainingData.map((item) =>
-        //   item.mode === 'Normal' || item.mode === 'Blind' ? item.wpm : null
-        // ),
-        data: trainingData.map((item) => item.wpm),
+        data: filteredNormalMode.map((item) => item.wpm),
         borderColor: 'rgb(53, 162, 235)',
         backgroundColor: 'rgba(53, 162, 235, 0.5)',
         yAxisID: 'y',
       },
       {
         label: 'Akurasi %',
-        data: trainingData.map((item) => item.accuracy),
+        data: filteredNormalMode.map((item) => item.accuracy),
+        borderColor: 'rgb(255, 99, 132)',
+        backgroundColor: 'rgba(255, 99, 132, 0.5)',
+        yAxisID: 'y1',
+      },
+    ],
+  }
+
+  const dataBlindMode = {
+    labels: labelBlindMode,
+    datasets: [
+      {
+        label: 'WPM',
+        data: filteredBlindMode.map((item) => item.wpm),
+        borderColor: 'rgb(53, 162, 235)',
+        backgroundColor: 'rgba(53, 162, 235, 0.5)',
+        yAxisID: 'y',
+      },
+      {
+        label: 'Akurasi %',
+        data: filteredBlindMode.map((item) => item.accuracy),
         borderColor: 'rgb(255, 99, 132)',
         backgroundColor: 'rgba(255, 99, 132, 0.5)',
         yAxisID: 'y1',
@@ -147,32 +131,44 @@ export const MyProgress = () => {
           <div className="stats stats-vertical sm:stats-horizontal shadow w-full sm:w-fit bg-slate-100">
             <div className="stat">
               <div className="stat-title text-xl text-black font-bold text-center">
-                Avg Reading Speed
+                Rerata Kecepatan Membaca
               </div>
               <div className="stat-value text-primary mx-auto">
-                {getAverageWpm(trainingData)} WPM
+                {fetcher.isLoading ? 'Loading...' : getAverageWpm(userData.trainings) + ' WPM'}
               </div>
             </div>
 
             <div className="stat">
               <div className="stat-title text-xl text-black font-bold text-center">
-                Avg Comprehension
+                Rerata Akurasi Pemahaman
               </div>
               <div className="stat-value text-primary mx-auto">
-                {getAverageAccuracy(trainingData)} %
+                {fetcher.isLoading ? 'Loading...' : getAverageAccuracy(userData.trainings) + ' %'}
               </div>
             </div>
           </div>
         </div>
 
         <div className="flex flex-col items-center justify-center">
-          <p className="text-xl sm:text-2xl font-bold">Grafik Perkembangan Latihan</p>
-          <div style={{ width: '100%' }}>
-            <p className="text-center sm:text-left text-base sm:text-xl font-semibold my-2">
-              Kecepatan membaca dari waktu ke waktu
-            </p>
-            <Line options={options} data={data} />
-          </div>
+          <p className="text-xl sm:text-2xl font-bold mb-4">Grafik Perkembangan Latihan</p>
+          {fetcher.isLoading ? (
+            'Loading...'
+          ) : (
+            <div className="flex flex-col xl:flex-row w-full">
+              <div className="w-full xl:w-1/2 text-center">
+                <p className="inline-block sm:text-left text-base sm:text-xl font-semibold my-2">
+                  Progres mode Normal
+                </p>
+                <Line options={options} data={dataNormalMode} />
+              </div>
+              <div className="w-full xl:w-1/2 text-center">
+                <p className="inline-block sm:text-left text-base sm:text-xl font-semibold my-2">
+                  Progres mode Blind
+                </p>
+                <Line options={options} data={dataBlindMode} />
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </>

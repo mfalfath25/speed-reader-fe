@@ -10,7 +10,7 @@ export const ModeNormal = () => {
   const navigate = useNavigate()
   // store states
   const { settingData } = useSettingStore()
-  const { animationStatus, toggleAnimationStatus, modifyTrainingData } = useTrainingStore()
+  const { animationStatus, toggleAnimationStatus, setTrainingData } = useTrainingStore()
   const data = useTrainingStore((state) => state.trainingData)
   // local states
   const [textAnimated, setTextAnimated] = useState<string | null>(null)
@@ -35,7 +35,7 @@ export const ModeNormal = () => {
   useEffect(() => {
     if (isRunOnce === true) {
       textReadTime !== 0 &&
-        modifyTrainingData(data[data.length - 1]?.trainingId, {
+        setTrainingData(data[data.length - 1]?.trainingId, {
           ...data[data.length - 1],
           readTime: textReadTime,
         })
