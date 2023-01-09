@@ -6,22 +6,34 @@ import './index.css'
 import { Toaster } from 'react-hot-toast'
 import { ToastStyles } from './components/atoms'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
-const queryClient = new QueryClient()
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      refetchOnReconnect: true,
+      retry: 1,
+      staleTime: 1000,
+      // refetchInterval: 1000,
+    },
+  },
+})
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <QueryClientProvider client={queryClient}>
-        <App />
-        <Toaster
-          position="bottom-right"
-          reverseOrder={false}
-          toastOptions={{
-            style: ToastStyles,
-          }}
-        />
-      </QueryClientProvider>
-    </BrowserRouter>
-  </React.StrictMode>
+  // <React.StrictMode>
+  <BrowserRouter>
+    <QueryClientProvider client={queryClient}>
+      <App />
+      <Toaster
+        position="bottom-right"
+        reverseOrder={false}
+        toastOptions={{
+          style: ToastStyles,
+        }}
+      />
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
+  </BrowserRouter>
+  // </React.StrictMode>
 )

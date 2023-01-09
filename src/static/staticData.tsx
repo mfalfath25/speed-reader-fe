@@ -1,9 +1,10 @@
 import { BiBookOpen, BiHistory, BiLogOut, BiUser } from 'react-icons/bi'
 import { media_1, media_2, media_3 } from '../assets/guides'
-import { Question, Questions } from '../types/model'
+import { Questions } from '../types/model'
 
 export const titles = [
-  { path: '/', title: 'Home' },
+  { path: '/auth', title: '' },
+  { path: '/home', title: 'Home' },
   { path: '/login', title: 'Login' },
   { path: '/register', title: 'Register' },
   { path: '/guide', title: 'Reading Guides' },
@@ -749,7 +750,7 @@ export const trainingMenu = [
 
 export const guidesMenu = [
   {
-    id: 1,
+    id: '1',
     optionName: 'Fiksasi dan Saccade',
     definition1: 'Fiksasi',
     definition2: 'Saccade',
@@ -770,7 +771,7 @@ export const guidesMenu = [
     image: media_1,
   },
   {
-    id: 2,
+    id: '2',
     optionName: 'Regresi / Backtracking',
     definition1: 'Regresi',
     definition2: null,
@@ -791,7 +792,7 @@ export const guidesMenu = [
     image: media_2,
   },
   {
-    id: 3,
+    id: '3',
     optionName: 'Subvokalisasi',
     definition1: 'Subvokalisasi',
     definition2: null,
@@ -816,22 +817,22 @@ export const guidesMenu = [
 export const ColorPreset = [
   {
     id: 1,
-    name: 'B',
+    name: 'Black',
     hex: '#000000',
   },
   {
     id: 2,
-    name: 'R',
+    name: 'Red',
     hex: '#EF3E35',
   },
   {
     id: 3,
-    name: 'G',
+    name: 'Green',
     hex: '#55B949',
   },
   {
     id: 4,
-    name: 'B',
+    name: 'Blue',
     hex: '#057AFF',
   },
 ]

@@ -1,4 +1,5 @@
 export { Timer } from './trainingSimulations/Timer'
+export { Breadcrumb } from './Breadcrumb'
 export { Navbar } from './Navbar'
 export { Title } from './Title'
 export { FormCustom } from './trainingForms/FormCustom'

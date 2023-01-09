@@ -1,12 +1,11 @@
 import create from 'zustand'
-import { v4 as uuidv4 } from 'uuid'
 import { devtools, persist } from 'zustand/middleware'
 import { Trainee } from '../types/model'
 
 interface UserStore {
   userData: Trainee
   setUserData: (data: Trainee) => void
-  editUsername: (data: string) => void
+  editUserData: (data: string) => void
   clearUserData: () => void
 }
 
@@ -18,19 +17,22 @@ export const useUserStore = create<UserStore>()(
           userId: '',
           username: '',
           email: '',
-          tests: [],
+          token: '',
+          trainings: [],
         },
         setUserData: (data) => {
           set((state) => ({
             userData: {
+              ...state.userData,
               userId: data.userId,
               username: data.username,
               email: data.email,
-              tests: data.tests,
+              token: data.token,
+              trainings: data.trainings,
             },
           }))
         },
-        editUsername: (data) => {
+        editUserData: (data) => {
           set((state) => ({
             userData: {
               ...state.userData,
@@ -39,12 +41,13 @@ export const useUserStore = create<UserStore>()(
           }))
         },
         clearUserData: () => {
-          set((state) => ({
+          set(() => ({
             userData: {
               userId: '',
               username: '',
               email: '',
-              tests: [],
+              token: '',
+              trainings: [],
             },
           }))
         },

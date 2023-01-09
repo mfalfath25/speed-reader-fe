@@ -1,33 +1,24 @@
 import React, { useState, useEffect } from 'react'
-import { useTrainingStore } from '../../../store/TrainingStore'
-import { useSettingStore } from '../../../store/SettingStore'
+import { useTrainingStore } from '../../../stores/TrainingStore'
+import { useSettingStore } from '../../../stores/SettingStore'
 import { startTextAnimation } from '../../../logic'
-import { getTotalChunks, removeExtraWhitespaces } from '../../../logic/utils'
-import { FixationSelect, renderFixationLine } from '../../molecules'
+import { renderFixationLine } from '../../molecules'
 import { Button } from '../../atoms'
-import { Timer } from './Timer'
+import { ToastAlert } from '../../atoms'
 import { useNavigate } from 'react-router-dom'
+import { useSubmitTrainingMutation } from '../../../api/mutation'
+import { AxiosError } from 'axios'
 
 export const ModeCustom = () => {
   const navigate = useNavigate()
   // store states
-  const { isFontSerif, isJustified, fixationCount, fontColor } = useSettingStore()
-  const {
-    animationStatus,
-    trainingData,
-    animatedText,
-    modifyTrainingData,
-    toggleAnimationStatus,
-    updateAnimatedText,
-  } = useTrainingStore()
+  const { settingData } = useSettingStore()
+  const { animationStatus, setTrainingData, toggleAnimationStatus } = useTrainingStore()
   const data = useTrainingStore((state) => state.trainingData)
   // local states
   const [isRunOnce, setIsRunOnce] = useState<boolean>(false)
   const [textAnimated, setTextAnimated] = useState<string | null>(null)
   const [textReadTime, setTextReadTime] = useState<number>(0)
-  // additional state (for blind test params)
-  const [timer, setTimer] = useState<number>(0)
-  const [blindWpm, setBlindWpm] = useState<number>(0)
   // initiate simulation
   const startSimulation = () => {
     const textValue = data[data.length - 1]?.text.textValue
@@ -45,15 +36,34 @@ export const ModeCustom = () => {
     )
   }
 
+  const { mutate } = useSubmitTrainingMutation()
+
   useEffect(() => {
-    // console.log(isRunOnce)
-    if (isRunOnce === true) {
+    if (isRunOnce === true && data!.length !== 0) {
       textReadTime !== 0 &&
-        modifyTrainingData(data[data.length - 1]?.trainingId, {
+        setTrainingData(data[data.length - 1]?.trainingId, {
           ...data[data.length - 1],
           readTime: textReadTime,
         })
-      navigate('/training/custom/result')
+
+      setTimeout(() => {
+        mutate(data[data.length - 1], {
+          onSuccess: (res) => {
+            ToastAlert(res.data.message, 'success')
+          },
+          onError: (err) => {
+            if (err instanceof AxiosError) {
+              ToastAlert(err?.response?.data.message, 'error')
+            } else {
+              ToastAlert('Data tidak tersimpan', 'error')
+            }
+          },
+        })
+
+        setTimeout(() => {
+          navigate('/training/custom/result')
+        }, 1000)
+      }, 100)
     }
   }, [isRunOnce])
 
@@ -69,22 +79,19 @@ export const ModeCustom = () => {
             <pre
               className="relative whitespace-pre-line text-left text-base sm:text-xl font-normal p-2"
               style={{
-                fontFamily: isFontSerif ? 'Literata' : 'Source Sans Pro',
-                textAlign: isJustified ? 'justify' : 'left',
+                fontFamily: settingData.isFontSerif ? 'serif' : 'sans-serif',
               }}
             >
-              {renderFixationLine(fixationCount)}
+              {renderFixationLine(settingData.fixationCount)}
               {data.length !== 0
                 ? data[data.length - 1].text.textValue
                 : 'Your custom text will be shown here'}
             </pre>
             <pre
               className="absolute top-0 whitespace-pre-line text-left text-base sm:text-xl font-normal p-2 text-black dark:text-slate-200"
-              // text-transparent bg-clip-text bg-gradient-to-r from-slate-200 to-red-400
               style={{
-                fontFamily: isFontSerif ? 'Literata' : 'Source Sans Pro',
-                textAlign: isJustified ? 'justify' : 'left',
-                color: fontColor,
+                fontFamily: settingData.isFontSerif ? 'serif' : 'sans-serif',
+                color: settingData.fontColor,
               }}
             >
               {textAnimated}
@@ -103,18 +110,6 @@ export const ModeCustom = () => {
             }}
           />
         </div>
-
-        {/* <Timer
-            time={timer}
-            setTime={setTimer}
-            wpm={blindWpm}
-            setWpm={setBlindWpm}
-            totalChunk={getTotalChunks(removeExtraWhitespaces(data[data.length - 1]?.textValue))}
-          />
-          <div>
-            Total words (Whitespaces removed):{' '}
-            {getTotalChunks(removeExtraWhitespaces(data[data.length - 1]?.textValue))}
-          </div> */}
       </div>
     </>
   )

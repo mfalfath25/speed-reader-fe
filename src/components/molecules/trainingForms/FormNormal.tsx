@@ -5,7 +5,7 @@ import { Question, Questions, Training } from '../../../types/model'
 import { Button } from '../../atoms'
 import cefr from '../../../assets/training/cefr.png'
 import { useNavigate } from 'react-router-dom'
-import { useTrainingStore } from '../../../store/TrainingStore'
+import { useTrainingStore } from '../../../stores/TrainingStore'
 import { QuestionData, textChoiceData, textData, textLevelData } from '../../../static/staticData'
 
 export const FormNormal = () => {

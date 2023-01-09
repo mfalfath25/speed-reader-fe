@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
 import { titles } from '../../static/staticData'
-import { useTrainingStore } from '../../store/TrainingStore'
-import { Navbar, Title } from '../molecules'
-import { Home } from './Home'
+import { useUserStore } from '../../stores'
+import { useTrainingStore } from '../../stores/TrainingStore'
+import { Breadcrumb, Navbar, Title } from '../molecules'
 
 export const Base = () => {
   const location = useLocation()
   const [title, setTitle] = useState('')
-  const { trainingData, animatedText, animationStatus } = useTrainingStore()
+  const { userData } = useUserStore()
+  const { trainingData } = useTrainingStore()
 
   const matchTitle = (path: string) => {
     const match = titles.find((title) => title.path.includes(path))
@@ -24,28 +25,20 @@ export const Base = () => {
   }
 
   useEffect(() => {
+    // console.log(userData)
     // console.log('Training Data ', trainingData)
-    // console.log('animationStatus ', animationStatus)
     matchTitle(location.pathname)
   }, [location])
+
   return (
     <>
       <div className="container h-screen">
         <Navbar />
-        {location.pathname !== '/' ? (
-          <>
-            <Title pageTitle={title} />
-            <div className="my-auto p-2 mt-0 sm:mt-20">
-              <Outlet />
-            </div>
-          </>
-        ) : (
-          <>
-            <div className="p-2 pt-0 mt-0">
-              <Home />
-            </div>
-          </>
-        )}
+        {/* <Breadcrumb /> */}
+        <Title pageTitle={title} />
+        <div className="my-auto p-2 mt-0 sm:mt-4">
+          <Outlet />
+        </div>
       </div>
     </>
   )

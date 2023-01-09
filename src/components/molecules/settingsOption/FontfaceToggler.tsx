@@ -1,8 +1,8 @@
 import React from 'react'
-import { useSettingStore } from '../../../store/SettingStore'
+import { useSettingStore } from '../../../stores/SettingStore'
 
 export const FontfaceToggler = () => {
-  const { isFontSerif, toggleFontSerif } = useSettingStore()
+  const { settingData, setSettingData } = useSettingStore()
 
   return (
     <>
@@ -12,9 +12,9 @@ export const FontfaceToggler = () => {
           type="checkbox"
           className="toggle toggle-md m-0"
           onChange={() => {
-            toggleFontSerif()
+            setSettingData({ ...settingData, isFontSerif: !settingData.isFontSerif })
           }}
-          checked={isFontSerif}
+          checked={settingData.isFontSerif}
         />
         <p className="inline">Serif</p>
       </div>

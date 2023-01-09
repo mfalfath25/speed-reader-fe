@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
-import { useTrainingStore } from '../../../store/TrainingStore'
+import { useTrainingStore } from '../../../stores/TrainingStore'
 import { Training } from '../../../types/model'
 import { Button } from '../../atoms'
 
@@ -13,13 +13,12 @@ export const FormCustom = () => {
   const {
     register,
     handleSubmit,
-    getValues,
-    watch,
     reset,
     formState: { errors, isSubmitSuccessful },
   } = useForm<Training>()
 
   const onSubmit: SubmitHandler<Training> = (data) => {
+    // console.log('Custom form values: ', data)
     addTrainingData(
       (data = {
         ...data,
@@ -29,7 +28,6 @@ export const FormCustom = () => {
       })
     )
     navigate('/training/custom/simulate')
-    // console.log('Custom form values: ', data)
   }
 
   const clearText = () => {
@@ -58,7 +56,7 @@ export const FormCustom = () => {
             {...register('text.textValue', { required: true })}
           ></textarea>
           <div className="flex justify-end">
-            {errors.text?.textValue && <span className="text-red-400">Text empty</span>}
+            {errors.text?.textValue && <span className="text-red-400">Teks kosong</span>}
           </div>
         </div>
 

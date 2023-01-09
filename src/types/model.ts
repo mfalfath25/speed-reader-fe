@@ -1,6 +1,5 @@
 export interface Training {
   trainingId: string
-  traineeId: string
   mode: string
   text: Text
   chunksCount: number
@@ -34,10 +33,22 @@ export interface AnsweredQuestion {
   answer: string
 }
 export interface History {
-  history: Training[]
+  trainingId: string
+  traineeId: string
+  mode: string
+  text: {
+    textLevel: string
+    textChoice: string
+    textWordCount: number
+  }
+  chunksCount: number
+  wpm: number
+  accuracy: number
+  readTime: number
+  readDate: Date
 }
 export interface Progress {
-  progress: Training[]
+  progress: History[]
   averageWpm?: number
   averageAccuracy?: number
   totalReadTime?: number
@@ -47,13 +58,14 @@ export interface Trainee {
   userId: string
   username: string
   email: string
-  tests: Training[]
+  token: string
+  trainings: History[]
 }
 export interface FormEditProfileValues {
   username: string
 }
 export interface FormLoginValues {
-  username: string
+  email: string
   password: string
 }
 export interface FormRegisterValues {
@@ -61,15 +73,8 @@ export interface FormRegisterValues {
   username: string
   password: string
 }
-
-// export interface Test {
-//   testId: string
-//   traineeId: string
-//   answers?: Answer[]
-//   mode: string
-//   wpm: number
-//   accuracy: number
-//   textWordCount: number
-//   readTime: number
-//   readDate: Date
-// }
+export interface SettingsValues {
+  isFontSerif: boolean
+  fixationCount: number
+  fontColor: string
+}

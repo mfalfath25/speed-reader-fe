@@ -1,8 +1,9 @@
-export function capitalizeFirstLetter(text: string): string {
-  return text.substring(1).charAt(0).toUpperCase() + text.slice(2)
+export const capitalizeFirstLetter = (text: string): string => {
+  return text.charAt(0).toUpperCase() + text.slice(1)
+  // return text.substring(1).charAt(0).toUpperCase() + text.slice(2)
 }
 
-export function checkPathnameDepth(pathname: string): number {
+export const checkPathnameDepth = (pathname: string): number => {
   const depth = pathname.split('/').length - 1
   return depth
 }
@@ -32,7 +33,7 @@ export const checkCurrentPathname = (checkPath: string[], currentPath: string): 
 export const getFirstLetter = (text: string): string => {
   const firstLetters = text
     .split(' ')
-    .map((word) => word[0].toUpperCase())
+    .map((word) => word[0]?.toUpperCase())
     .join('')
   return firstLetters
 }

@@ -1,9 +1,13 @@
-import moment from 'moment'
 import React from 'react'
-import { useTrainingStore } from '../../store/TrainingStore'
+import moment from 'moment'
+import { useUserStore } from '../../stores'
+import { fetchUserData } from '../../hooks'
+import { getFormattedReadTime } from '../../logic'
 
 export const History = () => {
-  const { trainingData } = useTrainingStore()
+  const fetcher = fetchUserData()
+  const { userData } = useUserStore()
+
   return (
     <>
       <div className="overflow-x-auto">
@@ -16,27 +20,35 @@ export const History = () => {
               <th>Jumlah Kata</th>
               <th>WPM</th>
               <th>Akurasi</th>
+              <th>Waktu baca</th>
               <th>Tanggal</th>
             </tr>
           </thead>
           <tbody>
-            {trainingData.length !== 0 ? (
-              trainingData.map((data, index) => (
+            {fetcher.isLoading === true ? (
+              <tr>
+                <td colSpan={8} className="text-center">
+                  <progress className="progress w-10"></progress>
+                </td>
+              </tr>
+            ) : userData.trainings.length !== 0 && fetcher.isError !== true ? (
+              userData.trainings?.map((data, index) => (
                 <tr key={index}>
                   <th>{index + 1}</th>
                   <td>{data.mode}</td>
                   <td>
-                    {data.text.textLevel} {data.text.textChoice}
+                    {data?.text.textLevel} - {data.text.textChoice}
                   </td>
-                  <td>{data.text.textWordCount}</td>
+                  <td>{data?.text.textWordCount}</td>
                   <td>{data.wpm}</td>
-                  <td>{data.accuracy}%</td>
-                  <td>{moment(data.readDate).format('l')}</td>
+                  <td>{data.accuracy} %</td>
+                  <td>{getFormattedReadTime(data.readTime)}</td>
+                  <td>{moment(data.readDate).format('DD MMMM YYYY')}</td>
                 </tr>
               ))
             ) : (
               <tr>
-                <td colSpan={7} className="text-center">
+                <td colSpan={8} className="text-center">
                   Data latihan kosong
                 </td>
               </tr>

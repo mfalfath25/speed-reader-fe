@@ -1,5 +1,5 @@
 import React from 'react'
-import { useSettingStore } from '../../../store/SettingStore'
+import { useSettingStore } from '../../../stores/SettingStore'
 
 export const renderFixationLine = (count: number) => {
   switch (count) {
@@ -30,7 +30,7 @@ export const renderFixationLine = (count: number) => {
 }
 
 export const FixationSelect = () => {
-  const { fixationCount, updateFixationCount } = useSettingStore()
+  const { settingData, setSettingData } = useSettingStore()
 
   return (
     <>
@@ -40,9 +40,14 @@ export const FixationSelect = () => {
           name="options"
           data-title="0"
           className="btn"
-          checked={fixationCount === 0}
+          checked={settingData.fixationCount === 0}
           value={0}
-          onChange={(e) => updateFixationCount(parseInt(e.target.value))}
+          onChange={(e) =>
+            setSettingData({
+              ...settingData,
+              fixationCount: parseInt(e.target.value),
+            })
+          }
         />
         <br></br>
         <input
@@ -50,27 +55,42 @@ export const FixationSelect = () => {
           name="options"
           data-title="1"
           className="btn"
-          checked={fixationCount === 1}
+          checked={settingData.fixationCount === 1}
           value={1}
-          onChange={(e) => updateFixationCount(parseInt(e.target.value))}
+          onChange={(e) =>
+            setSettingData({
+              ...settingData,
+              fixationCount: parseInt(e.target.value),
+            })
+          }
         />
         <input
           type="radio"
           name="options"
           data-title="2"
           className="btn"
-          checked={fixationCount === 2}
+          checked={settingData.fixationCount === 2}
           value={2}
-          onChange={(e) => updateFixationCount(parseInt(e.target.value))}
+          onChange={(e) =>
+            setSettingData({
+              ...settingData,
+              fixationCount: parseInt(e.target.value),
+            })
+          }
         />
         <input
           type="radio"
           name="options"
           data-title="3"
           className="btn"
-          checked={fixationCount === 3}
+          checked={settingData.fixationCount === 3}
           value={3}
-          onChange={(e) => updateFixationCount(parseInt(e.target.value))}
+          onChange={(e) =>
+            setSettingData({
+              ...settingData,
+              fixationCount: parseInt(e.target.value),
+            })
+          }
         />
       </div>
     </>

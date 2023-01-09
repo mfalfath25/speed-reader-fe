@@ -1,4 +1,4 @@
-import { getTotalTraining } from './../logic/calculations'
+import { getTotalTraining } from '../logic/calculations'
 import create from 'zustand'
 import { v4 as uuidv4 } from 'uuid'
 import { devtools, persist } from 'zustand/middleware'
@@ -10,7 +10,7 @@ interface ProgressStore {
   updateProgressData: (data: Progress) => void
 }
 
-export const useUserStore = create<ProgressStore>()(
+export const useProgressStore = create<ProgressStore>()(
   devtools(
     persist(
       (set) => ({
