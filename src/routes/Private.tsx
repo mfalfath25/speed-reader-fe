@@ -3,6 +3,7 @@ import { Outlet, useNavigate } from 'react-router-dom'
 import { baseAPI } from '../api/utils'
 import { useUserStore } from '../stores/UserStore'
 import logo from '../assets/logo/SpeedReaderLoader.png'
+import { ToastAlert } from '../components/atoms'
 
 export const Private = () => {
   const [isLoading, setIsLoading] = useState(false)
@@ -34,6 +35,7 @@ export const Private = () => {
       (err) => {
         if (!err.response) {
           console.log("Please check your internet connection or the server's status")
+          ToastAlert('Koneksi/server error', 'error')
           return Promise.reject(err)
         } else if (err.response.status === 403 || err.response.status === 401) {
           navigate('/login')

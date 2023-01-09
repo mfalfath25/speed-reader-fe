@@ -6,6 +6,8 @@ import { renderFixationLine } from '../../molecules'
 import { Button } from '../../atoms'
 import { ToastAlert } from '../../atoms'
 import { useNavigate } from 'react-router-dom'
+import { useSubmitTrainingMutation } from '../../../api/mutation'
+import { AxiosError } from 'axios'
 
 export const ModeCustom = () => {
   const navigate = useNavigate()
@@ -34,17 +36,34 @@ export const ModeCustom = () => {
     )
   }
 
+  const { mutate } = useSubmitTrainingMutation()
+
   useEffect(() => {
-    if (isRunOnce === true) {
+    if (isRunOnce === true && data!.length !== 0) {
       textReadTime !== 0 &&
         setTrainingData(data[data.length - 1]?.trainingId, {
           ...data[data.length - 1],
           readTime: textReadTime,
         })
-      ToastAlert('loading', 'loading', 1000)
+
       setTimeout(() => {
-        navigate('/training/custom/result')
-      }, 1000)
+        mutate(data[data.length - 1], {
+          onSuccess: (res) => {
+            ToastAlert(res.data.message, 'success')
+          },
+          onError: (err) => {
+            if (err instanceof AxiosError) {
+              ToastAlert(err?.response?.data.message, 'error')
+            } else {
+              ToastAlert('Data tidak tersimpan', 'error')
+            }
+          },
+        })
+
+        setTimeout(() => {
+          navigate('/training/custom/result')
+        }, 1000)
+      }, 100)
     }
   }, [isRunOnce])
 
@@ -61,7 +80,6 @@ export const ModeCustom = () => {
               className="relative whitespace-pre-line text-left text-base sm:text-xl font-normal p-2"
               style={{
                 fontFamily: settingData.isFontSerif ? 'serif' : 'sans-serif',
-                // textAlign: isJustified ? 'justify' : 'left',
               }}
             >
               {renderFixationLine(settingData.fixationCount)}
@@ -73,7 +91,6 @@ export const ModeCustom = () => {
               className="absolute top-0 whitespace-pre-line text-left text-base sm:text-xl font-normal p-2 text-black dark:text-slate-200"
               style={{
                 fontFamily: settingData.isFontSerif ? 'serif' : 'sans-serif',
-                // textAlign: isJustified ? 'justify' : 'left',
                 color: settingData.fontColor,
               }}
             >

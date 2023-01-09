@@ -47,7 +47,7 @@ export const Home = () => {
       </p>
 
       <div className="grid grid-cols-1 space-y-2 sm:space-y-20">
-        <div className="card-body w-full bg-base-300 outline outline-2 outline-blue-400 rounded-lg p-4 lg:p-8">
+        <div className="card-body w-full bg-base-300 outline outline-2 rounded-lg p-4 lg:p-8">
           <h1 className="card-title mx-auto text-lg md:text-2xl mb-2">
             Mulai berlatih latihan membaca cepat
           </h1>

@@ -60,7 +60,6 @@ export const ModeNormal = () => {
               className="relative whitespace-pre-line text-left text-base sm:text-xl font-normal p-2"
               style={{
                 fontFamily: settingData.isFontSerif ? 'serif' : 'sans-serif',
-                // textAlign: isJustified ? 'justify' : 'left',
               }}
             >
               {renderFixationLine(settingData.fixationCount)}
@@ -73,7 +72,6 @@ export const ModeNormal = () => {
               // text-transparent bg-clip-text bg-gradient-to-r from-slate-200 to-red-400
               style={{
                 fontFamily: settingData.isFontSerif ? 'serif' : 'sans-serif',
-                // textAlign: isJustified ? 'justify' : 'left',
                 color: settingData.fontColor,
               }}
             >

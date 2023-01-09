@@ -48,7 +48,7 @@ export interface History {
   readDate: Date
 }
 export interface Progress {
-  progress: Training[]
+  progress: History[]
   averageWpm?: number
   averageAccuracy?: number
   totalReadTime?: number

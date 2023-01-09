@@ -31,7 +31,6 @@ export const ModeBlind = () => {
                 className="relative whitespace-pre-line text-left text-base sm:text-xl font-normal p-2"
                 style={{
                   fontFamily: settingData.isFontSerif ? 'serif' : 'sans-serif',
-                  // textAlign: isJustified ? 'justify' : 'left',
                 }}
               >
                 {renderFixationLine(settingData.fixationCount)}

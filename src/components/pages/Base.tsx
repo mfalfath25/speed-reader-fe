@@ -7,9 +7,9 @@ import { Breadcrumb, Navbar, Title } from '../molecules'
 
 export const Base = () => {
   const location = useLocation()
-  const { userData } = useUserStore()
   const [title, setTitle] = useState('')
-  const { trainingData, animatedText, animationStatus } = useTrainingStore()
+  const { userData } = useUserStore()
+  const { trainingData } = useTrainingStore()
 
   const matchTitle = (path: string) => {
     const match = titles.find((title) => title.path.includes(path))
@@ -27,7 +27,6 @@ export const Base = () => {
   useEffect(() => {
     // console.log(userData)
     // console.log('Training Data ', trainingData)
-    // console.log('animationStatus ', animationStatus)
     matchTitle(location.pathname)
   }, [location])
 

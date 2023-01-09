@@ -1,7 +1,7 @@
 import moment from 'moment'
 import { AnsweredQuestion, Training, History } from '../types/model'
 
-export const getTotalTraining = (data: Training[]): number => {
+export const getTotalTraining = (data: History[]): number => {
   return data.length
 }
 
