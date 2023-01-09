@@ -2,7 +2,7 @@ import React from 'react'
 import { useSettingStore } from '../../../stores/SettingStore'
 
 export const JustificationToggler = () => {
-  const { isJustified, toggleJustification } = useSettingStore()
+  // const { isJustified, toggleJustification } = useSettingStore()
 
   return (
     <>
@@ -12,9 +12,9 @@ export const JustificationToggler = () => {
           type="checkbox"
           className="toggle toggle-md m-0"
           onChange={() => {
-            toggleJustification()
+            // toggleJustification()
           }}
-          checked={isJustified}
+          // checked={isJustified}
         />
         <p className="inline">Justified</p>
       </div>
