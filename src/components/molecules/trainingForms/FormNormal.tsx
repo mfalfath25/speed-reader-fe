@@ -22,6 +22,7 @@ export const FormNormal = () => {
   const { addTrainingData } = useTrainingStore()
 
   const onSubmit: SubmitHandler<Training> = (data) => {
+    // console.log('Normal form values: ', data)
     let textOption = {
       textValue:
         textData.find(
@@ -64,7 +65,6 @@ export const FormNormal = () => {
       })
     )
     navigate('/training/normal/simulate')
-    // console.log('Normal form values: ', data)
   }
 
   return (

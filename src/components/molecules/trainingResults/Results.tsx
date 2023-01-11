@@ -1,16 +1,23 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import moment from 'moment'
 import { useNavigate } from 'react-router-dom'
 import { useTrainingStore } from '../../../stores/TrainingStore'
-import { Button } from '../../atoms'
+import { Button, ToastAlert } from '../../atoms'
 import { getFormattedReadTime } from '../../../logic'
+import { useSubmitTrainingMutation } from '../../../api/mutation'
+import { AxiosError } from 'axios'
 
 export const Results = () => {
   const navigate = useNavigate()
   const { resetTrainingData } = useTrainingStore()
-  const { trainingData } = useTrainingStore()
+  const { trainingData, setTrainingData } = useTrainingStore()
 
   const handleRestart = () => {
+    setTrainingData(trainingData[trainingData.length - 1].trainingId, {
+      ...trainingData[trainingData.length - 1],
+      isSaved: false,
+    })
+
     switch (trainingData[trainingData.length - 1].mode) {
       case 'Normal':
         navigate('/training/normal/simulate')
@@ -28,6 +35,32 @@ export const Results = () => {
     resetTrainingData()
     navigate('/')
   }
+
+  const { mutate } = useSubmitTrainingMutation()
+
+  useEffect(() => {
+    if (trainingData[trainingData.length - 1].isSaved === false) {
+      setTimeout(() => {
+        mutate(trainingData[trainingData.length - 1], {
+          onSuccess: (res) => {
+            ToastAlert(res.data.message, 'success')
+
+            setTrainingData(trainingData[trainingData.length - 1].trainingId, {
+              ...trainingData[trainingData.length - 1],
+              isSaved: true,
+            })
+          },
+          onError: (err) => {
+            if (err instanceof AxiosError) {
+              ToastAlert(err?.response?.data.message, 'error')
+            } else {
+              ToastAlert('Data tidak tersimpan', 'error')
+            }
+          },
+        })
+      }, 1000)
+    }
+  }, [])
 
   const renderStats = () => {
     if (trainingData.length === 0) return null

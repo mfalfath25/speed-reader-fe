@@ -8,7 +8,7 @@ import { Button } from '../../atoms'
 export const FormCustom = () => {
   // global state
   const navigate = useNavigate()
-  const { animationStatus, addTrainingData, resetTrainingData } = useTrainingStore()
+  const { addTrainingData, resetTrainingData } = useTrainingStore()
 
   const {
     register,
@@ -39,7 +39,7 @@ export const FormCustom = () => {
     if (isSubmitSuccessful) {
       reset()
     }
-  }, [isSubmitSuccessful, reset, animationStatus])
+  }, [isSubmitSuccessful, reset])
 
   return (
     <>

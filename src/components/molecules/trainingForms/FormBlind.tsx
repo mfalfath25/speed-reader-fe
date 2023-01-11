@@ -22,6 +22,7 @@ export const FormBlind = () => {
   const { addTrainingData } = useTrainingStore()
 
   const onSubmit: SubmitHandler<Training> = (data) => {
+    // console.log('Blind form values: ', data)
     let textOption = {
       textValue:
         textData.find(
@@ -64,7 +65,6 @@ export const FormBlind = () => {
       })
     )
     navigate('/training/blind/simulate')
-    // console.log('Blind form values: ', data)
   }
 
   return (

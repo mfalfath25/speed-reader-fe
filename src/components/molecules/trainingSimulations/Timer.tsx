@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { startTimer, stopTimer } from '../../../logic'
+import { startPerf, startTimer, stopPerf, stopTimer } from '../../../logic'
 import { useTrainingStore } from '../../../stores/TrainingStore'
 import { Button, ToastAlert } from '../../atoms'
 
@@ -19,24 +19,31 @@ export const Timer = (props: TimerProps) => {
   const { setTrainingData } = useTrainingStore()
   const data = useTrainingStore((state) => state.trainingData)
 
-  const modifyWpm = () => {
-    setTrainingData(data[data.length - 1]?.trainingId, {
-      ...data[data.length - 1],
-      readTime: props.readTime,
-      wpm: props.wpm,
-    })
+  const handleStart = () => {
+    startPerf()
+    setRunning(true)
+  }
+
+  const handleStop = () => {
+    setRunning(false)
+    if (running === false) {
+      setTrainingData(data[data.length - 1]?.trainingId, {
+        ...data[data.length - 1],
+        readTime: stopPerf(),
+        wpm: props.wpm,
+      })
+    }
   }
 
   useEffect(() => {
-    let interval: number | undefined = 0
+    let intervalId: number | undefined = 0
 
     if (running && props.totalChunk) {
-      interval = startTimer(props.setReadTime, props.setWpm, props.totalChunk)
+      intervalId = startTimer(props.setReadTime, props.setWpm, props.totalChunk)
     } else if (!running) {
-      stopTimer(interval)
-      // clearInterval(interval)
+      stopTimer(intervalId)
     }
-    return () => clearInterval(interval)
+    return () => clearInterval(intervalId)
   }, [running, props.totalChunk, props.setReadTime, props.setWpm])
 
   return (
@@ -57,8 +64,7 @@ export const Timer = (props: TimerProps) => {
             outline
             width="full"
             onClick={() => {
-              setRunning(false)
-              modifyWpm()
+              handleStop()
               ToastAlert('loading', 'loading', 1000)
               setTimeout(() => {
                 navigate('/training/blind/simulate/comprehension')
@@ -71,7 +77,7 @@ export const Timer = (props: TimerProps) => {
             weight="primary"
             width="full"
             onClick={() => {
-              setRunning(true)
+              handleStart()
             }}
           />
         )}

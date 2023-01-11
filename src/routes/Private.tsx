@@ -4,6 +4,7 @@ import { baseAPI } from '../api/utils'
 import { useUserStore } from '../stores/UserStore'
 import logo from '../assets/logo/SpeedReaderLoader.png'
 import { ToastAlert } from '../components/atoms'
+import { AxiosError } from 'axios'
 
 export const Private = () => {
   const [isLoading, setIsLoading] = useState(false)
@@ -28,21 +29,21 @@ export const Private = () => {
     // })
 
     // intercept response
-    baseAPI.interceptors.response.use(
-      (res) => {
-        return res
-      },
-      (err) => {
-        if (!err.response) {
-          console.log("Please check your internet connection or the server's status")
-          ToastAlert('Koneksi/server error', 'error')
-          return Promise.reject(err)
-        } else if (err.response.status === 403 || err.response.status === 401) {
-          navigate('/login')
-        }
-        return err
-      }
-    )
+    // baseAPI.interceptors.response.use(
+    //   (res) => {
+    //     return res
+    //   },
+    //   (err) => {
+    //     if (!err.response) {
+    //       console.log("Please check your internet connection or the server's status")
+    //       ToastAlert('Koneksi/server error (from interceptor)', 'error')
+    //       return err
+    //     } else if (err.response.status === 403 || err.response.status === 401) {
+    //       navigate('/login')
+    //     }
+    //     return err
+    //   }
+    // )
 
     // check if somehow token is empty
     setIsLoading(true)

@@ -6,16 +6,12 @@ import { getTotalChunks, removeExtraWhitespaces } from '../logic/utils'
 
 interface TrainingStore {
   trainingData: Training[]
-  // animatedText: string
   animationStatus: boolean
 
   addTrainingData: (data: Training) => void // add new TrainingData
   setTrainingData: (id: string, data: Training) => void // modify TrainingData by id
-  // removeTrainingData: (id: string) => void // remove TrainingData by id
   resetTrainingData: () => void // reset TrainingData value
-  toggleAnimationStatus: () => void // toggle animation status
-  // updateAnimatedText: (text: string) => void // update animated text value
-  // clearAnimatedText: () => void // clear animated text value
+  setAnimationStatus: (status: boolean) => void // set animation status
 }
 
 export const useTrainingStore = create<TrainingStore>()(
@@ -45,6 +41,7 @@ export const useTrainingStore = create<TrainingStore>()(
                 readTime: data.readTime || 0,
                 readDate: new Date(),
                 answers: data.answers || [],
+                isSaved: false,
               },
             ],
           }))
@@ -70,22 +67,15 @@ export const useTrainingStore = create<TrainingStore>()(
                   readTime: data.readTime || 0,
                   readDate: new Date(),
                   answers: data.answers || [],
+                  isSaved: data.isSaved || false,
                 }
               }
               return item
             }),
           }))
         },
-        // removeTrainingData: (id: string) => {
-        //   set((state) => ({
-        //     trainingData: state.trainingData.filter((item) => item.trainingId !== id),
-        //   }))
-        // },
         resetTrainingData: () => set({ trainingData: [] }),
-        toggleAnimationStatus: () => set((state) => ({ animationStatus: !state.animationStatus })),
-        // animatedText: '',
-        // updateAnimatedText: (text) => set({ animatedText: text }),
-        // clearAnimatedText: () => set({ animatedText: '' }),
+        setAnimationStatus: (status) => set({ animationStatus: status }),
       }),
       {
         name: 'training-store',

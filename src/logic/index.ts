@@ -14,4 +14,6 @@ export {
   getFilteredData,
   startTimer,
   stopTimer,
+  startPerf,
+  stopPerf,
 } from './calculations'

@@ -25,31 +25,31 @@ export const FormLogin = () => {
   const onSubmit: SubmitHandler<FormLoginValues> = (data) => {
     // console.log('Login form values: ', data)
     mutate(data, {
-      onSuccess: (data) => {
-        setUserData({
-          ...userData,
-          userId: data?.data.userId,
-          username: data?.data.username,
-          email: data?.data.email,
-          token: data?.data.token,
-        })
-        setSettingData({
-          ...settingData,
-          fixationCount: data?.data.setting.fixationCount,
-          isFontSerif: data?.data.setting.isFontSerif,
-          fontColor: data?.data.setting.fontColor,
-        })
+      onSuccess: (res) => {
+        if (res?.status === 200) {
+          setUserData({
+            ...userData,
+            userId: res?.data.userId,
+            username: res?.data.username,
+            email: res?.data.email,
+            token: res?.data.token,
+          })
+          setSettingData({
+            ...settingData,
+            fixationCount: res?.data.setting.fixationCount,
+            isFontSerif: res?.data.setting.isFontSerif,
+            fontColor: res?.data.setting.fontColor,
+          })
 
-        setTimeout(() => {
-          ToastAlert('Login berhasil', 'success')
-          navigate('/', { replace: true })
-        }, 1000)
+          setTimeout(() => {
+            ToastAlert('Login berhasil', 'success')
+            navigate('/', { replace: true })
+          }, 1000)
+        }
       },
       onError: (err) => {
         if (err instanceof AxiosError) {
-          ToastAlert(err?.response?.data.message, 'error')
-        } else {
-          ToastAlert('Login gagal', 'error')
+          ToastAlert(String(err?.response?.data.message), 'error')
         }
       },
     })

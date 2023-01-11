@@ -10,7 +10,7 @@ export const ModeNormal = () => {
   const navigate = useNavigate()
   // store states
   const { settingData } = useSettingStore()
-  const { animationStatus, toggleAnimationStatus, setTrainingData } = useTrainingStore()
+  const { animationStatus, setTrainingData, setAnimationStatus } = useTrainingStore()
   const data = useTrainingStore((state) => state.trainingData)
   // local states
   const [textAnimated, setTextAnimated] = useState<string | null>(null)
@@ -25,8 +25,8 @@ export const ModeNormal = () => {
       textValue,
       wordsPerMinute || 250,
       chunkValue || 3,
+      setAnimationStatus,
       setTextAnimated,
-      toggleAnimationStatus,
       setIsRunOnce,
       setTextReadTime
     )
@@ -87,7 +87,6 @@ export const ModeNormal = () => {
             width="full"
             onClick={() => {
               startSimulation()
-              toggleAnimationStatus()
             }}
           />
         </div>

@@ -9,7 +9,7 @@ export const Base = () => {
   const location = useLocation()
   const [title, setTitle] = useState('')
   const { userData } = useUserStore()
-  const { trainingData } = useTrainingStore()
+  const { trainingData, setAnimationStatus } = useTrainingStore()
 
   const matchTitle = (path: string) => {
     const match = titles.find((title) => title.path.includes(path))
@@ -26,7 +26,8 @@ export const Base = () => {
 
   useEffect(() => {
     // console.log(userData)
-    // console.log('Training Data ', trainingData)
+    console.log('Training Data ', trainingData)
+    setAnimationStatus(false)
     matchTitle(location.pathname)
   }, [location])
 

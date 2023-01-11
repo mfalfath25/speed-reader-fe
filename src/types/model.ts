@@ -8,6 +8,7 @@ export interface Training {
   readTime: number
   readDate: Date
   answers: AnsweredQuestion[]
+  isSaved: boolean
 }
 export interface Text {
   textLevel?: string
@@ -46,13 +47,6 @@ export interface History {
   accuracy: number
   readTime: number
   readDate: Date
-}
-export interface Progress {
-  progress: History[]
-  averageWpm?: number
-  averageAccuracy?: number
-  totalReadTime?: number
-  totalTraining?: number
 }
 export interface Trainee {
   userId: string

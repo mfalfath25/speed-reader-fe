@@ -1,8 +1,6 @@
-import { AxiosError } from 'axios'
 import React from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { useSubmitTrainingMutation } from '../../../api/mutation'
 import { getTotalAccuracy } from '../../../logic'
 import { useTrainingStore } from '../../../stores/TrainingStore'
 import { Training } from '../../../types/model'
@@ -20,10 +18,9 @@ export const FormComprehension = () => {
   const { setTrainingData } = useTrainingStore()
   const data = useTrainingStore((state) => state.trainingData)
 
-  const { mutate } = useSubmitTrainingMutation()
-
   const onSubmit: SubmitHandler<Training> = (test) => {
     // console.log('Comprehension form values: ', test)
+    ToastAlert('loading', 'loading', 1000)
     setTrainingData(data[data.length - 1].trainingId, {
       ...data[data.length - 1],
       answers: test.answers,
@@ -31,27 +28,12 @@ export const FormComprehension = () => {
     })
 
     setTimeout(() => {
-      mutate(data[data.length - 1], {
-        onSuccess: (res) => {
-          ToastAlert(res.data.message, 'success')
-        },
-        onError: (err) => {
-          if (err instanceof AxiosError) {
-            ToastAlert(err?.response?.data.message, 'error')
-          } else {
-            ToastAlert('Data tidak tersimpan', 'error')
-          }
-        },
-      })
-
-      setTimeout(() => {
-        if (history.pathname.includes('normal')) {
-          navigate('/training/normal/result')
-        } else if (history.pathname.includes('blind')) {
-          navigate('/training/blind/result')
-        }
-      }, 1000)
-    }, 100)
+      if (history.pathname.includes('normal')) {
+        navigate('/training/normal/result')
+      } else if (history.pathname.includes('blind')) {
+        navigate('/training/blind/result')
+      }
+    }, 1000)
   }
 
   return (

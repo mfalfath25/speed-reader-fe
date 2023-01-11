@@ -94,7 +94,7 @@ export const startTimer = (
 ) => {
   let elapsedTime = 0 // in seconds
   let result = 0 // in wpm
-  const interval = window.setInterval(() => {
+  const interval = setInterval(() => {
     elapsedTime++ // increment time every second
     result = getCurrentBlindWpm(totalWords, elapsedTime) // calculate wpm every second
     setWpm(result) // update wpm every second
@@ -104,5 +104,18 @@ export const startTimer = (
 }
 
 export const stopTimer = (interval: number): void => {
-  window.clearInterval(interval) // stop timer
+  clearInterval(interval) // stop timer using given interval
+}
+
+export const startPerf = () => {
+  performance.clearMeasures()
+  performance.mark('start')
+}
+
+export const stopPerf = () => {
+  performance.mark('end')
+  performance.measure('read time', 'start', 'end')
+  const measure = performance.getEntriesByName('read time')
+  const output = Math.trunc(measure[0].duration)
+  return output
 }

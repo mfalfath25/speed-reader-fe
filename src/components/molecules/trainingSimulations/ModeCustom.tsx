@@ -6,14 +6,12 @@ import { renderFixationLine } from '../../molecules'
 import { Button } from '../../atoms'
 import { ToastAlert } from '../../atoms'
 import { useNavigate } from 'react-router-dom'
-import { useSubmitTrainingMutation } from '../../../api/mutation'
-import { AxiosError } from 'axios'
 
 export const ModeCustom = () => {
   const navigate = useNavigate()
   // store states
   const { settingData } = useSettingStore()
-  const { animationStatus, setTrainingData, toggleAnimationStatus } = useTrainingStore()
+  const { animationStatus, setTrainingData, setAnimationStatus } = useTrainingStore()
   const data = useTrainingStore((state) => state.trainingData)
   // local states
   const [isRunOnce, setIsRunOnce] = useState<boolean>(false)
@@ -29,43 +27,26 @@ export const ModeCustom = () => {
       textValue,
       wordsPerMinute || 250,
       chunkValue || 3,
+      setAnimationStatus,
       setTextAnimated,
-      toggleAnimationStatus,
       setIsRunOnce,
       setTextReadTime
     )
   }
 
-  const { mutate } = useSubmitTrainingMutation()
-
   useEffect(() => {
     if (isRunOnce === true && data!.length !== 0) {
-      textReadTime !== 0 &&
-        setTrainingData(data[data.length - 1]?.trainingId, {
-          ...data[data.length - 1],
-          readTime: textReadTime,
-        })
+      ToastAlert('loading', 'loading', 1000)
+      setTrainingData(data[data.length - 1]?.trainingId, {
+        ...data[data.length - 1],
+        readTime: textReadTime,
+      })
 
       setTimeout(() => {
-        mutate(data[data.length - 1], {
-          onSuccess: (res) => {
-            ToastAlert(res.data.message, 'success')
-          },
-          onError: (err) => {
-            if (err instanceof AxiosError) {
-              ToastAlert(err?.response?.data.message, 'error')
-            } else {
-              ToastAlert('Data tidak tersimpan', 'error')
-            }
-          },
-        })
-
-        setTimeout(() => {
-          navigate('/training/custom/result')
-        }, 1000)
-      }, 100)
+        navigate('/training/custom/result')
+      }, 1000)
     }
-  }, [isRunOnce])
+  }, [isRunOnce, textReadTime])
 
   return (
     <>
@@ -106,7 +87,6 @@ export const ModeCustom = () => {
             width="full"
             onClick={() => {
               startSimulation()
-              toggleAnimationStatus()
             }}
           />
         </div>

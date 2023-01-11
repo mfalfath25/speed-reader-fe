@@ -1,13 +1,10 @@
 import React, { useState } from 'react'
 import { useTrainingStore } from '../../../stores/TrainingStore'
 import { useSettingStore } from '../../../stores/SettingStore'
-import { getTotalChunks, removeExtraWhitespaces } from '../../../logic/utils'
 import { renderFixationLine } from '../../molecules'
-import { useNavigate } from 'react-router-dom'
 import { Timer } from './Timer'
 
 export const ModeBlind = () => {
-  const navigate = useNavigate()
   // store states
   const { settingData } = useSettingStore()
   const data = useTrainingStore((state) => state.trainingData)
@@ -23,7 +20,8 @@ export const ModeBlind = () => {
           setReadTime={setTimer}
           wpm={blindWpm}
           setWpm={setBlindWpm}
-          totalChunk={getTotalChunks(removeExtraWhitespaces(data[data.length - 1]?.text.textValue))}
+          totalChunk={data[data.length - 1]?.text.textWordCount}
+          // totalChunk={getTotalChunks(removeExtraWhitespaces(data[data.length - 1]?.text.textValue))}
         >
           <div>
             <div className="w-full max-h-[500px] overflow-y-auto relative outline outline-offset-0 outline-1 p-0 rounded-md bg-slate-100">
