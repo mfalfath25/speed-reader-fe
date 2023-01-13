@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 export const baseAPI = axios.create({
-  baseURL: 'http://localhost:8000/api/v1',
+  baseURL: 'https://sr-backend.cyclic.app/api/v1',
   withCredentials: true,
 })
 

@@ -1,4 +1,4 @@
-import { baseAPI } from './axios'
+import { baseAPI } from './baseApi'
 
 export const requestWrapper = async ({ ...options }, token: any) => {
   baseAPI.defaults.headers.common.Authorization = token || 'no-token'

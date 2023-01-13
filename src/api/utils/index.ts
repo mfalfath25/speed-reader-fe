@@ -1,2 +1,2 @@
-export { baseAPI } from './axios'
+export { baseAPI } from './baseApi'
 export { requestWrapper } from './requestWrapper'
