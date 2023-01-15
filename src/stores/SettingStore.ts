@@ -1,10 +1,10 @@
-import { SettingsValues } from './../types/model'
 import create from 'zustand'
 import { devtools, persist } from 'zustand/middleware'
+import { Settings } from './../types/model'
 
 interface SettingStore {
-  settingData: SettingsValues
-  setSettingData: (data: SettingsValues) => void
+  settingData: Settings
+  setSettingData: (data: Settings) => void
   clearSettingData: () => void
 }
 

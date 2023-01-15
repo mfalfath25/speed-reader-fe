@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useSettingStore } from '../../stores/SettingStore'
 import { loremPlaceholder } from '../../static/staticData'
@@ -10,7 +10,7 @@ import {
   // JustificationToggler,
   renderFixationLine,
 } from '../molecules'
-import { SettingsValues } from '../../types/model'
+import { FormSettingsValues } from '../../types/model'
 import { useEditSettingMutation } from '../../api/mutation'
 import { AxiosError } from 'axios'
 
@@ -20,7 +20,7 @@ export const Settings = () => {
 
   const { mutate, isLoading } = useEditSettingMutation()
 
-  const submitChanges = (data: SettingsValues = settingData) => {
+  const submitChanges = (data: FormSettingsValues = settingData) => {
     mutate(data, {
       onSuccess: (data) => {
         ToastAlert(data.data.message, 'success')

@@ -55,20 +55,25 @@ export interface Trainee {
   token: string
   trainings: History[]
 }
+
+export interface Settings {
+  isFontSerif: boolean
+  fixationCount: number
+  fontColor: string
+}
+
 export interface FormEditProfileValues {
   username: string
 }
+
 export interface FormLoginValues {
   email: string
   password: string
 }
+
 export interface FormRegisterValues {
   email: string
   username: string
   password: string
 }
-export interface SettingsValues {
-  isFontSerif: boolean
-  fixationCount: number
-  fontColor: string
-}
+export interface FormSettingsValues extends Settings {}
