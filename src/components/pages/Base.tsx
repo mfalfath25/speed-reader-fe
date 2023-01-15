@@ -26,7 +26,7 @@ export const Base = () => {
 
   useEffect(() => {
     // console.log(userData)
-    console.log('Training Data ', trainingData)
+    // console.log('Training Data ', trainingData)
     setAnimationStatus(false)
     matchTitle(location.pathname)
   }, [location])

@@ -26,13 +26,11 @@ export const Timer = (props: TimerProps) => {
 
   const handleStop = () => {
     setRunning(false)
-    if (running === false) {
-      setTrainingData(data[data.length - 1]?.trainingId, {
-        ...data[data.length - 1],
-        readTime: stopPerf(),
-        wpm: props.wpm,
-      })
-    }
+    setTrainingData(data[data.length - 1]?.trainingId, {
+      ...data[data.length - 1],
+      readTime: stopPerf(),
+      wpm: props.wpm,
+    })
   }
 
   useEffect(() => {

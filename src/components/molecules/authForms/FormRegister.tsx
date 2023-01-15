@@ -31,15 +31,16 @@ export const FormRegister = () => {
             ToastAlert(data.data.message, 'success')
             reset()
             navigate('/login', { replace: true })
-          }, 1000)
+          }, 500)
         }
       },
       onError: (err) => {
         if (err instanceof AxiosError) {
-          ToastAlert(err?.response?.data.message, 'error')
-        } else {
-          console.log(err)
-          ToastAlert('Register gagal', 'error')
+          if (!err?.response) {
+            ToastAlert(err?.message, 'error')
+          } else {
+            ToastAlert('Register gagal', 'error')
+          }
         }
       },
     })

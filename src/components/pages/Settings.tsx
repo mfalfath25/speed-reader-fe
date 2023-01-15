@@ -31,9 +31,11 @@ export const Settings = () => {
       },
       onError: (err) => {
         if (err instanceof AxiosError) {
-          ToastAlert(err?.response?.data.message, 'error')
-        } else {
-          ToastAlert('Edit tampilan gagal', 'error')
+          if (!err?.response) {
+            ToastAlert(err?.message, 'error')
+          } else {
+            ToastAlert('Edit tampilan gagal', 'error')
+          }
         }
       },
     })

@@ -44,12 +44,16 @@ export const FormLogin = () => {
           setTimeout(() => {
             ToastAlert('Login berhasil', 'success')
             navigate('/', { replace: true })
-          }, 1000)
+          }, 500)
         }
       },
       onError: (err) => {
         if (err instanceof AxiosError) {
-          ToastAlert(String(err?.response?.data.message), 'error')
+          if (!err?.response) {
+            ToastAlert(err?.message, 'error')
+          } else {
+            ToastAlert('Login gagal', 'error')
+          }
         }
       },
     })

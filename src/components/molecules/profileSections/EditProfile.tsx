@@ -27,13 +27,15 @@ export const EditProfile = () => {
 
         setTimeout(() => {
           navigate(-1)
-        }, 1000)
+        }, 500)
       },
       onError: (err) => {
         if (err instanceof AxiosError) {
-          ToastAlert(err?.response?.data.message, 'error')
-        } else {
-          ToastAlert('Edit profile gagal', 'error')
+          if (!err?.response) {
+            ToastAlert(err?.message, 'error')
+          } else {
+            ToastAlert('Edit profile gagal', 'error')
+          }
         }
       },
     })

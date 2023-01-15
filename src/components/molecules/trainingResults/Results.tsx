@@ -52,13 +52,15 @@ export const Results = () => {
           },
           onError: (err) => {
             if (err instanceof AxiosError) {
-              ToastAlert(err?.response?.data.message, 'error')
-            } else {
-              ToastAlert('Data tidak tersimpan', 'error')
+              if (!err?.response) {
+                ToastAlert(err?.message, 'error')
+              } else {
+                ToastAlert('Data tidak tersimpan', 'error')
+              }
             }
           },
         })
-      }, 1000)
+      }, 500)
     }
   }, [])
 
