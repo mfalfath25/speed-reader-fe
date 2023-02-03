@@ -1,33 +1,33 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
-  darkMode: ['class', '[data-theme="night"]'],
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+  darkMode: ["class", '[data-theme="night"]'],
   theme: {
     container: {
       center: true,
       padding: {
-        DEFAULT: '0.5rem',
-        sm: '1rem',
-        md: '0rem',
-        lg: '8rem',
-        xl: '10rem',
-        '2xl': '10rem',
+        DEFAULT: "0.5rem",
+        sm: "1rem",
+        md: "0rem",
+        lg: "8rem",
+        xl: "10rem",
+        "2xl": "10rem",
       },
     },
     fontFamily: {
-      sans: ['Manrope', 'Source Sans Pro', 'Inter', 'Open Sans', 'sans-serif'],
-      serif: ['Literata', 'Times New Roman', 'Georgia', 'serif'],
+      sans: ["Manrope", "Source Sans Pro", "Inter", "Open Sans", "sans-serif"],
+      serif: ["Literata", "Times New Roman", "Georgia", "serif"],
     },
   },
-  plugins: [require('daisyui')],
+  plugins: [require("daisyui"), require('prettier-plugin-tailwindcss')],
   daisyui: {
     styled: true,
-    themes: ['night', 'winter'],
+    themes: ["night", "winter"],
     base: true,
     utils: true,
     logs: true,
     rtl: false,
-    prefix: '',
-    darkTheme: 'night',
+    prefix: "",
+    darkTheme: "night",
   },
 }
