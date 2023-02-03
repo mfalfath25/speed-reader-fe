@@ -1,11 +1,11 @@
-import React, { useEffect } from "react"
-import moment from "moment"
-import { useNavigate } from "react-router-dom"
-import { useTrainingStore } from "../../../stores/TrainingStore"
-import { Button, ToastAlert } from "../../atoms"
-import { getFormattedReadTime } from "../../../logic"
-import { useSubmitTrainingMutation } from "../../../api/mutation"
-import { AxiosError } from "axios"
+import React, { useEffect } from 'react'
+import moment from 'moment'
+import { useNavigate } from 'react-router-dom'
+import { useTrainingStore } from '../../../stores/TrainingStore'
+import { Button, ToastAlert } from '../../atoms'
+import { getFormattedReadTime } from '../../../logic'
+import { useSubmitTrainingMutation } from '../../../api/mutation'
+import { AxiosError } from 'axios'
 
 export const Results = () => {
   const navigate = useNavigate()
@@ -19,21 +19,21 @@ export const Results = () => {
     })
 
     switch (trainingData[trainingData.length - 1].mode) {
-      case "Normal":
-        navigate("/training/normal/simulate")
+      case 'Normal':
+        navigate('/training/normal/simulate')
         break
-      case "Blind":
-        navigate("/training/blind/simulate")
+      case 'Blind':
+        navigate('/training/blind/simulate')
         break
-      case "Custom":
-        navigate("/training/custom/simulate")
+      case 'Custom':
+        navigate('/training/custom/simulate')
         break
     }
   }
 
   const handleHome = () => {
     clearTrainingData()
-    navigate("/")
+    navigate('/')
   }
 
   const { mutate } = useSubmitTrainingMutation()
@@ -43,7 +43,7 @@ export const Results = () => {
       setTimeout(() => {
         mutate(trainingData[trainingData.length - 1], {
           onSuccess: (res) => {
-            ToastAlert(res.data.message, "success")
+            ToastAlert(res.data.message, 'success')
 
             setTrainingData(trainingData[trainingData.length - 1].trainingId, {
               ...trainingData[trainingData.length - 1],
@@ -53,9 +53,9 @@ export const Results = () => {
           onError: (err) => {
             if (err instanceof AxiosError) {
               if (!err?.response) {
-                ToastAlert(err?.message, "error")
+                ToastAlert(err?.message, 'error')
               } else {
-                ToastAlert("Data tidak tersimpan", "error")
+                ToastAlert('Data tidak tersimpan', 'error')
               }
             }
           },
@@ -68,7 +68,7 @@ export const Results = () => {
     if (trainingData.length === 0) return null
     else {
       switch (trainingData[trainingData.length - 1].mode) {
-        case "Normal":
+        case 'Normal':
           return (
             <>
               <div className="flex flex-row">
@@ -77,7 +77,8 @@ export const Results = () => {
                     Word Count
                   </div>
                   <div className="stat-value mx-auto text-primary">
-                    {trainingData[trainingData.length - 1].text.textWordCount} words
+                    {trainingData[trainingData.length - 1].text.textWordCount}{' '}
+                    words
                   </div>
                 </div>
                 <div className="stat">
@@ -91,7 +92,7 @@ export const Results = () => {
               </div>
             </>
           )
-        case "Blind":
+        case 'Blind':
           return (
             <>
               <div className="flex flex-row">
@@ -100,7 +101,8 @@ export const Results = () => {
                     Word Count
                   </div>
                   <div className="stat-value mx-auto text-primary">
-                    {trainingData[trainingData.length - 1].text.textWordCount} words
+                    {trainingData[trainingData.length - 1].text.textWordCount}{' '}
+                    words
                   </div>
                 </div>
                 <div className="stat">
@@ -114,7 +116,7 @@ export const Results = () => {
               </div>
             </>
           )
-        case "Custom":
+        case 'Custom':
           return (
             <>
               <div className="stat">
@@ -122,7 +124,8 @@ export const Results = () => {
                   Word Count
                 </div>
                 <div className="stat-value mx-auto text-primary">
-                  {trainingData[trainingData.length - 1].text.textWordCount} words
+                  {trainingData[trainingData.length - 1].text.textWordCount}{' '}
+                  words
                 </div>
               </div>
             </>
@@ -138,7 +141,9 @@ export const Results = () => {
           <div className="flex flex-col">
             <p className="text-xl">Mode</p>
             <p className="text-2xl font-bold">
-              {trainingData.length !== 0 ? trainingData[trainingData.length - 1].mode : "undefined"}
+              {trainingData.length !== 0
+                ? trainingData[trainingData.length - 1].mode
+                : 'undefined'}
             </p>
           </div>
           <div className="stats stats-vertical bg-slate-100 shadow">
@@ -148,8 +153,8 @@ export const Results = () => {
               </div>
               <div className="stat-value mx-auto text-primary">
                 {trainingData.length !== 0
-                  ? trainingData[trainingData.length - 1].wpm + " WPM"
-                  : "undefined"}
+                  ? trainingData[trainingData.length - 1].wpm + ' WPM'
+                  : 'undefined'}
               </div>
             </div>
             {renderStats()}
@@ -160,16 +165,20 @@ export const Results = () => {
               <p className="text-xl">Date taken</p>
               <p className="text-2xl font-bold">
                 {trainingData.length !== 0
-                  ? moment(trainingData[trainingData.length - 1].readDate).format("l")
-                  : "undefined"}
+                  ? moment(
+                      trainingData[trainingData.length - 1].readDate
+                    ).format('l')
+                  : 'undefined'}
               </p>
             </div>
             <div>
               <p className="text-right text-xl">Reading Time</p>
               <p className="text-right text-2xl font-bold">
                 {trainingData.length !== 0
-                  ? getFormattedReadTime(trainingData[trainingData.length - 1].readTime)
-                  : "undefined"}
+                  ? getFormattedReadTime(
+                      trainingData[trainingData.length - 1].readTime
+                    )
+                  : 'undefined'}
               </p>
             </div>
           </div>

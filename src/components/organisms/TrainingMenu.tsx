@@ -8,16 +8,18 @@ export const TrainingMenu = () => {
   const navigate = useNavigate()
   return (
     <>
-      <div className="grid grid-cols-1 gap-8 w-full">
+      <div className="grid w-full grid-cols-1 gap-8">
         <div>
-          <p className="flex justify-center items-center sm:text-2xl text-xl mb-4">
+          <p className="mb-4 flex items-center justify-center text-xl sm:text-2xl">
             Pilih mode latihan
           </p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
             {trainingMenu.map((menu, index) => (
-              <div key={index} className="w-auto h-full">
-                <div className="card-body w-full h-full bg-base-300 shadow-xl outline outline-2 rounded-lg p-4 xl:p-8">
-                  <h2 className="card-title text-base sm:text-xl">{menu.description}</h2>
+              <div key={index} className="h-full w-auto">
+                <div className="card-body h-full w-full rounded-lg bg-base-300 p-4 shadow-xl outline outline-2 xl:p-8">
+                  <h2 className="card-title text-base sm:text-xl">
+                    {menu.description}
+                  </h2>
                   <p>{menu.info}</p>
                   <div className="card-actions justify-end">
                     <Button
@@ -36,11 +38,11 @@ export const TrainingMenu = () => {
         </div>
 
         <div className="grid grid-cols-1">
-          <div className="w-auto h-fits">
-            <p className="flex justify-center items-center sm:text-2xl text-xl mb-4">
+          <div className="h-fits w-auto">
+            <p className="mb-4 flex items-center justify-center text-xl sm:text-2xl">
               Ubah tampilan simulasi
             </p>
-            <div className="flex justify-center mt-2 sm:mx-auto sm:w-[200px]">
+            <div className="mt-2 flex justify-center sm:mx-auto sm:w-[200px]">
               <Button
                 text="Visual Settings"
                 width="full"

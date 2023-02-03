@@ -10,7 +10,8 @@ export const ModeNormal = () => {
   const navigate = useNavigate()
   // store states
   const { settingData } = useSettingStore()
-  const { animationStatus, setTrainingData, setAnimationStatus } = useTrainingStore()
+  const { animationStatus, setTrainingData, setAnimationStatus } =
+    useTrainingStore()
   const data = useTrainingStore((state) => state.trainingData)
   // local states
   const [textAnimated, setTextAnimated] = useState<string | null>(null)
@@ -48,16 +49,17 @@ export const ModeNormal = () => {
 
   return (
     <>
-      <div className="w-full xl:w-[800px] 2xl:w-2/3 mx-auto space-y-4">
+      <div className="mx-auto w-full space-y-4 xl:w-[800px] 2xl:w-2/3">
         <div>
           <label className="label px-0 font-bold">
-            Text: {data[data.length - 1]?.text.textLevel} - {data[data.length - 1]?.text.textChoice}
-            , Chunk count: {data[data.length - 1]?.chunksCount}, Target WPM:
+            Text: {data[data.length - 1]?.text.textLevel} -{' '}
+            {data[data.length - 1]?.text.textChoice}, Chunk count:{' '}
+            {data[data.length - 1]?.chunksCount}, Target WPM:
             {data[data.length - 1]?.wpm}
           </label>
-          <div className="w-full max-h-[500px] overflow-y-auto relative outline outline-offset-0 outline-1 p-0 rounded-md bg-slate-100">
+          <div className="relative max-h-[500px] w-full overflow-y-auto rounded-md bg-slate-100 p-0 outline outline-1 outline-offset-0">
             <pre
-              className="relative whitespace-pre-line text-left text-base sm:text-xl font-normal p-2"
+              className="relative whitespace-pre-line p-2 text-left text-base font-normal sm:text-xl"
               style={{
                 fontFamily: settingData.isFontSerif ? 'serif' : 'sans-serif',
               }}
@@ -68,7 +70,7 @@ export const ModeNormal = () => {
                 : 'Your custom text will be shown here'}
             </pre>
             <pre
-              className="absolute top-0 whitespace-pre-line text-left text-base sm:text-xl font-normal p-2 text-black dark:text-slate-200"
+              className="absolute top-0 whitespace-pre-line p-2 text-left text-base font-normal text-black dark:text-slate-200 sm:text-xl"
               // text-transparent bg-clip-text bg-gradient-to-r from-slate-200 to-red-400
               style={{
                 fontFamily: settingData.isFontSerif ? 'serif' : 'sans-serif',

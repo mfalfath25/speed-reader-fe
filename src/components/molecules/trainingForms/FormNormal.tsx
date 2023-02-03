@@ -6,7 +6,12 @@ import { Button } from '../../atoms'
 import cefr from '../../../assets/training/cefr.png'
 import { useNavigate } from 'react-router-dom'
 import { useTrainingStore } from '../../../stores/TrainingStore'
-import { QuestionData, textChoiceData, textData, textLevelData } from '../../../static/staticData'
+import {
+  QuestionData,
+  textChoiceData,
+  textData,
+  textLevelData,
+} from '../../../static/staticData'
 
 export const FormNormal = () => {
   const navigate = useNavigate()
@@ -27,12 +32,14 @@ export const FormNormal = () => {
       textValue:
         textData.find(
           (item) =>
-            item.textLevel === data.text.textLevel && item.textChoice === data.text.textChoice
+            item.textLevel === data.text.textLevel &&
+            item.textChoice === data.text.textChoice
         )?.textValue || '',
       questionPairId:
         textData.find(
           (item) =>
-            item.textLevel === data.text.textLevel && item.textChoice === data.text.textChoice
+            item.textLevel === data.text.textLevel &&
+            item.textChoice === data.text.textChoice
         )?.questionPairId || 0,
     }
 
@@ -70,26 +77,29 @@ export const FormNormal = () => {
   return (
     <>
       <div className="mx-0 2xl:mx-20">
-        <div className="flex justify-center mb-4 sm:mb-10">
+        <div className="mb-4 flex justify-center sm:mb-10">
           <div className="alert h-fit">
             <div className="flex flex-col md:flex-row">
-              <div className="flex flex-row mb-auto mr-auto">
+              <div className="mb-auto mr-auto flex flex-row">
                 <div>
                   <BiInfoCircle size={28} className="w-auto" />
                 </div>
                 <div className="flex flex-col">
-                  <span className="ml-2 font-bold text-base sm:text-xl">Info</span>
+                  <span className="ml-2 text-base font-bold sm:text-xl">
+                    Info
+                  </span>
                   <span className="ml-2 mb-auto text-base sm:text-xl">
                     Level materi bacaan mengacu pada standar tingkat CEFR <br />
-                    <br /> CEFR (Common European Framework of Reference for Languages) adalah salah
-                    satu framework yang menjelaskan kemahiran bahasa Anda.
+                    <br /> CEFR (Common European Framework of Reference for
+                    Languages) adalah salah satu framework yang menjelaskan
+                    kemahiran bahasa Anda.
                   </span>
                 </div>
               </div>
               <img
                 src={cefr}
                 alt="CEFR Levels"
-                className="rounded-xl w-5/6 sm:max-w-sm xl:max-w-md"
+                className="w-5/6 rounded-xl sm:max-w-sm xl:max-w-md"
               />
             </div>
           </div>
@@ -97,11 +107,11 @@ export const FormNormal = () => {
 
         <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
           <div className="grid grid-cols-1 gap-10">
-            <div className="flex flex-col sm:flex-row justify-between">
-              <div className="flex flex-col w-full sm:w-[22.5%]">
+            <div className="flex flex-col justify-between sm:flex-row">
+              <div className="flex w-full flex-col sm:w-[22.5%]">
                 <label className="label px-0 pt-0 font-bold">Pilih Level</label>
                 <select
-                  className="select select-bordered w-auto"
+                  className="select-bordered select w-auto"
                   value={watch('text.textLevel')}
                   {...register('text.textLevel', { required: true })}
                 >
@@ -112,10 +122,10 @@ export const FormNormal = () => {
                   ))}
                 </select>
               </div>
-              <div className="flex flex-col w-full sm:w-[22.5%]">
+              <div className="flex w-full flex-col sm:w-[22.5%]">
                 <label className="label px-0 pt-0 font-bold">Pilih Text</label>
                 <select
-                  className="select select-bordered w-auto"
+                  className="select-bordered select w-auto"
                   value={watch('text.textChoice')}
                   {...register('text.textChoice', { required: true })}
                 >
@@ -131,7 +141,7 @@ export const FormNormal = () => {
                 <input
                   type="number"
                   placeholder="(1-5)"
-                  className="input input-bordered w-full"
+                  className="input-bordered input w-full"
                   min="1"
                   max="5"
                   {...register('chunksCount', { valueAsNumber: true })}
@@ -143,7 +153,7 @@ export const FormNormal = () => {
                 <input
                   type="number"
                   placeholder="(100-1000)"
-                  className="input input-bordered w-full"
+                  className="input-bordered input w-full"
                   min="100"
                   max="1000"
                   {...register('wpm', { valueAsNumber: true })}
@@ -151,8 +161,13 @@ export const FormNormal = () => {
                 <label className="label-text-alt">(default: 250 WPM)</label>
               </div>
             </div>
-            <div className="flex justify-center mt-2 sm:mx-auto sm:w-[200px]">
-              <Button text="Set Options" type="submit" weight="primary" width="full" />
+            <div className="mt-2 flex justify-center sm:mx-auto sm:w-[200px]">
+              <Button
+                text="Set Options"
+                type="submit"
+                weight="primary"
+                width="full"
+              />
             </div>
           </div>
         </form>

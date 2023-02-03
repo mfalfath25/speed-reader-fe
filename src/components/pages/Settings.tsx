@@ -15,12 +15,12 @@ import { useEditSettingMutation } from '../../api/mutation'
 import { AxiosError } from 'axios'
 
 export const Settings = () => {
-  const { settingData } = useSettingStore()
+  const { settingData, setSettingData } = useSettingStore()
   const navigate = useNavigate()
 
   const { mutate, isLoading } = useEditSettingMutation()
 
-  const submitChanges = (data: FormSettingsValues = settingData) => {
+  const handleChange = (data: FormSettingsValues = settingData) => {
     mutate(data, {
       onSuccess: (data) => {
         ToastAlert(data.data.message, 'success')
@@ -43,13 +43,13 @@ export const Settings = () => {
 
   return (
     <>
-      <div className="w-full xl:w-[800px] 2xl:w-2/3 mx-auto">
+      <div className="mx-auto w-full xl:w-[800px] 2xl:w-2/3">
         <div>
           <label className="label px-0 font-bold">Preview</label>
-          <div className="w-full min-h-[250px] relative outline outline-offset-0 outline-1 p-0 rounded-md ">
+          <div className="relative min-h-[250px] w-full rounded-md p-0 outline outline-1 outline-offset-0 ">
             {renderFixationLine(settingData.fixationCount)}
             <pre
-              className="relative whitespace-pre-line text-left text-base sm:text-xl font-normal  p-2"
+              className="relative whitespace-pre-line p-2 text-left text-base font-normal  sm:text-xl"
               style={{
                 fontFamily: settingData.isFontSerif ? 'serif' : 'sans-serif',
                 // textAlign: settingData.isJustified ? 'justify' : 'left',
@@ -58,7 +58,7 @@ export const Settings = () => {
               {loremPlaceholder[0].loremLong}
             </pre>
             <pre
-              className="absolute top-0 whitespace-pre-line text-left text-base sm:text-xl font-normal p-2 text-black dark:text-slate-200"
+              className="absolute top-0 whitespace-pre-line p-2 text-left text-base font-normal text-black dark:text-slate-200 sm:text-xl"
               style={{
                 fontFamily: settingData.isFontSerif ? 'serif' : 'sans-serif',
                 // textAlign: settingData.isJustified ? 'justify' : 'left',
@@ -70,7 +70,7 @@ export const Settings = () => {
           </div>
         </div>
 
-        <div className="flex flex-col md:flex-row gap-6 my-6">
+        <div className="my-6 flex flex-col gap-6 md:flex-row">
           <div>
             <p className="font-bold">Tipe fontface</p>
             <FontfaceToggler />
@@ -96,7 +96,7 @@ export const Settings = () => {
           width="full"
           weight="primary"
           onClick={() => {
-            submitChanges()
+            handleChange()
           }}
           disabled={isLoading}
         />

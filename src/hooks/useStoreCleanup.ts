@@ -1,4 +1,4 @@
-import { useSettingStore, useTrainingStore, useUserStore } from "../stores"
+import { useSettingStore, useTrainingStore, useUserStore } from '../stores'
 
 export const useStoreCleanup = () => {
   const { clearUserData } = useUserStore()

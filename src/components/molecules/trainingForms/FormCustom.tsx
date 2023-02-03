@@ -1,9 +1,9 @@
-import React, { useEffect } from "react"
-import { SubmitHandler, useForm } from "react-hook-form"
-import { useNavigate } from "react-router-dom"
-import { useTrainingStore } from "../../../stores/TrainingStore"
-import { Training } from "../../../types/model"
-import { Button } from "../../atoms"
+import React, { useEffect } from 'react'
+import { SubmitHandler, useForm } from 'react-hook-form'
+import { useNavigate } from 'react-router-dom'
+import { useTrainingStore } from '../../../stores/TrainingStore'
+import { Training } from '../../../types/model'
+import { Button } from '../../atoms'
 
 export const FormCustom = () => {
   // global state
@@ -22,12 +22,12 @@ export const FormCustom = () => {
     addTrainingData(
       (data = {
         ...data,
-        mode: "Custom",
+        mode: 'Custom',
         chunksCount: data.chunksCount ? data.chunksCount : 3,
         wpm: data.wpm ? data.wpm : 250,
       })
     )
-    navigate("/training/custom/simulate")
+    navigate('/training/custom/simulate')
   }
 
   const clearText = () => {
@@ -53,10 +53,12 @@ export const FormCustom = () => {
             className="textarea-bordered textarea h-[300px] w-full"
             placeholder="Type your text here..."
             defaultValue=""
-            {...register("text.textValue", { required: true })}
+            {...register('text.textValue', { required: true })}
           ></textarea>
           <div className="flex justify-end">
-            {errors.text?.textValue && <span className="text-red-400">Teks kosong</span>}
+            {errors.text?.textValue && (
+              <span className="text-red-400">Teks kosong</span>
+            )}
           </div>
         </div>
 
@@ -70,7 +72,7 @@ export const FormCustom = () => {
                 className="input-bordered input w-full"
                 min="1"
                 max="5"
-                {...register("chunksCount", { valueAsNumber: true })}
+                {...register('chunksCount', { valueAsNumber: true })}
               />
               <label className="label-text-alt">(default: 3 chunks)</label>
             </div>
@@ -82,7 +84,7 @@ export const FormCustom = () => {
                 className="input-bordered input w-full"
                 min="100"
                 max="1000"
-                {...register("wpm", { valueAsNumber: true })}
+                {...register('wpm', { valueAsNumber: true })}
               />
               <label className="label-text-alt">(default: 250 WPM)</label>
             </div>

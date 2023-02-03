@@ -16,9 +16,6 @@ export const BackButton = (props: BackButtonProps) => {
           <BiArrowBack size={24} />
         </Button>
       </div>
-      {/* <button className="btn btn-square absolute " onClick={() => navigate(-1)}>
-        <BiArrowBack size={20} />
-      </button> */}
     </>
   )
 }

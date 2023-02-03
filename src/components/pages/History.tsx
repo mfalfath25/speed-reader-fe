@@ -11,7 +11,7 @@ export const History = () => {
   return (
     <>
       <div className="overflow-x-auto">
-        <table className="table table-zebra table-compact w-full">
+        <table className="table-zebra table-compact table w-full">
           <thead>
             <tr>
               <th>No.</th>

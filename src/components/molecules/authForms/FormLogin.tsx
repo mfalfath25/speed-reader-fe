@@ -1,22 +1,26 @@
-import React from "react"
+import React, { useEffect } from 'react'
 
 // types
-import { FormLoginValues } from "../../../types/model"
-import { AxiosError } from "axios"
+import { FormLoginValues } from '../../../types/model'
+import { AxiosError } from 'axios'
 
 // components
-import { Button } from "../../atoms"
-import { ToastAlert } from "../../atoms"
+import { Button } from '../../atoms'
+import { ToastAlert } from '../../atoms'
 
 // hooks
-import { useNavigate } from "react-router-dom"
-import { SubmitHandler, useForm } from "react-hook-form"
-import { useLoginMutation } from "../../../api/mutation"
-import { useUserStore } from "../../../stores/UserStore"
+import { useNavigate } from 'react-router-dom'
+import { SubmitHandler, useForm } from 'react-hook-form'
+import { useLoginMutation } from '../../../api/mutation'
+import { useUserStore } from '../../../stores/UserStore'
+import { useSettingStore } from '../../../stores'
 
 export const FormLogin = () => {
   const navigate = useNavigate()
   const { userData, setUserData } = useUserStore()
+  const { setSettingData } = useSettingStore()
+
+  const { mutate, isLoading } = useLoginMutation()
 
   const {
     register,
@@ -24,7 +28,6 @@ export const FormLogin = () => {
     formState: { errors },
   } = useForm<FormLoginValues>()
 
-  const { mutate, isLoading } = useLoginMutation()
   const onSubmit: SubmitHandler<FormLoginValues> = (data) => {
     mutate(data, {
       onSuccess: (res) => {
@@ -35,20 +38,28 @@ export const FormLogin = () => {
             username: res?.data.username,
             email: res?.data.email,
             token: res?.data.token,
+            trainings: res?.data.trainings,
+          })
+
+          setSettingData({
+            ...setSettingData,
+            isFontSerif: res?.data.setting.isFontSerif,
+            fixationCount: res?.data.setting.fixationCount,
+            fontColor: res?.data.setting.fontColor,
           })
 
           setTimeout(() => {
-            ToastAlert("Login berhasil", "success")
-            navigate("/", { replace: true })
+            ToastAlert('Login berhasil', 'success')
+            navigate('/', { replace: true })
           }, 500)
         }
       },
       onError: (err) => {
         if (err instanceof AxiosError) {
           if (!err?.response) {
-            ToastAlert(err?.message, "error")
+            ToastAlert(err?.message, 'error')
           } else {
-            ToastAlert("Login gagal", "error")
+            ToastAlert('Login gagal', 'error')
           }
         }
       },
@@ -57,7 +68,10 @@ export const FormLogin = () => {
 
   return (
     <>
-      <form className="mx-auto w-full space-y-4 sm:w-[300px]" onSubmit={handleSubmit(onSubmit)}>
+      <form
+        className="mx-auto w-full space-y-4 sm:w-[300px]"
+        onSubmit={handleSubmit(onSubmit)}
+      >
         <div className="grid grid-cols-1 gap-4">
           <div className="w-auto">
             <label className="label px-0 pt-0 font-bold">Email</label>
@@ -65,10 +79,12 @@ export const FormLogin = () => {
               type="email"
               placeholder="email"
               className="input-bordered input w-full"
-              {...register("email", { required: true })}
+              {...register('email', { required: true })}
             />
             <div className="flex justify-end">
-              {errors.email && <span className="text-red-400">Email Incorrect</span>}
+              {errors.email && (
+                <span className="text-red-400">Email Incorrect</span>
+              )}
             </div>
           </div>
           <div className="w-auto">
@@ -77,16 +93,23 @@ export const FormLogin = () => {
               type="password"
               placeholder="password"
               className="input-bordered input w-full"
-              {...register("password", {
+              {...register('password', {
                 required: true,
               })}
             />
             <div className="flex justify-end">
-              {errors.password && <span className="text-red-400">Password Incorrect</span>}
+              {errors.password && (
+                <span className="text-red-400">Password Incorrect</span>
+              )}
             </div>
           </div>
 
-          <Button text="Sign In" type="submit" weight="primary" disabled={isLoading} />
+          <Button
+            text="Sign In"
+            type="submit"
+            weight="primary"
+            disabled={isLoading}
+          />
         </div>
       </form>
     </>

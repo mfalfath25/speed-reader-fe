@@ -2,9 +2,9 @@ import React from 'react'
 import className from 'classnames'
 
 interface Props {
+  weight?: 'primary' | 'secondary' | 'ghost'
   type?: 'button' | 'submit' | 'reset'
   size?: 'sm' | 'md' | 'lg'
-  weight?: 'primary' | 'secondary' | 'ghost'
   width?: 'full' | 'auto' | 'fit'
   status?: 'success' | 'error' | 'warning'
   outline?: boolean
@@ -39,11 +39,22 @@ export const ButtonWeight = {
 }
 
 export const Button = (props: Props): React.ReactElement => {
-  const { type, size, weight, width, status, outline, onClick, children, disabled, text } = props
+  const {
+    weight,
+    type,
+    text,
+    size,
+    width,
+    status,
+    outline,
+    children,
+    disabled,
+    onClick,
+  } = props
   const classProps: string = className(
     'btn',
-    `btn-${size}`,
     `btn-${weight}`,
+    `btn-${size}`,
     `btn-${status}`,
     `w-${width}`,
     { 'btn-outline': outline },
@@ -59,7 +70,12 @@ export const Button = (props: Props): React.ReactElement => {
   )
 
   return (
-    <button type={type} onClick={onClick} disabled={disabled} className={classProps}>
+    <button
+      type={type}
+      onClick={onClick}
+      disabled={disabled}
+      className={classProps}
+    >
       {text}
       {children}
     </button>
@@ -67,8 +83,8 @@ export const Button = (props: Props): React.ReactElement => {
 }
 
 Button.defaultProps = {
-  text: '',
   className: '',
+  text: '',
   weight: '',
   type: ButtonType.BUTTON,
   size: ButtonSize.MEDIUM,

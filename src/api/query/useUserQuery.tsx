@@ -8,9 +8,10 @@ export const useUserQuery = () => {
     queryKey: ['current-user'],
     queryFn: () =>
       baseAPI.get(`/auth/users/${userData.userId}`, {
-        // headers: {
-        //   Authorization: userData.token,
-        // },
+        // add token to header (fallback if somehow react-query doesn't include header)
+        headers: {
+          Authorization: userData.token,
+        },
       }),
   })
 

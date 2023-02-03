@@ -6,7 +6,7 @@ export const JustificationToggler = () => {
 
   return (
     <>
-      <div className="flex items-center gap-2 mt-0 sm:mt-3">
+      <div className="mt-0 flex items-center gap-2 sm:mt-3">
         <p className="inline">Left-Aligned</p>
         <input
           type="checkbox"

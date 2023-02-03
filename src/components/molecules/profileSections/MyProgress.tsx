@@ -1,5 +1,5 @@
-import React from "react"
-import { BiInfoCircle } from "react-icons/bi"
+import React from 'react'
+import { BiInfoCircle } from 'react-icons/bi'
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -9,41 +9,41 @@ import {
   Title,
   Tooltip,
   Legend,
-} from "chart.js"
-import { Line } from "react-chartjs-2"
+} from 'chart.js'
+import { Line } from 'react-chartjs-2'
 import {
   getAverageAccuracy,
   getAverageWpm,
   getFilteredData,
   getFormattedReadDate,
-} from "../../../logic"
-import { fetchUserData } from "../../../hooks"
-import { useUserStore } from "../../../stores"
+} from '../../../logic'
+import { fetchUserData } from '../../../hooks'
+import { useUserStore } from '../../../stores'
 
 export const MyProgress = () => {
   const fetcher = fetchUserData()
   const { userData } = useUserStore()
-  const labelNormalMode = getFormattedReadDate(userData.trainings, "Normal")
-  const labelBlindMode = getFormattedReadDate(userData.trainings, "Blind")
-  const filteredNormalMode = getFilteredData(userData.trainings, "Normal")
-  const filteredBlindMode = getFilteredData(userData.trainings, "Blind")
+  const labelNormalMode = getFormattedReadDate(userData.trainings, 'Normal')
+  const labelBlindMode = getFormattedReadDate(userData.trainings, 'Blind')
+  const filteredNormalMode = getFilteredData(userData.trainings, 'Normal')
+  const filteredBlindMode = getFilteredData(userData.trainings, 'Blind')
 
   const dataNormalMode = {
     labels: labelNormalMode,
     datasets: [
       {
-        label: "WPM",
+        label: 'WPM',
         data: filteredNormalMode.map((item) => item.wpm),
-        borderColor: "rgb(53, 162, 235)",
-        backgroundColor: "rgba(53, 162, 235, 0.5)",
-        yAxisID: "y",
+        borderColor: 'rgb(53, 162, 235)',
+        backgroundColor: 'rgba(53, 162, 235, 0.5)',
+        yAxisID: 'y',
       },
       {
-        label: "Akurasi %",
+        label: 'Akurasi %',
         data: filteredNormalMode.map((item) => item.accuracy),
-        borderColor: "rgb(255, 99, 132)",
-        backgroundColor: "rgba(255, 99, 132, 0.5)",
-        yAxisID: "y1",
+        borderColor: 'rgb(255, 99, 132)',
+        backgroundColor: 'rgba(255, 99, 132, 0.5)',
+        yAxisID: 'y1',
       },
     ],
   }
@@ -52,35 +52,43 @@ export const MyProgress = () => {
     labels: labelBlindMode,
     datasets: [
       {
-        label: "WPM",
+        label: 'WPM',
         data: filteredBlindMode.map((item) => item.wpm),
-        borderColor: "rgb(53, 162, 235)",
-        backgroundColor: "rgba(53, 162, 235, 0.5)",
-        yAxisID: "y",
+        borderColor: 'rgb(53, 162, 235)',
+        backgroundColor: 'rgba(53, 162, 235, 0.5)',
+        yAxisID: 'y',
       },
       {
-        label: "Akurasi %",
+        label: 'Akurasi %',
         data: filteredBlindMode.map((item) => item.accuracy),
-        borderColor: "rgb(255, 99, 132)",
-        backgroundColor: "rgba(255, 99, 132, 0.5)",
-        yAxisID: "y1",
+        borderColor: 'rgb(255, 99, 132)',
+        backgroundColor: 'rgba(255, 99, 132, 0.5)',
+        yAxisID: 'y1',
       },
     ],
   }
 
-  ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend)
+  ChartJS.register(
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    Title,
+    Tooltip,
+    Legend
+  )
 
   const options = {
     responsive: true,
     interaction: {
-      mode: "index" as const,
+      mode: 'index' as const,
       intersect: false,
     },
     scales: {
       y: {
         title: {
           display: true,
-          text: "Kecepatan Membaca (WPM)",
+          text: 'Kecepatan Membaca (WPM)',
         },
         grid: {
           drawOnChartArea: true,
@@ -89,9 +97,9 @@ export const MyProgress = () => {
       y1: {
         title: {
           display: true,
-          text: "Akurasi Pemahaman (%)",
+          text: 'Akurasi Pemahaman (%)',
         },
-        position: "right" as const,
+        position: 'right' as const,
         grid: {
           drawOnChartArea: false,
         },
@@ -99,7 +107,7 @@ export const MyProgress = () => {
       x: {
         title: {
           display: true,
-          text: "Timeline Latihan",
+          text: 'Timeline Latihan',
         },
       },
     },
@@ -116,10 +124,12 @@ export const MyProgress = () => {
                   <BiInfoCircle size={28} className="w-auto" />
                 </div>
                 <div className="flex flex-col">
-                  <span className="ml-2 text-base font-bold sm:text-xl">Info</span>
+                  <span className="ml-2 text-base font-bold sm:text-xl">
+                    Info
+                  </span>
                   <span className="ml-2 mb-auto text-base sm:text-xl">
-                    Skor rerata dikalkulasi berdasarkan hasil latihan pada mode Normal dan mode
-                    Blind.
+                    Skor rerata dikalkulasi berdasarkan hasil latihan pada mode
+                    Normal dan mode Blind.
                   </span>
                 </div>
               </div>
@@ -134,7 +144,9 @@ export const MyProgress = () => {
                 Rerata Kecepatan Membaca
               </div>
               <div className="stat-value mx-auto text-primary">
-                {fetcher.isLoading ? "Loading..." : getAverageWpm(userData.trainings) + " WPM"}
+                {fetcher.isLoading
+                  ? 'Loading...'
+                  : getAverageWpm(userData.trainings) + ' WPM'}
               </div>
             </div>
 
@@ -143,16 +155,20 @@ export const MyProgress = () => {
                 Rerata Akurasi Pemahaman
               </div>
               <div className="stat-value mx-auto text-primary">
-                {fetcher.isLoading ? "Loading..." : getAverageAccuracy(userData.trainings) + " %"}
+                {fetcher.isLoading
+                  ? 'Loading...'
+                  : getAverageAccuracy(userData.trainings) + ' %'}
               </div>
             </div>
           </div>
         </div>
 
         <div className="flex flex-col items-center justify-center">
-          <p className="mb-4 text-xl font-bold sm:text-2xl">Grafik Perkembangan Latihan</p>
+          <p className="mb-4 text-xl font-bold sm:text-2xl">
+            Grafik Perkembangan Latihan
+          </p>
           {fetcher.isLoading ? (
-            "Loading..."
+            'Loading...'
           ) : (
             <div className="flex w-full flex-col xl:flex-row">
               <div className="w-full text-center xl:w-1/2">

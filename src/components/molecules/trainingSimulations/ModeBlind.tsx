@@ -14,7 +14,7 @@ export const ModeBlind = () => {
 
   return (
     <>
-      <div className="w-full xl:w-[800px] 2xl:w-2/3 mx-auto space-y-0">
+      <div className="mx-auto w-full space-y-0 xl:w-[800px] 2xl:w-2/3">
         <Timer
           readTime={timer}
           setReadTime={setTimer}
@@ -24,9 +24,9 @@ export const ModeBlind = () => {
           // totalChunk={getTotalChunks(removeExtraWhitespaces(data[data.length - 1]?.text.textValue))}
         >
           <div>
-            <div className="w-full max-h-[500px] overflow-y-auto relative outline outline-offset-0 outline-1 p-0 rounded-md bg-slate-100">
+            <div className="relative max-h-[500px] w-full overflow-y-auto rounded-md bg-slate-100 p-0 outline outline-1 outline-offset-0">
               <pre
-                className="relative whitespace-pre-line text-left text-base sm:text-xl font-normal p-2"
+                className="relative whitespace-pre-line p-2 text-left text-base font-normal sm:text-xl"
                 style={{
                   fontFamily: settingData.isFontSerif ? 'serif' : 'sans-serif',
                 }}

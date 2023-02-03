@@ -9,21 +9,26 @@ interface TitleProps {
   children?: React.ReactNode
 }
 
-const hideBackButton = ['auth', 'result', 'simulate', 'comprehension']
+const hideBackButton = ['home', 'auth', 'result', 'simulate', 'comprehension']
 
 export const Title = ({ pageTitle, children }: TitleProps) => {
   const location = useLocation()
   const { animationStatus } = useTrainingStore()
 
-  const renderBackButton = checkCurrentPathname(hideBackButton, location.pathname)
+  const renderBackButton = checkCurrentPathname(
+    hideBackButton,
+    location.pathname
+  )
 
   return (
     <>
       <div className="navbar">
-        {renderBackButton === false && pageTitle !== 'Home' ? (
+        {renderBackButton === false ? (
           <BackButton isAnimationActive={animationStatus} />
         ) : null}
-        <span className="mx-auto font-semibold text-xl sm:text-2xl">{pageTitle}</span>
+        <span className="mx-auto text-xl font-semibold sm:text-2xl">
+          {pageTitle}
+        </span>
         {children}
       </div>
     </>

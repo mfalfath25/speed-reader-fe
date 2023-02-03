@@ -1,32 +1,30 @@
-import React, { useEffect } from "react"
-import { useNavigate } from "react-router-dom"
-import { Button, ToastAlert } from "../atoms"
-import { BiBookReader } from "react-icons/bi"
-import { homeMenu } from "../../static/staticData"
-import { useUserStore } from "../../stores"
-import { useFetchInitializer, useStoreCleanup } from "../../hooks"
+import React from 'react'
+import { useNavigate } from 'react-router-dom'
+import { Button, ToastAlert } from '../atoms'
+import { BiBookReader } from 'react-icons/bi'
+import { homeMenu } from '../../static/staticData'
+import { useUserStore } from '../../stores'
+import { useStoreCleanup } from '../../hooks'
 
 export const Home = () => {
   const navigate = useNavigate()
   const { userData } = useUserStore()
-  const { initializeUserData } = useFetchInitializer()
   const { clearAllData } = useStoreCleanup()
 
   const handleLogout = () => {
     clearAllData()
-    ToastAlert("Logout berhasil", "success")
-    navigate("/login", { replace: true })
+    ToastAlert('Logout berhasil', 'success')
+    navigate('/login', { replace: true })
   }
-
-  useEffect(() => {
-    initializeUserData()
-  }, [])
 
   return (
     <>
       <input type="checkbox" id="logout-modal" className="modal-toggle" />
       <label htmlFor="logout-modal" className="modal cursor-pointer">
-        <label className="modal-box relative grid auto-rows-auto grid-cols-1 gap-4" htmlFor="">
+        <label
+          className="modal-box relative grid auto-rows-auto grid-cols-1 gap-4"
+          htmlFor=""
+        >
           <h3 className="mx-auto text-xl font-bold">Confirm Logout</h3>
           <div className="grid grid-cols-2 gap-4">
             <label
@@ -57,10 +55,10 @@ export const Home = () => {
           </h1>
           <div className="card-actions justify-end">
             <Button
+              weight="primary"
               text="Training"
               width="full"
-              weight="primary"
-              onClick={() => navigate("/training")}
+              onClick={() => navigate('/training')}
             >
               <BiBookReader size={24} className="ml-2" />
             </Button>
@@ -76,7 +74,7 @@ export const Home = () => {
                     {menu.description}
                   </h1>
                   <div className="card-actions">
-                    {menu.optionName === "Logout" ? (
+                    {menu.optionName === 'Logout' ? (
                       <label
                         htmlFor="logout-modal"
                         className="btn-error no-animation btn w-full text-lg normal-case active:text-white active:opacity-70"

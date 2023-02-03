@@ -6,7 +6,11 @@ export const ToastStyles = {
   color: '#fff',
 }
 
-export const ToastAlert = (message: string, type: string, duration?: number) => {
+export const ToastAlert = (
+  message: string,
+  type: string,
+  duration?: number
+) => {
   switch (type) {
     case 'success':
       toast.success(message, {

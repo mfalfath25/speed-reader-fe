@@ -50,12 +50,15 @@ export const Timer = (props: TimerProps) => {
       <p>{props.wpm > 0 ? `${props.wpm} wpm` : ''}</p> */}
       <div className="flex flex-row justify-between">
         <label className="label px-0 font-bold">
-          Teks: {data[data.length - 1]?.text.textLevel} - {data[data.length - 1]?.text.textChoice}
+          Teks: {data[data.length - 1]?.text.textLevel} -{' '}
+          {data[data.length - 1]?.text.textChoice}
         </label>
-        <label className="label px-0 font-bold">{props.wpm > 0 ? `${props.wpm} WPM` : ''}</label>
+        <label className="label px-0 font-bold">
+          {props.wpm > 0 ? `${props.wpm} WPM` : ''}
+        </label>
       </div>
       {props.children}
-      <div className="flex justify-center mt-2 sm:mx-auto sm:w-[200px] pt-4">
+      <div className="mt-2 flex justify-center pt-4 sm:mx-auto sm:w-[200px]">
         {running ? (
           <Button
             text="Stop"
