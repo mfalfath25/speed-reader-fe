@@ -25,7 +25,10 @@ export const filterModes = (data: History[]): History[] => {
   return data.filter((item) => item.mode !== 'Custom')
 }
 
-export const getTotalAccuracy = (data: Training, answer: AnsweredQuestion[]): number => {
+export const getTotalAccuracy = (
+  data: Training,
+  answer: AnsweredQuestion[]
+): number => {
   const questions = data.text.questions?.allQuestions
   let totalCorrectAnswers = 0
   if (questions !== undefined) {
@@ -68,7 +71,10 @@ export const getTotalFormattedReadTime = (data: History[]): string => {
   return output
 }
 
-export const getFormattedReadDate = (date: History[] = [], mode: string): string[] => {
+export const getFormattedReadDate = (
+  date: History[] = [],
+  mode: string
+): string[] => {
   let output = []
   for (const item of date) {
     if (item.mode === mode) {
@@ -83,12 +89,14 @@ export const getFilteredData = (data: History[], mode: string): History[] => {
   return output
 }
 
-export const getCurrentBlindWpm = (totalWords: number, duration: number): number => {
+export const getCurrentBlindWpm = (
+  totalWords: number,
+  duration: number
+): number => {
   return Math.round((totalWords / duration) * 60)
 }
 
 export const startTimer = (
-  setReadTime: React.Dispatch<React.SetStateAction<number>>,
   setWpm: React.Dispatch<React.SetStateAction<number>>,
   totalWords: number
 ) => {
@@ -98,7 +106,6 @@ export const startTimer = (
     elapsedTime++ // increment time every second
     result = getCurrentBlindWpm(totalWords, elapsedTime) // calculate wpm every second
     setWpm(result) // update wpm every second
-    setReadTime(elapsedTime * 1000) // update readTime every second
   }, 1000)
   return interval // return interval to be used in stopTimer()
 }

@@ -1,23 +1,17 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, PropsWithChildren } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { startPerf, startTimer, stopPerf, stopTimer } from '../../../logic'
 import { useTrainingStore } from '../../../stores/TrainingStore'
 import { Button, ToastAlert } from '../../atoms'
 
-interface TimerProps extends React.PropsWithChildren<{}> {
-  readTime: number
-  setReadTime: React.Dispatch<React.SetStateAction<number>>
-  wpm: number
-  setWpm: React.Dispatch<React.SetStateAction<number>>
-  totalChunk?: number
-}
-
-export const Timer = (props: TimerProps) => {
+export const BlindWpmCounter = (props: PropsWithChildren) => {
   const navigate = useNavigate()
   const [running, setRunning] = useState<boolean>(false)
+  const [blindWpm, setBlindWpm] = useState<number>(0)
 
   const { setTrainingData } = useTrainingStore()
   const data = useTrainingStore((state) => state.trainingData)
+  const totalChunk = data[data.length - 1]?.text.textWordCount
 
   const handleStart = () => {
     startPerf()
@@ -29,20 +23,20 @@ export const Timer = (props: TimerProps) => {
     setTrainingData(data[data.length - 1]?.trainingId, {
       ...data[data.length - 1],
       readTime: stopPerf(),
-      wpm: props.wpm,
+      wpm: blindWpm,
     })
   }
 
   useEffect(() => {
     let intervalId: number | undefined = 0
 
-    if (running && props.totalChunk) {
-      intervalId = startTimer(props.setReadTime, props.setWpm, props.totalChunk)
+    if (running && totalChunk) {
+      intervalId = startTimer(setBlindWpm, totalChunk)
     } else if (!running) {
       stopTimer(intervalId)
     }
     return () => clearInterval(intervalId)
-  }, [running, props.totalChunk, props.setReadTime, props.setWpm])
+  }, [running])
 
   return (
     <>
@@ -54,7 +48,7 @@ export const Timer = (props: TimerProps) => {
           {data[data.length - 1]?.text.textChoice}
         </label>
         <label className="label px-0 font-bold">
-          {props.wpm > 0 ? `${props.wpm} WPM` : ''}
+          {blindWpm > 0 ? `${blindWpm} WPM` : ''}
         </label>
       </div>
       {props.children}

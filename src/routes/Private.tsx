@@ -12,7 +12,7 @@ export const Private = () => {
 
   useEffect(() => {
     if (token === '' || token === undefined) {
-      navigate('/login', { replace: true })
+      navigate('/auth', { replace: true })
     } else {
       baseAPI.defaults.headers.common.Authorization = token
     }

@@ -1,28 +1,17 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useTrainingStore } from '../../../stores/TrainingStore'
 import { useSettingStore } from '../../../stores/SettingStore'
 import { renderFixationLine } from '../../molecules'
-import { Timer } from './Timer'
+import { BlindWpmCounter } from './BlindWpmCounter'
 
 export const ModeBlind = () => {
-  // store states
   const { settingData } = useSettingStore()
   const data = useTrainingStore((state) => state.trainingData)
-  // local states
-  const [timer, setTimer] = useState<number>(0)
-  const [blindWpm, setBlindWpm] = useState<number>(0)
 
   return (
     <>
       <div className="mx-auto w-full space-y-0 xl:w-[800px] 2xl:w-2/3">
-        <Timer
-          readTime={timer}
-          setReadTime={setTimer}
-          wpm={blindWpm}
-          setWpm={setBlindWpm}
-          totalChunk={data[data.length - 1]?.text.textWordCount}
-          // totalChunk={getTotalChunks(removeExtraWhitespaces(data[data.length - 1]?.text.textValue))}
-        >
+        <BlindWpmCounter>
           <div>
             <div className="relative max-h-[500px] w-full overflow-y-auto rounded-md bg-slate-100 p-0 outline outline-1 outline-offset-0">
               <pre
@@ -38,7 +27,7 @@ export const ModeBlind = () => {
               </pre>
             </div>
           </div>
-        </Timer>
+        </BlindWpmCounter>
       </div>
     </>
   )

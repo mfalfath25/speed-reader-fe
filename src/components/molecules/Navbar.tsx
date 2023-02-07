@@ -11,7 +11,7 @@ export const Navbar = () => {
         <Link to="/">
           <img
             src={logo}
-            className="mt-4 h-7 w-auto sm:mt-10 sm:h-9"
+            className="mt-0 h-7 w-auto sm:mt-6 sm:h-9"
             alt="Logo"
           />
         </Link>

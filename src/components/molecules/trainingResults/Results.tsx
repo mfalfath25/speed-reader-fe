@@ -39,8 +39,10 @@ export const Results = () => {
   const { mutate } = useSubmitTrainingMutation()
 
   useEffect(() => {
+    let timer: ReturnType<typeof setTimeout>
+
     if (trainingData[trainingData.length - 1].isSaved === false) {
-      setTimeout(() => {
+      timer = setTimeout(() => {
         mutate(trainingData[trainingData.length - 1], {
           onSuccess: (res) => {
             ToastAlert(res.data.message, 'success')
@@ -61,6 +63,10 @@ export const Results = () => {
           },
         })
       }, 500)
+    }
+
+    return () => {
+      clearTimeout(timer)
     }
   }, [])
 
