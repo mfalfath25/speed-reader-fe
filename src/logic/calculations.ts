@@ -1,5 +1,5 @@
 import moment from 'moment'
-import { AnsweredQuestion, Training, History } from '../types/model'
+import { Training, History } from '../types/model'
 
 export const getTotalTraining = (data: History[]): number => {
   return data.length
@@ -14,21 +14,19 @@ export const getAverageWpm = (data: History[]): number => {
 }
 
 export const getAverageAccuracy = (data: History[]): number => {
+  const filteredData = filterModes(data)
   const totalAccuracy = data.reduce(
-    (acc, curr) => (filterModes(data).length === 0 ? 0 : acc + curr.accuracy),
+    (acc, curr) => (filteredData.length === 0 ? 0 : acc + curr.accuracy),
     0
   )
-  return Math.round(totalAccuracy / data.length)
+  return Math.round(totalAccuracy / filteredData.length)
 }
 
 export const filterModes = (data: History[]): History[] => {
   return data.filter((item) => item.mode !== 'Custom')
 }
 
-export const getTotalAccuracy = (
-  data: Training,
-  answer: AnsweredQuestion[]
-): number => {
+export const getTotalAccuracy = (data: Training, answer: string[]): number => {
   const questions = data.text.questions?.allQuestions
   let totalCorrectAnswers = 0
   if (questions !== undefined) {
@@ -49,7 +47,7 @@ export const getTotalAccuracy = (
 
 export const getAccuracyPercentage = (
   correctAnswers: number = 0,
-  answer: AnsweredQuestion[]
+  answer: string[]
 ): number => {
   const totalCorrectAnswers = (correctAnswers / answer.length) * 100
   return Math.round(totalCorrectAnswers)

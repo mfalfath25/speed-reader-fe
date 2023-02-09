@@ -22,7 +22,7 @@ export const EditProfile = () => {
     // console.log('Edit profile form values: ', data)
     mutate(data, {
       onSuccess: (data) => {
-        editUserData(data.data.data.username)
+        editUserData(data.data.data)
         ToastAlert(data.data.message, 'success')
 
         setTimeout(() => {

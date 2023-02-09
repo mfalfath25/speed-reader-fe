@@ -12,7 +12,9 @@ export const useThemeStore = create<ThemeStore>()(
       (set) => ({
         theme: 'winter',
         toggleTheme: () =>
-          set((state) => ({ theme: state.theme === 'winter' ? 'night' : 'winter' })),
+          set((state) => ({
+            theme: state.theme === 'winter' ? 'night' : 'winter',
+          })),
       }),
       {
         name: 'theme-store',

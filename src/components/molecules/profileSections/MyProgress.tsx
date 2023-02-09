@@ -27,6 +27,8 @@ export const MyProgress = () => {
   const labelBlindMode = getFormattedReadDate(userData.trainings, 'Blind')
   const filteredNormalMode = getFilteredData(userData.trainings, 'Normal')
   const filteredBlindMode = getFilteredData(userData.trainings, 'Blind')
+  const averageWpm = getAverageWpm(userData.trainings)
+  const averageAccuracy = getAverageAccuracy(userData.trainings)
 
   const dataNormalMode = {
     labels: labelNormalMode,
@@ -144,9 +146,7 @@ export const MyProgress = () => {
                 Rerata Kecepatan Membaca
               </div>
               <div className="stat-value mx-auto text-primary">
-                {fetcher.isLoading
-                  ? 'Loading...'
-                  : getAverageWpm(userData.trainings) + ' WPM'}
+                {fetcher.isLoading ? 'Loading...' : averageWpm + ' WPM'}
               </div>
             </div>
 
@@ -155,9 +155,7 @@ export const MyProgress = () => {
                 Rerata Akurasi Pemahaman
               </div>
               <div className="stat-value mx-auto text-primary">
-                {fetcher.isLoading
-                  ? 'Loading...'
-                  : getAverageAccuracy(userData.trainings) + ' %'}
+                {fetcher.isLoading ? 'Loading...' : averageAccuracy + ' %'}
               </div>
             </div>
           </div>

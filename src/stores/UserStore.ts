@@ -1,6 +1,6 @@
-import create from "zustand"
-import { devtools, persist } from "zustand/middleware"
-import { Trainee } from "../types/model"
+import create from 'zustand'
+import { devtools, persist } from 'zustand/middleware'
+import { Trainee } from '../types/model'
 
 interface UserStore {
   userData: Trainee
@@ -14,10 +14,10 @@ export const useUserStore = create<UserStore>()(
     persist(
       (set) => ({
         userData: {
-          userId: "",
-          username: "",
-          email: "",
-          token: "",
+          userId: '',
+          username: '',
+          email: '',
+          token: '',
           trainings: [],
         },
         setUserData: (data) => {
@@ -43,17 +43,17 @@ export const useUserStore = create<UserStore>()(
         clearUserData: () => {
           set(() => ({
             userData: {
-              userId: "",
-              username: "",
-              email: "",
-              token: "",
+              userId: '',
+              username: '',
+              email: '',
+              token: '',
               trainings: [],
             },
           }))
         },
       }),
       {
-        name: "user-store",
+        name: 'user-store',
       }
     )
   )

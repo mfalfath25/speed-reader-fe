@@ -1,7 +1,7 @@
 import React from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { BiInfoCircle } from 'react-icons/bi'
-import { Question, Questions, Training } from '../../../types/model'
+import { Questions, Training } from '../../../types/model'
 import { Button } from '../../atoms'
 import cefr from '../../../assets/training/cefr.png'
 import { useNavigate } from 'react-router-dom'
@@ -15,14 +15,7 @@ import {
 
 export const FormNormal = () => {
   const navigate = useNavigate()
-  const {
-    register,
-    handleSubmit,
-    getValues,
-    watch,
-    reset,
-    formState: { errors, isSubmitSuccessful },
-  } = useForm<Training>()
+  const { register, handleSubmit, watch } = useForm<Training>()
 
   const { addTrainingData } = useTrainingStore()
 
