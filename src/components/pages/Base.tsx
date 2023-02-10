@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
 import { titles } from '../../static/staticData'
-import { useTrainingStore } from '../../stores/TrainingStore'
 import { LoaderBar } from '../atoms'
 import { Breadcrumb, Navbar, Title } from '../molecules'
 
 export const Base = () => {
   const location = useLocation()
   const [title, setTitle] = useState('')
-  const { setAnimationStatus } = useTrainingStore()
 
   const matchTitle = (path: string) => {
     const match = titles.find((title) => title.path.includes(path))
@@ -24,7 +22,6 @@ export const Base = () => {
   }
 
   useEffect(() => {
-    setAnimationStatus(false)
     matchTitle(location.pathname)
   }, [location])
 

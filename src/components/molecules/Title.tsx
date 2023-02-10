@@ -1,6 +1,5 @@
 import React from 'react'
 import { useLocation } from 'react-router-dom'
-import { useTrainingStore } from '../../stores/TrainingStore'
 import { checkCurrentPathname } from '../../logic/utils'
 import { BackButton } from '../atoms'
 
@@ -13,7 +12,6 @@ const hideBackButton = ['home', 'auth', 'result', 'simulate', 'comprehension']
 
 export const Title = ({ pageTitle, children }: TitleProps) => {
   const location = useLocation()
-  const { animationStatus } = useTrainingStore()
 
   const renderBackButton = checkCurrentPathname(
     hideBackButton,
@@ -23,9 +21,7 @@ export const Title = ({ pageTitle, children }: TitleProps) => {
   return (
     <>
       <div className="navbar">
-        {renderBackButton === false ? (
-          <BackButton isAnimationActive={animationStatus} />
-        ) : null}
+        {renderBackButton === false ? <BackButton /> : null}
         <span className="mx-auto text-xl font-semibold sm:text-2xl">
           {pageTitle}
         </span>

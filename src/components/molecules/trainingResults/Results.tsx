@@ -10,15 +10,20 @@ import { AxiosError } from 'axios'
 export const Results = () => {
   const navigate = useNavigate()
   const { clearTrainingData } = useTrainingStore()
-  const { trainingData, setTrainingData } = useTrainingStore()
+  const { setTrainingData } = useTrainingStore()
+  const trainingData = useTrainingStore(
+    (state) => state.trainingData[state.trainingData.length - 1]
+  )
 
   const handleRestart = () => {
-    setTrainingData(trainingData[trainingData.length - 1].trainingId, {
-      ...trainingData[trainingData.length - 1],
+    if (trainingData === undefined) return null
+
+    setTrainingData(trainingData.trainingId, {
+      ...trainingData,
       isSaved: false,
     })
 
-    switch (trainingData[trainingData.length - 1].mode) {
+    switch (trainingData.mode) {
       case 'Normal':
         navigate('/training/normal/simulate')
         break
@@ -39,16 +44,15 @@ export const Results = () => {
   const { mutate } = useSubmitTrainingMutation()
 
   useEffect(() => {
-    let timer: ReturnType<typeof setTimeout>
-
-    if (trainingData[trainingData.length - 1].isSaved === false) {
-      timer = setTimeout(() => {
-        mutate(trainingData[trainingData.length - 1], {
+    if (trainingData === undefined) return navigate('/home')
+    else if (trainingData.isSaved === false) {
+      setTimeout(() => {
+        mutate(trainingData, {
           onSuccess: (res) => {
             ToastAlert(res.data.message, 'success')
 
-            setTrainingData(trainingData[trainingData.length - 1].trainingId, {
-              ...trainingData[trainingData.length - 1],
+            setTrainingData(trainingData.trainingId, {
+              ...trainingData,
               isSaved: true,
             })
           },
@@ -64,79 +68,69 @@ export const Results = () => {
         })
       }, 500)
     }
-
-    return () => {
-      clearTimeout(timer)
-    }
   }, [])
 
   const renderStats = () => {
-    if (trainingData.length === 0) return null
-    else {
-      switch (trainingData[trainingData.length - 1].mode) {
-        case 'Normal':
-          return (
-            <>
-              <div className="flex flex-row">
-                <div className="stat">
-                  <div className="stat-title text-center text-xl font-bold text-black">
-                    Word Count
-                  </div>
-                  <div className="stat-value mx-auto text-primary">
-                    {trainingData[trainingData.length - 1].text.textWordCount}{' '}
-                    words
-                  </div>
-                </div>
-                <div className="stat">
-                  <div className="stat-title text-center text-xl font-bold text-black">
-                    Accuracy
-                  </div>
-                  <div className="stat-value mx-auto text-primary">
-                    {trainingData[trainingData.length - 1].accuracy} %
-                  </div>
-                </div>
-              </div>
-            </>
-          )
-        case 'Blind':
-          return (
-            <>
-              <div className="flex flex-row">
-                <div className="stat">
-                  <div className="stat-title text-center text-xl font-bold text-black">
-                    Word Count
-                  </div>
-                  <div className="stat-value mx-auto text-primary">
-                    {trainingData[trainingData.length - 1].text.textWordCount}{' '}
-                    words
-                  </div>
-                </div>
-                <div className="stat">
-                  <div className="stat-title text-center text-xl font-bold text-black">
-                    Accuracy
-                  </div>
-                  <div className="stat-value mx-auto text-primary">
-                    {trainingData[trainingData.length - 1].accuracy} %
-                  </div>
-                </div>
-              </div>
-            </>
-          )
-        case 'Custom':
-          return (
-            <>
+    switch (trainingData.mode) {
+      case 'Normal':
+        return (
+          <>
+            <div className="flex flex-row">
               <div className="stat">
                 <div className="stat-title text-center text-xl font-bold text-black">
                   Word Count
                 </div>
                 <div className="stat-value mx-auto text-primary">
-                  {trainingData[trainingData.length - 1].text.textWordCount}{' '}
-                  words
+                  {trainingData.text.textWordCount} words
                 </div>
               </div>
-            </>
-          )
-      }
+              <div className="stat">
+                <div className="stat-title text-center text-xl font-bold text-black">
+                  Accuracy
+                </div>
+                <div className="stat-value mx-auto text-primary">
+                  {trainingData.accuracy} %
+                </div>
+              </div>
+            </div>
+          </>
+        )
+      case 'Blind':
+        return (
+          <>
+            <div className="flex flex-row">
+              <div className="stat">
+                <div className="stat-title text-center text-xl font-bold text-black">
+                  Word Count
+                </div>
+                <div className="stat-value mx-auto text-primary">
+                  {trainingData.text.textWordCount} words
+                </div>
+              </div>
+              <div className="stat">
+                <div className="stat-title text-center text-xl font-bold text-black">
+                  Accuracy
+                </div>
+                <div className="stat-value mx-auto text-primary">
+                  {trainingData.accuracy} %
+                </div>
+              </div>
+            </div>
+          </>
+        )
+      case 'Custom':
+        return (
+          <>
+            <div className="stat">
+              <div className="stat-title text-center text-xl font-bold text-black">
+                Word Count
+              </div>
+              <div className="stat-value mx-auto text-primary">
+                {trainingData.text.textWordCount} words
+              </div>
+            </div>
+          </>
+        )
     }
   }
 
@@ -147,9 +141,7 @@ export const Results = () => {
           <div className="flex flex-col">
             <p className="text-xl">Mode</p>
             <p className="text-2xl font-bold">
-              {trainingData.length !== 0
-                ? trainingData[trainingData.length - 1].mode
-                : 'undefined'}
+              {trainingData !== undefined ? trainingData.mode : 'undefined'}
             </p>
           </div>
           <div className="stats stats-vertical bg-slate-100 shadow">
@@ -158,39 +150,35 @@ export const Results = () => {
                 Reading Speed
               </div>
               <div className="stat-value mx-auto text-primary">
-                {trainingData.length !== 0
-                  ? trainingData[trainingData.length - 1].wpm + ' WPM'
+                {trainingData !== undefined
+                  ? trainingData.wpm + ' WPM'
                   : 'undefined'}
               </div>
             </div>
-            {renderStats()}
+            {trainingData !== undefined ? renderStats() : null}
           </div>
 
           <div className="flex flex-row justify-between">
             <div>
               <p className="text-xl">Date taken</p>
               <p className="text-2xl font-bold">
-                {trainingData.length !== 0
-                  ? moment(
-                      trainingData[trainingData.length - 1].readDate
-                    ).format('l')
+                {trainingData !== undefined
+                  ? moment(trainingData.readDate).format('l')
                   : 'undefined'}
               </p>
             </div>
             <div>
               <p className="text-right text-xl">Reading Time</p>
               <p className="text-right text-2xl font-bold">
-                {trainingData.length !== 0
-                  ? getFormattedReadTime(
-                      trainingData[trainingData.length - 1].readTime
-                    )
+                {trainingData !== undefined
+                  ? getFormattedReadTime(trainingData.readTime)
                   : 'undefined'}
               </p>
             </div>
           </div>
 
           <Button text="Home" weight="primary" onClick={handleHome} />
-          {trainingData.length !== 0 ? (
+          {trainingData !== undefined ? (
             <Button text="Restart" outline onClick={handleRestart} />
           ) : null}
         </div>

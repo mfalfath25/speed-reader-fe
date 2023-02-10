@@ -10,8 +10,10 @@ export const BlindWpmCounter = (props: PropsWithChildren) => {
   const [blindWpm, setBlindWpm] = useState<number>(0)
 
   const { setTrainingData } = useTrainingStore()
-  const data = useTrainingStore((state) => state.trainingData)
-  const totalChunk = data[data.length - 1]?.text.textWordCount
+  const trainingData = useTrainingStore(
+    (state) => state.trainingData[state.trainingData.length - 1]
+  )
+  const totalChunk = trainingData?.text.textWordCount
 
   const handleStart = () => {
     startPerf()
@@ -20,11 +22,18 @@ export const BlindWpmCounter = (props: PropsWithChildren) => {
 
   const handleStop = () => {
     setRunning(false)
-    setTrainingData(data[data.length - 1]?.trainingId, {
-      ...data[data.length - 1],
+    setTrainingData(trainingData.trainingId, {
+      ...trainingData,
       readTime: stopPerf(),
       wpm: blindWpm,
     })
+
+    ToastAlert('loading', 'loading', 1000)
+    setTimeout(() => {
+      navigate('/training/blind/simulate/comprehension', {
+        replace: true,
+      })
+    }, 1000)
   }
 
   useEffect(() => {
@@ -35,17 +44,15 @@ export const BlindWpmCounter = (props: PropsWithChildren) => {
     } else if (!running) {
       stopTimer(intervalId)
     }
+
     return () => clearInterval(intervalId)
   }, [running])
 
   return (
     <>
-      {/* <p>{props.readTime > 0 ? `${props.readTime} seconds` : ''}</p>
-      <p>{props.wpm > 0 ? `${props.wpm} wpm` : ''}</p> */}
       <div className="flex flex-row justify-between">
         <label className="label px-0 font-bold">
-          Teks: {data[data.length - 1]?.text.textLevel} -{' '}
-          {data[data.length - 1]?.text.textChoice}
+          Teks: {trainingData.text.textLevel} - {trainingData?.text.textChoice}
         </label>
         <label className="label px-0 font-bold">
           {blindWpm > 0 ? `${blindWpm} WPM` : ''}
@@ -58,22 +65,14 @@ export const BlindWpmCounter = (props: PropsWithChildren) => {
             text="Stop"
             outline
             width="full"
-            onClick={() => {
-              handleStop()
-              ToastAlert('loading', 'loading', 1000)
-              setTimeout(() => {
-                navigate('/training/blind/simulate/comprehension')
-              }, 1000)
-            }}
+            onClick={() => handleStop()}
           />
         ) : (
           <Button
             text="Start"
             weight="primary"
             width="full"
-            onClick={() => {
-              handleStart()
-            }}
+            onClick={() => handleStart()}
           />
         )}
       </div>

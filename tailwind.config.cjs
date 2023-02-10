@@ -15,7 +15,7 @@ module.exports = {
       },
     },
     fontFamily: {
-      sans: ['Manrope', 'Source Sans Pro', 'Inter', 'Open Sans', 'sans-serif'],
+      sans: ['Manrope', 'Inter', 'Open Sans', 'sans-serif'],
       serif: ['Literata', 'Times New Roman', 'Georgia', 'serif'],
     },
   },

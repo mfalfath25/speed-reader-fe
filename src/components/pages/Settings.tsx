@@ -15,7 +15,7 @@ import { useEditSettingMutation } from '../../api/mutation'
 import { AxiosError } from 'axios'
 
 export const Settings = () => {
-  const { settingData, setSettingData } = useSettingStore()
+  const { settingData } = useSettingStore()
   const navigate = useNavigate()
 
   const { mutate, isLoading } = useEditSettingMutation()
@@ -51,7 +51,10 @@ export const Settings = () => {
             <pre
               className="relative whitespace-pre-line p-2 text-left text-base font-normal  sm:text-xl"
               style={{
-                fontFamily: settingData.isFontSerif ? 'serif' : 'sans-serif',
+                lineHeight: '1.5',
+                fontFamily: settingData.isFontSerif
+                  ? 'Literata' || 'serif'
+                  : 'Inter' || 'sans-serif',
                 // textAlign: settingData.isJustified ? 'justify' : 'left',
               }}
             >
@@ -60,9 +63,12 @@ export const Settings = () => {
             <pre
               className="absolute top-0 whitespace-pre-line p-2 text-left text-base font-normal text-black dark:text-slate-200 sm:text-xl"
               style={{
-                fontFamily: settingData.isFontSerif ? 'serif' : 'sans-serif',
-                // textAlign: settingData.isJustified ? 'justify' : 'left',
+                lineHeight: '1.5',
+                fontFamily: settingData.isFontSerif
+                  ? 'Literata' || 'serif'
+                  : 'Inter' || 'sans-serif',
                 color: settingData.fontColor,
+                // textAlign: settingData.isJustified ? 'justify' : 'left',
               }}
             >
               {loremPlaceholder[0].loremShort}

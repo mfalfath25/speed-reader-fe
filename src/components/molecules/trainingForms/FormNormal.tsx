@@ -20,8 +20,8 @@ export const FormNormal = () => {
   const { addTrainingData } = useTrainingStore()
 
   const onSubmit: SubmitHandler<Training> = (data) => {
-    // console.log('Normal form values: ', data)
-    let textOption = {
+    // assign textValue and questionPairId to a new object (textOption)
+    const textOption = {
       textValue:
         textData.find(
           (item) =>
@@ -36,6 +36,7 @@ export const FormNormal = () => {
         )?.questionPairId || 0,
     }
 
+    // function to get all questions based on questionPairId
     const getAllQuestion = () => {
       const arrayIndex = QuestionData.findIndex(
         (item) => item.questionPairId === textOption.questionPairId
@@ -43,11 +44,13 @@ export const FormNormal = () => {
       return QuestionData[arrayIndex].allQuestions
     }
 
-    let questionOption: Questions = {
+    // assign function returns to a new object (questionOption)
+    const questionOption: Questions = {
       questionPairId: textOption.questionPairId,
       allQuestions: getAllQuestion(),
     }
 
+    // add training data to store
     addTrainingData(
       (data = {
         ...data,

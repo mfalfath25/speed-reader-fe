@@ -4,15 +4,22 @@ import LoadingBar from 'react-top-loading-bar'
 
 export const LoaderBar = () => {
   const location = useLocation()
-  const ref = useRef<any>(null)
+  const loader = useRef<any>(null)
 
   useEffect(() => {
     window.scrollTo(0, 0)
-    ref.current?.complete()
+    loader.current?.complete()
   }, [location])
   return (
     <>
-      <LoadingBar color="#057AFF" ref={ref} shadow={true} height={4} />
+      <LoadingBar
+        color="#057AFF"
+        ref={loader}
+        shadow={true}
+        height={4}
+        loaderSpeed={100}
+        waitingTime={100}
+      />
     </>
   )
 }
