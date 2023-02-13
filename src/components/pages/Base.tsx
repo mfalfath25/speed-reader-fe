@@ -27,12 +27,12 @@ export const Base = () => {
 
   return (
     <>
-      <div className="container h-screen">
+      <div className="container flex h-screen flex-col">
         <LoaderBar />
         <Navbar />
         {/* <Breadcrumb /> */}
         <Title pageTitle={title} />
-        <div className="my-auto mt-0 p-2 sm:mt-4">
+        <div className="my-auto mt-0 flex flex-1 flex-col p-2 sm:mt-4">
           <Outlet />
         </div>
       </div>

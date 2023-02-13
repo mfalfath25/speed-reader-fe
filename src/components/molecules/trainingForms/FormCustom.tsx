@@ -47,7 +47,7 @@ export const FormCustom = () => {
         className="mx-auto w-full space-y-4 xl:w-[800px] 2xl:w-2/3"
         onSubmit={handleSubmit(onSubmit)}
       >
-        <div className="h-full w-full">
+        <div className="w-full">
           <label className="label px-0 font-bold">Custom text input</label>
           <textarea
             className="textarea-bordered textarea h-[300px] w-full"
@@ -90,7 +90,7 @@ export const FormCustom = () => {
             </div>
           </div>
 
-          <div className="grid  gap-4">
+          <div className="grid gap-4">
             <Button text="Set Options" type="submit" weight="primary" />
             <Button text="Reset" outline onClick={() => clearText()} />
           </div>
