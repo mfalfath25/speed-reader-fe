@@ -24,7 +24,7 @@ export const ThemeToggler = () => {
           }}
         />
         <svg
-          className="swap-on fill-current w-6 h-6"
+          className="swap-on h-6 w-6 fill-current"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
         >
@@ -32,7 +32,7 @@ export const ThemeToggler = () => {
         </svg>
 
         <svg
-          className="swap-off fill-current w-6 h-6"
+          className="swap-off h-6 w-6 fill-current"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
         >

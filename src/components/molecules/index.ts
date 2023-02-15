@@ -1,4 +1,4 @@
-export { Timer } from './trainingSimulations/Timer'
+export { BlindWpmCounter } from './trainingSimulations/BlindWpmCounter'
 export { Breadcrumb } from './Breadcrumb'
 export { Navbar } from './Navbar'
 export { Title } from './Title'

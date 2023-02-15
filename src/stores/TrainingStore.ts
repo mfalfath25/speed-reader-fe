@@ -6,19 +6,18 @@ import { getTotalChunks, removeExtraWhitespaces } from '../logic/utils'
 
 interface TrainingStore {
   trainingData: Training[]
-  animationStatus: boolean
-
+  // animationStatus: boolean
   addTrainingData: (data: Training) => void // add new TrainingData
   setTrainingData: (id: string, data: Training) => void // modify TrainingData by id
-  resetTrainingData: () => void // reset TrainingData value
-  setAnimationStatus: (status: boolean) => void // set animation status
+  clearTrainingData: () => void // reset TrainingData value
+  // setAnimationStatus: (status: boolean) => void // set animation status
 }
 
 export const useTrainingStore = create<TrainingStore>()(
   devtools(
     persist(
       (set) => ({
-        animationStatus: false,
+        // animationStatus: false,
         trainingData: [],
         addTrainingData: (data) => {
           set((state) => ({
@@ -31,7 +30,10 @@ export const useTrainingStore = create<TrainingStore>()(
                   textLevel: data.text.textLevel || '-',
                   textChoice: data.text.textChoice || '-',
                   textValue: data.text.textValue || '-',
-                  textWordCount: getTotalChunks(removeExtraWhitespaces(data.text.textValue)) || 0,
+                  textWordCount:
+                    getTotalChunks(
+                      removeExtraWhitespaces(data.text.textValue)
+                    ) || 0,
                   questionPairId: data.text.questionPairId || 0,
                   questions: data.text.questions || undefined,
                 },
@@ -57,7 +59,10 @@ export const useTrainingStore = create<TrainingStore>()(
                     textLevel: data.text.textLevel || '-',
                     textChoice: data.text.textChoice || '-',
                     textValue: data.text.textValue || '-',
-                    textWordCount: getTotalChunks(removeExtraWhitespaces(data.text.textValue)) || 0,
+                    textWordCount:
+                      getTotalChunks(
+                        removeExtraWhitespaces(data.text.textValue)
+                      ) || 0,
                     questionPairId: data.text.questionPairId || 0,
                     questions: data.text.questions || undefined,
                   },
@@ -74,8 +79,8 @@ export const useTrainingStore = create<TrainingStore>()(
             }),
           }))
         },
-        resetTrainingData: () => set({ trainingData: [] }),
-        setAnimationStatus: (status) => set({ animationStatus: status }),
+        clearTrainingData: () => set({ trainingData: [] }),
+        // setAnimationStatus: (status) => set({ animationStatus: status }),
       }),
       {
         name: 'training-store',

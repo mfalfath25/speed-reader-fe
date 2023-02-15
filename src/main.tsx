@@ -7,6 +7,7 @@ import { Toaster } from 'react-hot-toast'
 import { ToastStyles } from './components/atoms'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import { registerSW } from 'virtual:pwa-register'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -17,6 +18,17 @@ const queryClient = new QueryClient({
       staleTime: 1000,
       // refetchInterval: 1000,
     },
+  },
+})
+
+const updateSW = registerSW({
+  onOfflineReady() {
+    console.log('App is ready for offline usage.')
+  },
+  onNeedRefresh() {
+    if (confirm('New content available. Reload?')) {
+      updateSW(true)
+    }
   },
 })
 

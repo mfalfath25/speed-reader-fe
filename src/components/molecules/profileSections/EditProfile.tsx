@@ -22,7 +22,7 @@ export const EditProfile = () => {
     // console.log('Edit profile form values: ', data)
     mutate(data, {
       onSuccess: (data) => {
-        editUserData(data.data.data.username)
+        editUserData(data.data.data)
         ToastAlert(data.data.message, 'success')
 
         setTimeout(() => {
@@ -45,7 +45,7 @@ export const EditProfile = () => {
     <>
       <div className="grid grid-cols-1">
         <form
-          className="flex flex-col justify-center items-center mx-auto w-full gap-4"
+          className="mx-auto flex w-full flex-col items-center justify-center gap-4"
           onSubmit={handleSubmit(onSubmit)}
         >
           <div className="w-full sm:w-1/3">
@@ -53,7 +53,7 @@ export const EditProfile = () => {
             <input
               type="text"
               placeholder="Username"
-              className="input input-bordered w-full"
+              className="input-bordered input w-full"
               defaultValue={userData.username}
               minLength={3}
               maxLength={20}
@@ -66,12 +66,20 @@ export const EditProfile = () => {
               })}
             />
             <div className="flex justify-end">
-              {errors.username && <span className="text-red-400">{errors.username.message}</span>}
+              {errors.username && (
+                <span className="text-red-400">{errors.username.message}</span>
+              )}
             </div>
           </div>
 
           <div className="w-full sm:w-1/3">
-            <Button text="Save" type="submit" weight="primary" width="full" disabled={isLoading} />
+            <Button
+              text="Save"
+              type="submit"
+              weight="primary"
+              width="full"
+              disabled={isLoading}
+            />
           </div>
         </form>
       </div>

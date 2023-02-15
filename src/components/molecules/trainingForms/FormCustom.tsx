@@ -8,7 +8,7 @@ import { Button } from '../../atoms'
 export const FormCustom = () => {
   // global state
   const navigate = useNavigate()
-  const { addTrainingData, resetTrainingData } = useTrainingStore()
+  const { addTrainingData, clearTrainingData } = useTrainingStore()
 
   const {
     register,
@@ -31,7 +31,7 @@ export const FormCustom = () => {
   }
 
   const clearText = () => {
-    resetTrainingData()
+    clearTrainingData()
     reset()
   }
 
@@ -44,30 +44,32 @@ export const FormCustom = () => {
   return (
     <>
       <form
-        className="w-full xl:w-[800px] 2xl:w-2/3 mx-auto space-y-4"
+        className="mx-auto w-full space-y-4 xl:w-[800px] 2xl:w-2/3"
         onSubmit={handleSubmit(onSubmit)}
       >
-        <div className="w-full h-full">
+        <div className="w-full">
           <label className="label px-0 font-bold">Custom text input</label>
           <textarea
-            className="textarea textarea-bordered w-full h-[300px]"
+            className="textarea-bordered textarea h-[300px] w-full"
             placeholder="Type your text here..."
             defaultValue=""
             {...register('text.textValue', { required: true })}
           ></textarea>
           <div className="flex justify-end">
-            {errors.text?.textValue && <span className="text-red-400">Teks kosong</span>}
+            {errors.text?.textValue && (
+              <span className="text-red-400">Teks kosong</span>
+            )}
           </div>
         </div>
 
         <div className="grid grid-rows-1 gap-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             <div className="w-auto">
               <label className="label px-0 pt-0 font-bold">Word Chunks</label>
               <input
                 type="number"
                 placeholder="(1-5)"
-                className="input input-bordered w-full"
+                className="input-bordered input w-full"
                 min="1"
                 max="5"
                 {...register('chunksCount', { valueAsNumber: true })}
@@ -79,7 +81,7 @@ export const FormCustom = () => {
               <input
                 type="number"
                 placeholder="(100-1000)"
-                className="input input-bordered w-full"
+                className="input-bordered input w-full"
                 min="100"
                 max="1000"
                 {...register('wpm', { valueAsNumber: true })}
@@ -88,7 +90,7 @@ export const FormCustom = () => {
             </div>
           </div>
 
-          <div className="grid  gap-4">
+          <div className="grid gap-4">
             <Button text="Set Options" type="submit" weight="primary" />
             <Button text="Reset" outline onClick={() => clearText()} />
           </div>

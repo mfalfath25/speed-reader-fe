@@ -7,9 +7,10 @@ export interface Training {
   accuracy: number
   readTime: number
   readDate: Date
-  answers: AnsweredQuestion[]
+  answers: string[]
   isSaved: boolean
 }
+
 export interface Text {
   textLevel?: string
   textChoice?: string
@@ -18,21 +19,22 @@ export interface Text {
   questionPairId?: number
   questions?: Questions
 }
+
 export interface Questions {
   questionPairId: number
   allQuestions?: Question[]
 }
+
 export interface Question {
   questionText: string
   answerOptions: Answer[]
 }
+
 export interface Answer {
   answerText: string
   isCorrect: boolean
 }
-export interface AnsweredQuestion {
-  answer: string
-}
+
 export interface History {
   trainingId: string
   traineeId: string
@@ -48,6 +50,7 @@ export interface History {
   readTime: number
   readDate: Date
 }
+
 export interface Trainee {
   userId: string
   username: string
@@ -76,4 +79,5 @@ export interface FormRegisterValues {
   username: string
   password: string
 }
+
 export interface FormSettingsValues extends Settings {}

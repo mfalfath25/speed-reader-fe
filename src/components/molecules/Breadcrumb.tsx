@@ -24,7 +24,7 @@ export const Breadcrumb = () => {
   return (
     <>
       <div className="px-2">
-        <div className="text-sm breadcrumbs">
+        <div className="breadcrumbs text-sm">
           <ul>{crumbs}</ul>
         </div>
       </div>

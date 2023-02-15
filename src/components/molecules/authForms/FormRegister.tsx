@@ -48,18 +48,23 @@ export const FormRegister = () => {
 
   return (
     <>
-      <form className="w-full sm:w-[300px] mx-auto space-y-4" onSubmit={handleSubmit(onSubmit)}>
+      <form
+        className="mx-auto w-full space-y-4 sm:w-[300px]"
+        onSubmit={handleSubmit(onSubmit)}
+      >
         <div className="grid grid-cols-1 gap-4">
           <div className="w-auto">
             <label className="label px-0 pt-0 font-bold">Username</label>
             <input
               type="text"
               placeholder="username"
-              className="input input-bordered w-full"
+              className="input-bordered input w-full"
               {...register('username', { required: true })}
             />
             <div className="flex justify-end">
-              {errors.username && <span className="text-red-400">Username kosong</span>}
+              {errors.username && (
+                <span className="text-red-400">Username kosong</span>
+              )}
             </div>
           </div>
           <div className="w-auto">
@@ -67,11 +72,13 @@ export const FormRegister = () => {
             <input
               type="email"
               placeholder="Email"
-              className="input input-bordered w-full"
+              className="input-bordered input w-full"
               {...register('email', { required: true })}
             />
             <div className="flex justify-end">
-              {errors.username && <span className="text-red-400">Email kosong</span>}
+              {errors.username && (
+                <span className="text-red-400">Email kosong</span>
+              )}
             </div>
           </div>
           <div className="w-auto">
@@ -79,17 +86,24 @@ export const FormRegister = () => {
             <input
               type="password"
               placeholder="password"
-              className="input input-bordered w-full"
+              className="input-bordered input w-full"
               {...register('password', {
                 required: true,
               })}
             />
             <div className="flex justify-end">
-              {errors.password && <span className="text-red-400">Password kosong</span>}
+              {errors.password && (
+                <span className="text-red-400">Password kosong</span>
+              )}
             </div>
           </div>
 
-          <Button text="Confirm" type="submit" weight="primary" disabled={isLoading} />
+          <Button
+            text="Confirm"
+            type="submit"
+            weight="primary"
+            disabled={isLoading}
+          />
         </div>
       </form>
     </>

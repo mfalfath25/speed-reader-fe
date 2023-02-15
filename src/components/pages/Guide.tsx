@@ -18,13 +18,13 @@ export const Guide = () => {
       <div className="flex flex-col gap-4">
         <h2 className="mx-auto text-lg sm:text-2xl">
           Konsep dan unsur dalam membaca cepat
-          <BiBookOpen size={24} className="inline ml-2" />
+          <BiBookOpen size={24} className="ml-2 inline" />
         </h2>
         {guidesMenu.map((menu, index) => (
           <div
             key={index}
             tabIndex={0}
-            className="collapse collapse-arrow border border-base-300 bg-slate-100 rounded-box"
+            className="collapse-arrow rounded-box collapse border border-base-300 bg-slate-100"
           >
             <input
               type="checkbox"
@@ -33,9 +33,11 @@ export const Guide = () => {
               checked={currentOpen === menu.id}
               onChange={() => handleOpen(menu.id)}
             />
-            <div className="collapse-title text-lg sm:text-xl font-bold">{menu.optionName}</div>
+            <div className="collapse-title text-lg font-bold sm:text-xl">
+              {menu.optionName}
+            </div>
             <div className="collapse-content">
-              <p className="font-bold text-sm sm:text-lg">{menu.definition1}</p>
+              <p className="text-sm font-bold sm:text-lg">{menu.definition1}</p>
               <p className="text-sm sm:text-lg">
                 <BiRightArrowAlt size={24} className="inline pb-1" />
                 {menu.description1}
@@ -43,7 +45,9 @@ export const Guide = () => {
               {menu.definition2 && (
                 <>
                   <br />
-                  <p className="font-bold text-sm sm:text-lg">{menu.definition2}</p>
+                  <p className="text-sm font-bold sm:text-lg">
+                    {menu.definition2}
+                  </p>
                   <p className="text-sm sm:text-lg">
                     <BiRightArrowAlt size={24} className="inline pb-1" />
                     {menu.description2}
@@ -51,12 +55,12 @@ export const Guide = () => {
                 </>
               )}
               <br />
-              <p className="font-bold text-sm sm:text-lg">Tips / Info:</p>
+              <p className="text-sm font-bold sm:text-lg">Tips / Info:</p>
               <ul>
                 {menu.tips.map(
                   (item, index) =>
                     item.tip && (
-                      <li key={index} className="list-disc ml-6">
+                      <li key={index} className="ml-6 list-disc">
                         <p className="text-sm sm:text-lg">{item.tip}</p>
                       </li>
                     )

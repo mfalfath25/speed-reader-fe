@@ -1,6 +1,5 @@
 export const capitalizeFirstLetter = (text: string): string => {
   return text.charAt(0).toUpperCase() + text.slice(1)
-  // return text.substring(1).charAt(0).toUpperCase() + text.slice(2)
 }
 
 export const checkPathnameDepth = (pathname: string): number => {
@@ -20,7 +19,10 @@ export const customSplitString = (text: string, splitBy: string): string[] => {
   return text?.split(splitBy)
 }
 
-export const checkCurrentPathname = (checkPath: string[], currentPath: string): boolean => {
+export const checkCurrentPathname = (
+  checkPath: string[],
+  currentPath: string
+): boolean => {
   let result = checkPath.some((path) => {
     if (currentPath.includes(path)) {
       return true
@@ -30,7 +32,11 @@ export const checkCurrentPathname = (checkPath: string[], currentPath: string): 
   return result
 }
 
-export const getFirstLetter = (text: string): string => {
+export const getFirstLetter = (text: string = '-'): string => {
+  if (text === '-') {
+    return '-'
+  }
+
   const firstLetters = text
     .split(' ')
     .map((word) => word[0]?.toUpperCase())

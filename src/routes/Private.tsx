@@ -1,20 +1,19 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { Outlet, useNavigate } from 'react-router-dom'
 import { baseAPI } from '../api/utils'
 import { useUserStore } from '../stores/UserStore'
 import logo from '../assets/logo/SpeedReaderLoader.png'
-import { ToastAlert } from '../components/atoms'
-import { AxiosError } from 'axios'
 
 export const Private = () => {
-  const [isLoading, setIsLoading] = useState(false)
-
   const navigate = useNavigate()
+
   const { userData } = useUserStore()
+  const token = userData.token
 
   useEffect(() => {
-    const token = userData.token
-    if (token !== undefined || token !== '') {
+    if (token === '' || token === undefined) {
+      navigate('/auth', { replace: true })
+    } else {
       baseAPI.defaults.headers.common.Authorization = token
     }
     // intercept request (fallback if somehow react-query doesn't include header)
@@ -44,22 +43,17 @@ export const Private = () => {
     //     return err
     //   }
     // )
-
-    // check if somehow token is empty
-    setIsLoading(true)
-    if (userData.token === '' || userData.token === undefined) {
-      navigate('/auth', { replace: true })
-    }
-    setTimeout(() => {
-      setIsLoading(false)
-    }, 1000)
   }, [])
 
   return (
     <>
-      {isLoading ? (
+      {token === '' || token === undefined ? (
         <div className="grid h-screen place-items-center">
-          <img src={logo} className="h-7 sm:h-9 mt-4 sm:mt-10 animate-pulse" alt="Loader" />
+          <img
+            src={logo}
+            className="mt-4 h-7 animate-pulse sm:mt-10 sm:h-9"
+            alt="Loader"
+          />
         </div>
       ) : (
         <Outlet />

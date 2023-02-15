@@ -10,22 +10,25 @@ export const ModeNormal = () => {
   const navigate = useNavigate()
   // store states
   const { settingData } = useSettingStore()
-  const { animationStatus, setTrainingData, setAnimationStatus } = useTrainingStore()
-  const data = useTrainingStore((state) => state.trainingData)
+  const { setTrainingData } = useTrainingStore()
+  const trainingData = useTrainingStore(
+    (state) => state.trainingData[state.trainingData.length - 1]
+  )
   // local states
-  const [textAnimated, setTextAnimated] = useState<string | null>(null)
   const [isRunOnce, setIsRunOnce] = useState<boolean>(false)
+  const [isDisabled, setIsDisabled] = useState<boolean>(false)
+  const [textAnimated, setTextAnimated] = useState<string | null>(null)
   const [textReadTime, setTextReadTime] = useState<number>(0)
   // initiate simulation
   const startSimulation = () => {
-    const textValue = data[data.length - 1]?.text.textValue
-    const chunkValue = data[data.length - 1]?.chunksCount
-    const wordsPerMinute = data[data.length - 1]?.wpm
+    setIsDisabled(true)
+    const textValue = trainingData.text.textValue
+    const chunkValue = trainingData.chunksCount
+    const wordsPerMinute = trainingData.wpm
     startTextAnimation(
       textValue,
       wordsPerMinute || 250,
       chunkValue || 3,
-      setAnimationStatus,
       setTextAnimated,
       setIsRunOnce,
       setTextReadTime
@@ -33,45 +36,62 @@ export const ModeNormal = () => {
   }
 
   useEffect(() => {
-    if (isRunOnce === true) {
+    if (trainingData === undefined) return navigate('/training/normal')
+    else if (isRunOnce === true) {
       textReadTime !== 0 &&
-        setTrainingData(data[data.length - 1]?.trainingId, {
-          ...data[data.length - 1],
+        setTrainingData(trainingData.trainingId, {
+          ...trainingData,
           readTime: textReadTime,
         })
+
       ToastAlert('loading', 'loading', 1000)
+
       setTimeout(() => {
-        navigate('/training/normal/simulate/comprehension')
+        navigate('/training/normal/simulate/comprehension', {
+          replace: true,
+        })
       }, 1000)
+      setIsDisabled(false)
+    }
+
+    return () => {
+      setIsDisabled(false)
+      setIsRunOnce(false)
     }
   }, [isRunOnce])
 
   return (
     <>
-      <div className="w-full xl:w-[800px] 2xl:w-2/3 mx-auto space-y-4">
+      <div className="mx-auto w-full space-y-4 xl:w-[800px] 2xl:w-2/3">
         <div>
-          <label className="label px-0 font-bold">
-            Text: {data[data.length - 1]?.text.textLevel} - {data[data.length - 1]?.text.textChoice}
-            , Chunk count: {data[data.length - 1]?.chunksCount}, Target WPM:
-            {data[data.length - 1]?.wpm}
-          </label>
-          <div className="w-full max-h-[500px] overflow-y-auto relative outline outline-offset-0 outline-1 p-0 rounded-md bg-slate-100">
+          {trainingData !== undefined ? (
+            <label className="label px-0 font-bold">
+              Text: {trainingData.text.textLevel} -{' '}
+              {trainingData.text.textChoice}, Chunk count:{' '}
+              {trainingData.chunksCount}, Target WPM:
+              {trainingData.wpm}
+            </label>
+          ) : null}
+          <div className="scroll relative max-h-[500px] w-full overflow-y-auto rounded-md bg-slate-100 p-0 outline outline-1 outline-offset-0">
             <pre
-              className="relative whitespace-pre-line text-left text-base sm:text-xl font-normal p-2"
+              className="relative whitespace-pre-line p-2 text-left text-base font-normal sm:text-xl"
               style={{
-                fontFamily: settingData.isFontSerif ? 'serif' : 'sans-serif',
+                lineHeight: '1.5',
+                fontFamily: settingData.isFontSerif
+                  ? 'Literata' || 'serif'
+                  : 'Inter' || 'sans-serif',
               }}
             >
               {renderFixationLine(settingData.fixationCount)}
-              {data.length !== 0
-                ? data[data.length - 1]?.text.textValue
-                : 'Your custom text will be shown here'}
+              {trainingData !== undefined ? trainingData.text.textValue : null}
             </pre>
             <pre
-              className="absolute top-0 whitespace-pre-line text-left text-base sm:text-xl font-normal p-2 text-black dark:text-slate-200"
-              // text-transparent bg-clip-text bg-gradient-to-r from-slate-200 to-red-400
+              className="absolute top-0 whitespace-pre-line p-2 text-left text-base font-normal text-black dark:text-slate-200 sm:text-xl"
               style={{
-                fontFamily: settingData.isFontSerif ? 'serif' : 'sans-serif',
+                lineHeight: '1.5',
+                fontFamily: settingData.isFontSerif
+                  ? 'Literata' || 'serif'
+                  : 'Inter' || 'sans-serif',
                 color: settingData.fontColor,
               }}
             >
@@ -83,7 +103,7 @@ export const ModeNormal = () => {
           <Button
             text="Start"
             weight="primary"
-            disabled={animationStatus}
+            disabled={isDisabled}
             width="full"
             onClick={() => {
               startSimulation()

@@ -10,7 +10,7 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js'
-import { Line, Scatter } from 'react-chartjs-2'
+import { Line } from 'react-chartjs-2'
 import {
   getAverageAccuracy,
   getAverageWpm,
@@ -27,6 +27,8 @@ export const MyProgress = () => {
   const labelBlindMode = getFormattedReadDate(userData.trainings, 'Blind')
   const filteredNormalMode = getFilteredData(userData.trainings, 'Normal')
   const filteredBlindMode = getFilteredData(userData.trainings, 'Blind')
+  const averageWpm = getAverageWpm(userData.trainings)
+  const averageAccuracy = getAverageAccuracy(userData.trainings)
 
   const dataNormalMode = {
     labels: labelNormalMode,
@@ -68,7 +70,15 @@ export const MyProgress = () => {
     ],
   }
 
-  ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend)
+  ChartJS.register(
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    Title,
+    Tooltip,
+    Legend
+  )
 
   const options = {
     responsive: true,
@@ -107,19 +117,21 @@ export const MyProgress = () => {
 
   return (
     <>
-      <div className="grid grid-cols-1 auto-rows-auto gap-10">
+      <div className="grid auto-rows-auto grid-cols-1 gap-10">
         <div className="flex justify-center">
           <div className="alert h-fit">
             <div className="flex flex-col md:flex-row">
-              <div className="flex flex-row mb-auto mr-auto">
+              <div className="mb-auto mr-auto flex flex-row">
                 <div>
                   <BiInfoCircle size={28} className="w-auto" />
                 </div>
                 <div className="flex flex-col">
-                  <span className="ml-2 font-bold text-base sm:text-xl">Info</span>
+                  <span className="ml-2 text-base font-bold sm:text-xl">
+                    Info
+                  </span>
                   <span className="ml-2 mb-auto text-base sm:text-xl">
-                    Skor rerata dikalkulasi berdasarkan hasil latihan pada mode Normal dan mode
-                    Blind.
+                    Skor rerata dikalkulasi berdasarkan hasil latihan pada mode
+                    Normal dan mode Blind.
                   </span>
                 </div>
               </div>
@@ -127,42 +139,44 @@ export const MyProgress = () => {
           </div>
         </div>
 
-        <div className="flex flex-col justify-center items-center mx-auto gap-2 w-full">
-          <div className="stats stats-vertical sm:stats-horizontal shadow w-full sm:w-fit bg-slate-100">
+        <div className="mx-auto flex w-full flex-col items-center justify-center gap-2">
+          <div className="stats stats-vertical w-full bg-slate-100 shadow sm:w-fit sm:stats-horizontal">
             <div className="stat">
-              <div className="stat-title text-xl text-black font-bold text-center">
+              <div className="stat-title text-center text-xl font-bold text-black">
                 Rerata Kecepatan Membaca
               </div>
-              <div className="stat-value text-primary mx-auto">
-                {fetcher.isLoading ? 'Loading...' : getAverageWpm(userData.trainings) + ' WPM'}
+              <div className="stat-value mx-auto text-primary">
+                {fetcher.isLoading ? 'Loading...' : averageWpm + ' WPM'}
               </div>
             </div>
 
             <div className="stat">
-              <div className="stat-title text-xl text-black font-bold text-center">
+              <div className="stat-title text-center text-xl font-bold text-black">
                 Rerata Akurasi Pemahaman
               </div>
-              <div className="stat-value text-primary mx-auto">
-                {fetcher.isLoading ? 'Loading...' : getAverageAccuracy(userData.trainings) + ' %'}
+              <div className="stat-value mx-auto text-primary">
+                {fetcher.isLoading ? 'Loading...' : averageAccuracy + ' %'}
               </div>
             </div>
           </div>
         </div>
 
         <div className="flex flex-col items-center justify-center">
-          <p className="text-xl sm:text-2xl font-bold mb-4">Grafik Perkembangan Latihan</p>
+          <p className="mb-4 text-xl font-bold sm:text-2xl">
+            Grafik Perkembangan Latihan
+          </p>
           {fetcher.isLoading ? (
             'Loading...'
           ) : (
-            <div className="flex flex-col xl:flex-row w-full">
-              <div className="w-full xl:w-1/2 text-center">
-                <p className="inline-block sm:text-left text-base sm:text-xl font-semibold my-2">
+            <div className="flex w-full flex-col xl:flex-row">
+              <div className="w-full text-center xl:w-1/2">
+                <p className="my-2 inline-block text-base font-semibold sm:text-left sm:text-xl">
                   Progres mode Normal
                 </p>
                 <Line options={options} data={dataNormalMode} />
               </div>
-              <div className="w-full xl:w-1/2 text-center">
-                <p className="inline-block sm:text-left text-base sm:text-xl font-semibold my-2">
+              <div className="w-full text-center xl:w-1/2">
+                <p className="my-2 inline-block text-base font-semibold sm:text-left sm:text-xl">
                   Progres mode Blind
                 </p>
                 <Line options={options} data={dataBlindMode} />

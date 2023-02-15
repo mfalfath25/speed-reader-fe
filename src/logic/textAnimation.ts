@@ -1,4 +1,7 @@
-export const splitTextToChunks = (text: string, chunk: number = 1): string[] => {
+export const splitTextToChunks = (
+  text: string,
+  chunk: number = 1
+): string[] => {
   let arr = text.split(' ')
   let result = []
   while (arr.length) {
@@ -11,20 +14,20 @@ export const startTextAnimation = (
   text: string,
   wpm: number,
   chunk: number,
-  setAnimationStatus: (status: boolean) => void,
+  // setAnimationStatus: (status: boolean) => void,
   setTextState: React.Dispatch<React.SetStateAction<string | null>>,
   setRunningOnce: React.Dispatch<React.SetStateAction<boolean>>,
   setStateReadTime: React.Dispatch<React.SetStateAction<number>>
 ): void => {
-  setAnimationStatus(true) // set initial animation status to true
+  // setAnimationStatus(true) // set initial animation status to true
   const totalChunks = splitTextToChunks(text, chunk) // transform text into array of n chunks
-  const duration = (text.split(' ').length / wpm) * (60 * 1000) // calculate duration of how long animation should run
+  const duration = Math.trunc((text.split(' ').length / wpm) * (60 * 1000)) // calculate duration of how long the animation should run
 
   setTextState(totalChunks[0]) // set chunk[0] as a new state
   if (totalChunks.length === 1) {
     setStateReadTime(duration) // set reading time (Read Time == duration of animation)
     setRunningOnce(true) // set running once to true
-    setAnimationStatus(false) // set animation status to false
+    // setAnimationStatus(false) // set animation status to false
     return
   } else if (totalChunks.length > 1) {
     for (var i = 1; i < totalChunks.length; i++) {
@@ -37,7 +40,7 @@ export const startTextAnimation = (
           if (i === totalChunks.length - 1) {
             setStateReadTime(duration) // set reading time (Read Time == duration of animation)
             setRunningOnce(true) // set running once to true
-            setAnimationStatus(false) // set animation status to false
+            // setAnimationStatus(false) // set animation status to false
             return
           }
         }, (duration / totalChunks.length) * i)
