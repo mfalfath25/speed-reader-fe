@@ -16,11 +16,17 @@ export const titles = [
   { path: '/training/settings', title: 'Visual Settings' },
   { path: '/training/normal', title: 'Normal Mode' },
   { path: '/training/normal/simulate', title: 'Normal Mode Training' },
-  { path: '/training/normal/simulate/comprehension', title: 'Comprehension Test' },
+  {
+    path: '/training/normal/simulate/comprehension',
+    title: 'Comprehension Test',
+  },
   { path: '/training/normal/result', title: 'Training Result' },
   { path: '/training/blind', title: 'Blind Mode' },
   { path: '/training/blind/simulate', title: 'Blind Mode Training' },
-  { path: '/training/blind/simulate/comprehension', title: 'Comprehension Test' },
+  {
+    path: '/training/blind/simulate/comprehension',
+    title: 'Comprehension Test',
+  },
   { path: '/training/blind/result', title: 'Training Result' },
   { path: '/training/custom', title: 'Custom Mode' },
   { path: '/training/custom/simulate', title: 'Custom Mode Training' },
@@ -205,7 +211,8 @@ export const QuestionData: Questions[] = [
         ],
       },
       {
-        questionText: 'Jack cooked in a skillet. What is another word for skillet?',
+        questionText:
+          'Jack cooked in a skillet. What is another word for skillet?',
         answerOptions: [
           { answerText: 'Slow cooker', isCorrect: false },
           { answerText: 'Pan', isCorrect: true },
@@ -237,7 +244,8 @@ export const QuestionData: Questions[] = [
         ],
       },
       {
-        questionText: 'Which day of the week is sometimes referred to as "hump day"?',
+        questionText:
+          'Which day of the week is sometimes referred to as "hump day"?',
         answerOptions: [
           { answerText: 'Saturday', isCorrect: false },
           { answerText: 'Thursday', isCorrect: false },
@@ -315,7 +323,8 @@ export const QuestionData: Questions[] = [
         ],
       },
       {
-        questionText: 'Where does Patrick plan on traveling during the extended weekend?',
+        questionText:
+          'Where does Patrick plan on traveling during the extended weekend?',
         answerOptions: [
           { answerText: 'Spain', isCorrect: false },
           { answerText: 'France', isCorrect: true },
@@ -340,14 +349,21 @@ export const QuestionData: Questions[] = [
       {
         questionText: 'What was the Statue of Liberty intended to celebrate?',
         answerOptions: [
-          { answerText: 'Open immigration to the United States', isCorrect: false },
+          {
+            answerText: 'Open immigration to the United States',
+            isCorrect: false,
+          },
           { answerText: 'The end of the Civil War', isCorrect: false },
-          { answerText: 'Economic recovery from the Great Depression', isCorrect: false },
+          {
+            answerText: 'Economic recovery from the Great Depression',
+            isCorrect: false,
+          },
           { answerText: 'A century of American independence', isCorrect: true },
         ],
       },
       {
-        questionText: "How many people are permitted to climb the statue's stairs per day?",
+        questionText:
+          "How many people are permitted to climb the statue's stairs per day?",
         answerOptions: [
           { answerText: '100', isCorrect: false },
           { answerText: '150', isCorrect: false },
@@ -369,9 +385,18 @@ export const QuestionData: Questions[] = [
         questionText: 'Why has the Statue of Liberty changed color over time?',
         answerOptions: [
           { answerText: 'Its copper exterior oxidized.', isCorrect: true },
-          { answerText: 'It was painted green during restorations.', isCorrect: false },
-          { answerText: 'The statue is poorly maintained by the city.', isCorrect: false },
-          { answerText: "New York's poor air quality has eroded the statue.", isCorrect: false },
+          {
+            answerText: 'It was painted green during restorations.',
+            isCorrect: false,
+          },
+          {
+            answerText: 'The statue is poorly maintained by the city.',
+            isCorrect: false,
+          },
+          {
+            answerText: "New York's poor air quality has eroded the statue.",
+            isCorrect: false,
+          },
         ],
       },
     ],
@@ -389,7 +414,10 @@ export const QuestionData: Questions[] = [
               'Forms of employment wherein employees perform a service or duty in exchange for financial compensation',
             isCorrect: true,
           },
-          { answerText: 'There is no exact definition of jobs', isCorrect: false },
+          {
+            answerText: 'There is no exact definition of jobs',
+            isCorrect: false,
+          },
         ],
       },
       {
@@ -404,8 +432,14 @@ export const QuestionData: Questions[] = [
       {
         questionText: 'Chefs are culinary professionals who:',
         answerOptions: [
-          { answerText: 'Prepare foods in commercial settings', isCorrect: false },
-          { answerText: 'Respond to the preferences of diners', isCorrect: false },
+          {
+            answerText: 'Prepare foods in commercial settings',
+            isCorrect: false,
+          },
+          {
+            answerText: 'Respond to the preferences of diners',
+            isCorrect: false,
+          },
           { answerText: 'A and B', isCorrect: true },
           { answerText: 'Serve food to diners', isCorrect: false },
         ],
@@ -444,7 +478,8 @@ export const QuestionData: Questions[] = [
         ],
       },
       {
-        questionText: 'What is an activity that a tourist cannot do on The Strip?',
+        questionText:
+          'What is an activity that a tourist cannot do on The Strip?',
         answerOptions: [
           { answerText: 'Eat', isCorrect: false },
           { answerText: 'Stay overnight', isCorrect: false },
@@ -453,10 +488,14 @@ export const QuestionData: Questions[] = [
         ],
       },
       {
-        questionText: 'Which best describes the purpose of the Las Vegas Strip?',
+        questionText:
+          'Which best describes the purpose of the Las Vegas Strip?',
         answerOptions: [
           { answerText: 'It is a 2.5 mile stretch.', isCorrect: false },
-          { answerText: 'It offers a lot of activities for tourists.', isCorrect: true },
+          {
+            answerText: 'It offers a lot of activities for tourists.',
+            isCorrect: true,
+          },
           { answerText: 'There are too many neon lights.', isCorrect: false },
           { answerText: 'It keeps tourists safe.', isCorrect: false },
         ],
@@ -465,21 +504,44 @@ export const QuestionData: Questions[] = [
         questionText: 'Explain why John liked his visit to the Grand Canyon.',
         answerOptions: [
           {
-            answerText: 'The setting was very different from downtown Las Vegas.',
+            answerText:
+              'The setting was very different from downtown Las Vegas.',
             isCorrect: true,
           },
-          { answerText: 'It is one of the Seven Natural Wonders of the World.', isCorrect: false },
-          { answerText: 'John does not enjoy spending time in cities.', isCorrect: false },
-          { answerText: 'The Grand Canyon offers a breathtaking view.', isCorrect: false },
+          {
+            answerText: 'It is one of the Seven Natural Wonders of the World.',
+            isCorrect: false,
+          },
+          {
+            answerText: 'John does not enjoy spending time in cities.',
+            isCorrect: false,
+          },
+          {
+            answerText: 'The Grand Canyon offers a breathtaking view.',
+            isCorrect: false,
+          },
         ],
       },
       {
-        questionText: 'What does it mean that Las Vegas is a "city that never sleeps?\u201D',
+        questionText:
+          'What does it mean that Las Vegas is a "city that never sleeps?\u201D',
         answerOptions: [
-          { answerText: 'A lot of people here have sleep disorders.', isCorrect: false },
-          { answerText: 'There is too much noise here for people to sleep.', isCorrect: false },
-          { answerText: 'Las Vegas offers exciting activities at all hours.', isCorrect: true },
-          { answerText: 'The neon lights keep people awake at night.', isCorrect: false },
+          {
+            answerText: 'A lot of people here have sleep disorders.',
+            isCorrect: false,
+          },
+          {
+            answerText: 'There is too much noise here for people to sleep.',
+            isCorrect: false,
+          },
+          {
+            answerText: 'Las Vegas offers exciting activities at all hours.',
+            isCorrect: true,
+          },
+          {
+            answerText: 'The neon lights keep people awake at night.',
+            isCorrect: false,
+          },
         ],
       },
     ],
@@ -488,7 +550,8 @@ export const QuestionData: Questions[] = [
     questionPairId: 8,
     allQuestions: [
       {
-        questionText: 'Which of the following body parts is not located on the head or face?',
+        questionText:
+          'Which of the following body parts is not located on the head or face?',
         answerOptions: [
           { answerText: 'Eye', isCorrect: false },
           { answerText: 'Nose', isCorrect: false },
@@ -515,7 +578,8 @@ export const QuestionData: Questions[] = [
         ],
       },
       {
-        questionText: 'The part of the body that contains important organs that aid digestion is:',
+        questionText:
+          'The part of the body that contains important organs that aid digestion is:',
         answerOptions: [
           { answerText: 'The back', isCorrect: false },
           { answerText: 'The head', isCorrect: false },
@@ -524,7 +588,8 @@ export const QuestionData: Questions[] = [
         ],
       },
       {
-        questionText: 'Which of the following is not a body part/organ on the human body?',
+        questionText:
+          'Which of the following is not a body part/organ on the human body?',
         answerOptions: [
           { answerText: 'Quilt', isCorrect: true },
           { answerText: 'Neck', isCorrect: false },
@@ -540,14 +605,27 @@ export const QuestionData: Questions[] = [
       {
         questionText: "The text's introduction presents:",
         answerOptions: [
-          { answerText: 'All of the factors that damage the environment', isCorrect: false },
-          { answerText: 'Scientific support regarding global warming', isCorrect: false },
-          { answerText: 'Questions about the effects of environmental problems', isCorrect: false },
-          { answerText: 'Two opinions about environmental problems', isCorrect: true },
+          {
+            answerText: 'All of the factors that damage the environment',
+            isCorrect: false,
+          },
+          {
+            answerText: 'Scientific support regarding global warming',
+            isCorrect: false,
+          },
+          {
+            answerText: 'Questions about the effects of environmental problems',
+            isCorrect: false,
+          },
+          {
+            answerText: 'Two opinions about environmental problems',
+            isCorrect: true,
+          },
         ],
       },
       {
-        questionText: 'Which term means the same thing as "global warming?\u201D',
+        questionText:
+          'Which term means the same thing as "global warming?\u201D',
         answerOptions: [
           { answerText: 'Air pollution', isCorrect: false },
           { answerText: 'Biodiversity', isCorrect: false },
@@ -560,12 +638,19 @@ export const QuestionData: Questions[] = [
         answerOptions: [
           { answerText: 'Uncontrollable forest fires', isCorrect: false },
           { answerText: 'Smog formation in valleys', isCorrect: false },
-          { answerText: 'Heavy amounts of acid precipitation', isCorrect: true },
-          { answerText: 'Excessive carbon dioxide emissions', isCorrect: false },
+          {
+            answerText: 'Heavy amounts of acid precipitation',
+            isCorrect: true,
+          },
+          {
+            answerText: 'Excessive carbon dioxide emissions',
+            isCorrect: false,
+          },
         ],
       },
       {
-        questionText: 'Which is a logical effect of overusing the natural water supply?',
+        questionText:
+          'Which is a logical effect of overusing the natural water supply?',
         answerOptions: [
           { answerText: 'Deforestation', isCorrect: false },
           { answerText: 'Droughts', isCorrect: true },
@@ -574,7 +659,8 @@ export const QuestionData: Questions[] = [
         ],
       },
       {
-        questionText: 'All of the following are effects of environmental problems except:',
+        questionText:
+          'All of the following are effects of environmental problems except:',
         answerOptions: [
           { answerText: 'Space travel', isCorrect: true },
           { answerText: 'Animal extinction', isCorrect: false },
@@ -599,8 +685,14 @@ export const QuestionData: Questions[] = [
       {
         questionText: 'Which pandemic is the deadliest in modern history?',
         answerOptions: [
-          { answerText: 'The bubonic plague in the 14th century', isCorrect: false },
-          { answerText: 'The Philadelphia yellow fever epidemic in 1793', isCorrect: false },
+          {
+            answerText: 'The bubonic plague in the 14th century',
+            isCorrect: false,
+          },
+          {
+            answerText: 'The Philadelphia yellow fever epidemic in 1793',
+            isCorrect: false,
+          },
           { answerText: 'The Spanish Flu in 1918', isCorrect: true },
           { answerText: 'The Covid-19 coronavirus in 2020', isCorrect: false },
         ],
@@ -627,9 +719,18 @@ export const QuestionData: Questions[] = [
         questionText: 'Why are total deaths for the Spanish Flu not known?',
         answerOptions: [
           { answerText: 'No one cared because of the war', isCorrect: false },
-          { answerText: 'Many areas did not keep medical records', isCorrect: true },
-          { answerText: 'Most medical records were destroyed in the war', isCorrect: false },
-          { answerText: 'No one wants to know how bad it was', isCorrect: false },
+          {
+            answerText: 'Many areas did not keep medical records',
+            isCorrect: true,
+          },
+          {
+            answerText: 'Most medical records were destroyed in the war',
+            isCorrect: false,
+          },
+          {
+            answerText: 'No one wants to know how bad it was',
+            isCorrect: false,
+          },
         ],
       },
       {
@@ -642,7 +743,8 @@ export const QuestionData: Questions[] = [
         ],
       },
       {
-        questionText: 'What contributed to deaths from the flu in military personnel?',
+        questionText:
+          'What contributed to deaths from the flu in military personnel?',
         answerOptions: [
           { answerText: 'Close quarters', isCorrect: false },
           { answerText: 'Poor nutrition', isCorrect: false },
@@ -651,7 +753,8 @@ export const QuestionData: Questions[] = [
         ],
       },
       {
-        questionText: 'What is a characteristic feature of serious cases of the Spanish Flu?',
+        questionText:
+          'What is a characteristic feature of serious cases of the Spanish Flu?',
         answerOptions: [
           { answerText: 'Coma', isCorrect: false },
           { answerText: 'Face turning blue', isCorrect: true },
@@ -664,9 +767,13 @@ export const QuestionData: Questions[] = [
         answerOptions: [
           { answerText: 'They created a vaccine for it', isCorrect: false },
           { answerText: 'Improved medical care', isCorrect: false },
-          { answerText: 'The end of the war caused better conditions', isCorrect: false },
           {
-            answerText: 'Those who were susceptible had either died or were immune',
+            answerText: 'The end of the war caused better conditions',
+            isCorrect: false,
+          },
+          {
+            answerText:
+              'Those who were susceptible had either died or were immune',
             isCorrect: true,
           },
         ],
@@ -728,7 +835,8 @@ export const trainingMenu = [
   {
     id: 1,
     optionName: 'Normal Test',
-    description: 'Latih kecepatan membaca dengan dipandu penunjuk kata dan kecepatan WPM tetap',
+    description:
+      'Latih kecepatan membaca dengan dipandu penunjuk kata dan kecepatan WPM tetap',
     info: 'Training with assisted WPM speed',
     navigateTo: '/training/normal',
   },
@@ -742,7 +850,8 @@ export const trainingMenu = [
   {
     id: 3,
     optionName: 'Custom Test',
-    description: 'Simulasi membaca cepat menggunakan input dan pengaturan teks kustom sendiri.',
+    description:
+      'Simulasi membaca cepat menggunakan input dan pengaturan teks kustom sendiri.',
     info: 'Training with custom text input',
     navigateTo: '/training/custom',
   },
@@ -754,7 +863,8 @@ export const guidesMenu = [
     optionName: 'Fiksasi dan Saccade',
     definition1: 'Fiksasi',
     definition2: 'Saccade',
-    description1: 'Kemampuan mata dalam berhenti dan memfokuskan pandangan pada suatu titik.',
+    description1:
+      'Kemampuan mata dalam berhenti dan memfokuskan pandangan pada suatu titik.',
     description2:
       'Gerakan mata yang cepat yang menggeser pusat pandangan dari satu area ke area lainnya.',
     tips: [

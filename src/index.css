@@ -3,11 +3,6 @@
 @tailwind utilities;
 
 :root {
-  /* font-family: Inter, Avenir, Helvetica, Arial, sans-serif; */
-  /* font-size: 16px;
-  line-height: 24px;
-  font-weight: 400; */
-
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -33,6 +28,14 @@
 
 *::-webkit-scrollbar-thumb {
   background-color: #057aff;
-  /* border-radius: 8px; */
-  /* border: 2px solid #ffffff; */
+}
+
+.scroll::-webkit-scrollbar-track {
+  background: #444857;
+  border-radius: 0 6px 6px 0;
+}
+
+.scroll::-webkit-scrollbar-thumb {
+  background-color: #057aff;
+  border-radius: 6px 6px 6px 6px;
 }

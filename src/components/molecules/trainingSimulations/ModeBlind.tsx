@@ -22,7 +22,7 @@ export const ModeBlind = () => {
         {trainingData !== undefined ? (
           <BlindWpmCounter>
             <div>
-              <div className="relative max-h-[500px] w-full overflow-y-auto rounded-md bg-slate-100 p-0 outline outline-1 outline-offset-0">
+              <div className="scroll relative max-h-[500px] w-full overflow-y-auto rounded-md bg-slate-100 p-0 outline outline-1 outline-offset-0">
                 <pre
                   className="relative whitespace-pre-line p-2 text-left text-base font-normal text-black sm:text-xl"
                   style={{
