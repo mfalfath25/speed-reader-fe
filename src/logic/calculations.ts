@@ -26,7 +26,32 @@ export const filterModes = (data: History[]): History[] => {
   return data.filter((item) => item.mode !== 'Custom')
 }
 
+// rewrite getTotalAccuracy function to use reduce instead of for loop
 export const getTotalAccuracy = (data: Training, answer: string[]): number => {
+  const questions = data.text.questions?.allQuestions
+  let totalCorrectAnswers = 0
+  if (questions !== undefined) {
+    totalCorrectAnswers = questions.reduce((acc, curr) => {
+      const correctAnswer = curr.answerOptions.find(
+        (item) => item.isCorrect === true
+      )
+      if (correctAnswer !== undefined) {
+        if (answer[acc].toString() === correctAnswer.answerText) {
+          return acc + 1
+        }
+      }
+      return acc
+    }, 0)
+  } else {
+    totalCorrectAnswers = 0
+  }
+  return getAccuracyPercentage(totalCorrectAnswers, answer)
+}
+
+export const getTotalAccuracyOld = (
+  data: Training,
+  answer: string[]
+): number => {
   const questions = data.text.questions?.allQuestions
   let totalCorrectAnswers = 0
   if (questions !== undefined) {
@@ -105,7 +130,7 @@ export const startTimer = (
     result = getCurrentBlindWpm(totalWords, elapsedTime) // calculate wpm every second
     setWpm(result) // update wpm every second
   }, 1000)
-  return interval // return interval to be used in stopTimer()
+  return interval // return interval (the interval id) to be referenced in stopTimer()
 }
 
 export const stopTimer = (interval: number): void => {

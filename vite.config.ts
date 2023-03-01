@@ -35,11 +35,37 @@ export default defineConfig({
             urlPattern: ({ url }) => {
               return url.pathname.startsWith('/api/')
             },
-            handler: 'CacheFirst' as const,
+            handler: 'NetworkFirst',
             options: {
               cacheName: 'api-cache',
+              backgroundSync: {
+                name: 'api-queue',
+                options: {
+                  maxRetentionTime: 24 * 60, // Retry for max of 24 Hours (specified in minutes)
+                },
+              },
+              plugins: [
+                {
+                  cacheDidUpdate: async ({
+                    cacheName,
+                    request,
+                    oldResponse,
+                    newResponse,
+                  }) => {
+                    if (cacheName === 'api-cache') {
+                      oldResponse && console.log('oldResponse', oldResponse)
+                      newResponse && console.log('newResponse', newResponse)
+                      request && console.log('request', request)
+                      const cache = await caches.open('api-cache')
+                      const keys = await cache.keys()
+                      const urls = keys.map((key) => key.url)
+                      console.log(urls)
+                    }
+                  },
+                },
+              ],
               cacheableResponse: {
-                statuses: [0, 200],
+                statuses: [200],
               },
             },
           },
@@ -53,7 +79,7 @@ export default defineConfig({
                 maxAgeSeconds: 60 * 60 * 24 * 365, // <== 365 days
               },
               cacheableResponse: {
-                statuses: [0, 200],
+                statuses: [200],
               },
             },
           },
@@ -67,7 +93,7 @@ export default defineConfig({
                 maxAgeSeconds: 60 * 60 * 24 * 365, // <== 365 days
               },
               cacheableResponse: {
-                statuses: [0, 200],
+                statuses: [200],
               },
             },
           },
@@ -75,56 +101,6 @@ export default defineConfig({
       },
       includeAssets: ['src/assets/**/*'],
       registerType: 'autoUpdate',
-      // devOptions: {
-      //   enabled: true,
-      //   navigateFallback: '/index.html',
-      //   type: 'classic',
-      // },
-      // workbox: {
-      //   globPatterns: ['**/*.{js,css,html,ico,png,svg}'],
-      //   runtimeCaching: [
-      //     {
-      //       urlPattern: ({ url }) => {
-      //         return url.pathname.startsWith('/api/')
-      //       },
-      //       handler: 'CacheFirst' as const,
-      //       options: {
-      //         cacheName: 'api-cache',
-      //         cacheableResponse: {
-      //           statuses: [0, 200],
-      //         },
-      //       },
-      //     },
-      //     {
-      //       urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
-      //       handler: 'CacheFirst',
-      //       options: {
-      //         cacheName: 'google-fonts-cache',
-      //         expiration: {
-      //           maxEntries: 10,
-      //           maxAgeSeconds: 60 * 60 * 24 * 365, // <== 365 days
-      //         },
-      //         cacheableResponse: {
-      //           statuses: [0, 200],
-      //         },
-      //       },
-      //     },
-      //     {
-      //       urlPattern: /^https:\/\/fonts\.gstatic\.com\/.*/i,
-      //       handler: 'CacheFirst',
-      //       options: {
-      //         cacheName: 'gstatic-fonts-cache',
-      //         expiration: {
-      //           maxEntries: 10,
-      //           maxAgeSeconds: 60 * 60 * 24 * 365, // <== 365 days
-      //         },
-      //         cacheableResponse: {
-      //           statuses: [0, 200],
-      //         },
-      //       },
-      //     },
-      //   ],
-      // },
     }),
   ],
 })

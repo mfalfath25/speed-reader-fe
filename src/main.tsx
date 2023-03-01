@@ -12,7 +12,7 @@ import { registerSW } from 'virtual:pwa-register'
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      refetchOnWindowFocus: false,
+      refetchOnWindowFocus: true,
       refetchOnReconnect: true,
       retry: 1,
       staleTime: 1000,
@@ -33,19 +33,19 @@ const updateSW = registerSW({
 })
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  // <React.StrictMode>
-  <BrowserRouter>
-    <QueryClientProvider client={queryClient}>
-      <App />
-      <Toaster
-        position="bottom-right"
-        reverseOrder={false}
-        toastOptions={{
-          style: ToastStyles,
-        }}
-      />
-      <ReactQueryDevtools initialIsOpen={false} />
-    </QueryClientProvider>
-  </BrowserRouter>
-  // </React.StrictMode>
+  <React.StrictMode>
+    <BrowserRouter>
+      <QueryClientProvider client={queryClient}>
+        <App />
+        <Toaster
+          position="bottom-right"
+          reverseOrder={false}
+          toastOptions={{
+            style: ToastStyles,
+          }}
+        />
+        <ReactQueryDevtools initialIsOpen={false} />
+      </QueryClientProvider>
+    </BrowserRouter>
+  </React.StrictMode>
 )

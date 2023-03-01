@@ -14,12 +14,10 @@ export const startTextAnimation = (
   text: string,
   wpm: number,
   chunk: number,
-  // setAnimationStatus: (status: boolean) => void,
   setTextState: React.Dispatch<React.SetStateAction<string | null>>,
   setRunningOnce: React.Dispatch<React.SetStateAction<boolean>>,
   setStateReadTime: React.Dispatch<React.SetStateAction<number>>
 ): void => {
-  // setAnimationStatus(true) // set initial animation status to true
   const totalChunks = splitTextToChunks(text, chunk) // transform text into array of n chunks
   const duration = Math.trunc((text.split(' ').length / wpm) * (60 * 1000)) // calculate duration of how long the animation should run
 
@@ -27,7 +25,6 @@ export const startTextAnimation = (
   if (totalChunks.length === 1) {
     setStateReadTime(duration) // set reading time (Read Time == duration of animation)
     setRunningOnce(true) // set running once to true
-    // setAnimationStatus(false) // set animation status to false
     return
   } else if (totalChunks.length > 1) {
     for (var i = 1; i < totalChunks.length; i++) {
