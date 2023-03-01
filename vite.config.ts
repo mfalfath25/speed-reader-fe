@@ -2,7 +2,6 @@ import { defineConfig } from 'vite'
 import { VitePWA } from 'vite-plugin-pwa'
 import react from '@vitejs/plugin-react'
 
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
     react(),
@@ -53,9 +52,9 @@ export default defineConfig({
                     newResponse,
                   }) => {
                     if (cacheName === 'api-cache') {
-                      oldResponse && console.log('oldResponse', oldResponse)
-                      newResponse && console.log('newResponse', newResponse)
-                      request && console.log('request', request)
+                      // oldResponse && console.log('oldResponse', oldResponse)
+                      // newResponse && console.log('newResponse', newResponse)
+                      // request && console.log('request', request)
                       const cache = await caches.open('api-cache')
                       const keys = await cache.keys()
                       const urls = keys.map((key) => key.url)

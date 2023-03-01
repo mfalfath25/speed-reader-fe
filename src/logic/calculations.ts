@@ -26,7 +26,6 @@ export const filterModes = (data: History[]): History[] => {
   return data.filter((item) => item.mode !== 'Custom')
 }
 
-// rewrite getTotalAccuracy function to use reduce instead of for loop
 export const getTotalAccuracy = (data: Training, answer: string[]): number => {
   const questions = data.text.questions?.allQuestions
   let totalCorrectAnswers = 0
@@ -42,28 +41,6 @@ export const getTotalAccuracy = (data: Training, answer: string[]): number => {
       }
       return acc
     }, 0)
-  } else {
-    totalCorrectAnswers = 0
-  }
-  return getAccuracyPercentage(totalCorrectAnswers, answer)
-}
-
-export const getTotalAccuracyOld = (
-  data: Training,
-  answer: string[]
-): number => {
-  const questions = data.text.questions?.allQuestions
-  let totalCorrectAnswers = 0
-  if (questions !== undefined) {
-    for (const [index, value] of questions.entries()) {
-      for (const [index2, value2] of value.answerOptions.entries()) {
-        if (value2.isCorrect === true) {
-          if (answer[index].toString() === value2.answerText) {
-            totalCorrectAnswers += 1
-          }
-        }
-      }
-    }
   } else {
     totalCorrectAnswers = 0
   }
