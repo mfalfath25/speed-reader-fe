@@ -34,11 +34,14 @@ export default defineConfig({
             urlPattern: ({ url }) => {
               return url.pathname.startsWith('/api/')
             },
-            handler: 'StaleWhileRevalidate',
+            handler: 'NetworkFirst',
             options: {
               cacheName: 'api-cache',
+              fetchOptions: {
+                credentials: 'include',
+              },
               cacheableResponse: {
-                statuses: [200],
+                statuses: [0, 200],
               },
             },
           },
@@ -52,7 +55,7 @@ export default defineConfig({
                 maxAgeSeconds: 60 * 60 * 24 * 365, // <== 365 days
               },
               cacheableResponse: {
-                statuses: [200],
+                statuses: [0, 200],
               },
             },
           },
@@ -66,7 +69,7 @@ export default defineConfig({
                 maxAgeSeconds: 60 * 60 * 24 * 365, // <== 365 days
               },
               cacheableResponse: {
-                statuses: [200],
+                statuses: [0, 200],
               },
             },
           },
