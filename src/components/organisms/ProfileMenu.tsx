@@ -52,7 +52,7 @@ export const ProfileMenu = () => {
               <div className="stat-value text-primary">
                 {fetcher.isLoading
                   ? 'Loading...'
-                  : userData.trainings.length !== 0 && fetcher.isError !== true
+                  : userData.trainings.length !== 0 && !fetcher.isError
                   ? userData.trainings.length
                   : '0'}
               </div>
@@ -68,7 +68,7 @@ export const ProfileMenu = () => {
               <div className="stat-value text-primary">
                 {fetcher.isLoading
                   ? 'Loading...'
-                  : userData.trainings.length !== 0 && fetcher.isError !== true
+                  : userData.trainings.length !== 0 && !fetcher.isError
                   ? getTotalFormattedReadTime(userData.trainings)
                   : getTotalFormattedReadTime([])}
               </div>
