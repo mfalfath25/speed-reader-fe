@@ -34,15 +34,9 @@ export default defineConfig({
             urlPattern: ({ url }) => {
               return url.pathname.startsWith('/api/')
             },
-            handler: 'NetworkFirst',
+            handler: 'StaleWhileRevalidate',
             options: {
               cacheName: 'api-cache',
-              backgroundSync: {
-                name: 'api-queue',
-                options: {
-                  maxRetentionTime: 24 * 60, // Retry for max of 24 Hours (specified in minutes)
-                },
-              },
               cacheableResponse: {
                 statuses: [200],
               },

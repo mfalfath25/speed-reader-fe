@@ -7,7 +7,6 @@ import {
   ColorPick,
   FixationSelect,
   FontfaceToggler,
-  // JustificationToggler,
   renderFixationLine,
 } from '../molecules'
 import { FormSettingsValues } from '../../types/model'
@@ -55,7 +54,6 @@ export const Settings = () => {
                 fontFamily: settingData.isFontSerif
                   ? 'Literata' || 'serif'
                   : 'Inter' || 'sans-serif',
-                // textAlign: settingData.isJustified ? 'justify' : 'left',
               }}
             >
               {loremPlaceholder[0].loremLong}
@@ -68,7 +66,6 @@ export const Settings = () => {
                   ? 'Literata' || 'serif'
                   : 'Inter' || 'sans-serif',
                 color: settingData.fontColor,
-                // textAlign: settingData.isJustified ? 'justify' : 'left',
               }}
             >
               {loremPlaceholder[0].loremShort}
@@ -81,11 +78,6 @@ export const Settings = () => {
             <p className="font-bold">Tipe fontface</p>
             <FontfaceToggler />
           </div>
-
-          {/* <div>
-            <p className="font-bold">Justification</p>
-            <JustificationToggler />
-          </div> */}
 
           <div>
             <p className="font-bold">Garis bantu fiksasi</p>

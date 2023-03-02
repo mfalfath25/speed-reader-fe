@@ -4,7 +4,7 @@ import { useUserQuery } from '../api/query'
 
 export const fetchUserData = () => {
   const { userData, setUserData } = useUserStore()
-  const { data, isFetched, isLoading, isError, error } = useUserQuery()
+  const { data, isFetched, isLoading, isError, error, isStale } = useUserQuery()
 
   useEffect(() => {
     // console.log(isLoading)
@@ -30,5 +30,5 @@ export const fetchUserData = () => {
     }
   }, [data, isLoading])
 
-  return { data, isFetched, isLoading, isError }
+  return { data, isFetched, isLoading, isError, isStale }
 }

@@ -30,6 +30,9 @@ const updateSW = registerSW({
       updateSW(true)
     }
   },
+  onRegisteredSW() {
+    console.log('SW registered')
+  },
 })
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(

@@ -1,11 +1,26 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { BiCog } from 'react-icons/bi'
 import { useNavigate } from 'react-router-dom'
+import { fetchUserData } from '../../hooks'
 import { trainingMenu } from '../../static/staticData'
+import { useSettingStore } from '../../stores'
 import { Button } from '../atoms'
 
 export const TrainingMenu = () => {
   const navigate = useNavigate()
+  const fetcher = fetchUserData()
+  const { setSettingData } = useSettingStore()
+
+  useEffect(() => {
+    if (fetcher.data) {
+      setSettingData({
+        ...setSettingData,
+        isFontSerif: fetcher.data.data.data.setting.isFontSerif,
+        fixationCount: fetcher.data.data.data.setting.fixationCount,
+        fontColor: fetcher.data.data.data.setting.fontColor,
+      })
+    }
+  }, [fetcher.data])
   return (
     <>
       <div className="grid w-full grid-cols-1 gap-8">
