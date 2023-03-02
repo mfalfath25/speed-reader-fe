@@ -34,7 +34,7 @@ export default defineConfig({
             urlPattern: ({ url }) => {
               return url.pathname.startsWith('/api/')
             },
-            handler: 'CacheFirst' as const,
+            handler: 'NetworkOnly' as const,
             options: {
               cacheName: 'api-cache',
               fetchOptions: {
