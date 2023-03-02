@@ -30,22 +30,22 @@ export default defineConfig({
       workbox: {
         globPatterns: ['**/*.{js,css,html,ico,png,jpg,svg,webp}'],
         runtimeCaching: [
-          {
-            urlPattern: ({ url }) => {
-              return url.pathname.startsWith('/api/')
-            },
-            handler: 'StaleWhileRevalidate' as const,
-            method: 'GET' as const,
-            options: {
-              expiration: {
-                maxAgeSeconds: 1,
-              },
-              cacheName: 'api-cache',
-              cacheableResponse: {
-                statuses: [0, 200],
-              },
-            },
-          },
+          // {
+          //   urlPattern: ({ url }) => {
+          //     return url.pathname.startsWith('/api/')
+          //   },
+          //   handler: 'StaleWhileRevalidate' as const,
+          //   method: 'GET' as const,
+          //   options: {
+          //     expiration: {
+          //       maxAgeSeconds: 1,
+          //     },
+          //     cacheName: 'api-cache',
+          //     cacheableResponse: {
+          //       statuses: [0, 200],
+          //     },
+          //   },
+          // },
           {
             urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
             handler: 'CacheFirst',
