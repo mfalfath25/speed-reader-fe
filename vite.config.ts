@@ -35,10 +35,14 @@ export default defineConfig({
               return url.pathname.startsWith('/api/')
             },
             handler: 'StaleWhileRevalidate' as const,
+            method: 'GET' as const,
             options: {
+              expiration: {
+                maxAgeSeconds: 1,
+              },
               cacheName: 'api-cache',
               cacheableResponse: {
-                statuses: [0, 200],
+                statuses: [0, 200, 201],
               },
             },
           },
