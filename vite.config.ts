@@ -42,7 +42,7 @@ export default defineConfig({
               },
               cacheName: 'api-cache',
               cacheableResponse: {
-                statuses: [0, 200, 201],
+                statuses: [0, 200],
               },
             },
           },

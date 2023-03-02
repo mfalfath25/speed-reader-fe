@@ -26,9 +26,7 @@ const updateSW = registerSW({
     console.log('App is ready for offline usage.')
   },
   onNeedRefresh() {
-    if (confirm('New content available. Updating SW')) {
-      updateSW(true)
-    }
+    updateSW(true)
   },
   onRegisteredSW() {
     console.log('SW registered')
