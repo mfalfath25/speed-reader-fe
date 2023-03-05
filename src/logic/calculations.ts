@@ -89,13 +89,6 @@ export const getFilteredData = (data: History[], mode: string): History[] => {
   return output
 }
 
-export const getCurrentBlindWpm = (
-  totalWords: number,
-  duration: number
-): number => {
-  return Math.round((totalWords / duration) * 60)
-}
-
 export const startTimer = (
   setWpm: React.Dispatch<React.SetStateAction<number>>,
   totalWords: number
@@ -104,7 +97,7 @@ export const startTimer = (
   let result = 0 // in wpm
   const interval = setInterval(() => {
     elapsedTime++ // increment time every second
-    result = getCurrentBlindWpm(totalWords, elapsedTime) // calculate wpm every second
+    result = Math.round((totalWords / elapsedTime) * 60) // calculate wpm every second
     setWpm(result) // update wpm every second
   }, 1000)
   return interval // return interval (the interval id) to be referenced in stopTimer()

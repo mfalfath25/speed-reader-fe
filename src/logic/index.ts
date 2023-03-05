@@ -9,7 +9,6 @@ export {
   getAccuracyPercentage,
   getFormattedReadTime,
   getTotalFormattedReadTime,
-  getCurrentBlindWpm,
   getFormattedReadDate,
   getFilteredData,
   startTimer,
