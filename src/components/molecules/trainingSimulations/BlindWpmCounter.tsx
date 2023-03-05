@@ -28,12 +28,12 @@ export const BlindWpmCounter = (props: PropsWithChildren) => {
       wpm: blindWpm,
     })
 
-    ToastAlert('loading', 'loading', 1000)
+    ToastAlert('loading', 'loading', 1500)
     setTimeout(() => {
       navigate('/training/blind/simulate/comprehension', {
         replace: true,
       })
-    }, 1000)
+    }, 1500)
   }
 
   useEffect(() => {

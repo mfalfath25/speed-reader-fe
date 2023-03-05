@@ -1,66 +1,60 @@
-import React, { useState, useEffect } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { useTrainingStore } from '../../../stores/TrainingStore'
 import { useSettingStore } from '../../../stores/SettingStore'
-import { startTextAnimation } from '../../../logic'
 import { renderFixationLine } from '../../molecules'
 import { Button } from '../../atoms'
 import { ToastAlert } from '../../atoms'
 import { useNavigate } from 'react-router-dom'
+import { useTextAnimation } from '../../../hooks'
 
 export const ModeCustom = () => {
   const navigate = useNavigate()
-  // store states
+
   const { settingData } = useSettingStore()
   const { setTrainingData } = useTrainingStore()
   const trainingData = useTrainingStore(
     (state) => state.trainingData[state.trainingData.length - 1]
   )
-  // local states
-  const [isRunOnce, setIsRunOnce] = useState<boolean>(false)
-  const [isDisabled, setIsDisabled] = useState<boolean>(false)
-  const [textAnimated, setTextAnimated] = useState<string | null>(null)
-  const [textReadTime, setTextReadTime] = useState<number>(0)
-  // initiate simulation
-  const startSimulation = () => {
-    setIsDisabled(true)
-    const textValue = trainingData.text.textValue
-    const chunkValue = trainingData.chunksCount
-    const wordsPerMinute = trainingData.wpm
 
-    startTextAnimation(
-      textValue,
-      wordsPerMinute || 250,
-      chunkValue || 3,
-      setTextAnimated,
-      setIsRunOnce,
-      setTextReadTime
-    )
-  }
+  const [
+    textDisplay,
+    running,
+    finished,
+    readTime,
+    startAnimation,
+    resetAnimation,
+  ] = useTextAnimation(
+    trainingData?.text.textValue,
+    trainingData?.wpm,
+    trainingData?.chunksCount
+  )
+
+  const handleStartAnimation = useCallback(() => {
+    resetAnimation()
+    startAnimation()
+  }, [startAnimation, resetAnimation])
 
   useEffect(() => {
     if (trainingData === undefined) return navigate('/training/custom')
-    else if (isRunOnce === true) {
-      textReadTime !== 0 &&
+  }, [trainingData])
+
+  useEffect(() => {
+    if (finished) {
+      readTime &&
         setTrainingData(trainingData.trainingId, {
           ...trainingData,
-          readTime: textReadTime,
+          readTime: readTime,
         })
 
-      ToastAlert('loading', 'loading', 1000)
+      ToastAlert('loading', 'loading', 1500)
 
       setTimeout(() => {
         navigate('/training/custom/result', {
           replace: true,
         })
-      }, 1000)
-      setIsDisabled(false)
+      }, 1500)
     }
-
-    return () => {
-      setIsDisabled(false)
-      setIsRunOnce(false)
-    }
-  }, [isRunOnce])
+  }, [finished])
 
   return (
     <>
@@ -97,7 +91,7 @@ export const ModeCustom = () => {
                 color: settingData.fontColor,
               }}
             >
-              {textAnimated}
+              {textDisplay}
             </pre>
           </div>
         </div>
@@ -105,10 +99,10 @@ export const ModeCustom = () => {
           <Button
             text="Start"
             weight="primary"
-            disabled={isDisabled}
+            disabled={running}
             width="full"
             onClick={() => {
-              startSimulation()
+              handleStartAnimation()
             }}
           />
         </div>

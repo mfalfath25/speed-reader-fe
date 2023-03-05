@@ -1,87 +1,18 @@
 import moment from 'moment'
 import { Training, History } from '../types/model'
 
-export const getTotalTraining = (data: History[]): number => {
-  return data.length
-}
-
-export const getAverageWpm = (data: History[]): number => {
-  const totalWpm = data.reduce(
-    (acc, curr) => (filterModes(data).length === 0 ? 0 : acc + curr.wpm),
-    0
-  )
-  return Math.round(totalWpm / data.length)
-}
-
-export const getAverageAccuracy = (data: History[]): number => {
-  const filteredData = filterModes(data)
-  const totalAccuracy = data.reduce(
-    (acc, curr) => (filteredData.length === 0 ? 0 : acc + curr.accuracy),
-    0
-  )
-  return Math.round(totalAccuracy / filteredData.length)
-}
-
-export const filterModes = (data: History[]): History[] => {
-  return data.filter((item) => item.mode !== 'Custom')
-}
-
-export const getTotalAccuracy = (data: Training, answer: string[]): number => {
-  const questions = data.text.questions?.allQuestions
-  let totalCorrectAnswers = 0
-  if (questions !== undefined) {
-    totalCorrectAnswers = questions.reduce((acc, curr) => {
-      const correctAnswer = curr.answerOptions.find(
-        (item) => item.isCorrect === true
-      )
-      if (correctAnswer !== undefined) {
-        if (answer[acc].toString() === correctAnswer.answerText) {
-          return acc + 1
-        }
-      }
-      return acc
-    }, 0)
-  } else {
-    totalCorrectAnswers = 0
-  }
-  return getAccuracyPercentage(totalCorrectAnswers, answer)
-}
-
-export const getAccuracyPercentage = (
-  correctAnswers: number = 0,
-  answer: string[]
-): number => {
-  const totalCorrectAnswers = (correctAnswers / answer.length) * 100
-  return Math.round(totalCorrectAnswers)
-}
-
-export const getTotalReadTime = (data: History[]): number => {
-  const totalReadTime = data.reduce((acc, curr) => acc + curr.readTime, 0)
-  return totalReadTime
-}
-
-export const getFormattedReadTime = (readTime: number): string => {
-  const output = moment.utc(readTime).format('mm[m]:ss[s]')
-  return output
-}
-
-export const getTotalFormattedReadTime = (data: History[]): string => {
-  const totalReadTime = getTotalReadTime(data)
-  const output = getFormattedReadTime(totalReadTime)
-  return output
-}
-
-export const getFormattedReadDate = (
-  date: History[] = [],
-  mode: string
-): string[] => {
-  let output = []
-  for (const item of date) {
-    if (item.mode === mode) {
-      output.push(moment(item.readDate).format('DD/MM/YYYY'))
+export const filterDataByMode = (
+  data: History[],
+  mode: string,
+  exclude: boolean
+): History[] => {
+  return data.filter((item) => {
+    if (exclude) {
+      return item.mode !== mode
+    } else {
+      return item.mode === mode
     }
-  }
-  return output
+  })
 }
 
 export const getFilteredData = (data: History[], mode: string): History[] => {
@@ -89,33 +20,72 @@ export const getFilteredData = (data: History[], mode: string): History[] => {
   return output
 }
 
-export const startTimer = (
-  setWpm: React.Dispatch<React.SetStateAction<number>>,
-  totalWords: number
-) => {
-  let elapsedTime = 0 // in seconds
-  let result = 0 // in wpm
-  const interval = setInterval(() => {
-    elapsedTime++ // increment time every second
-    result = Math.round((totalWords / elapsedTime) * 60) // calculate wpm every second
-    setWpm(result) // update wpm every second
-  }, 1000)
-  return interval // return interval (the interval id) to be referenced in stopTimer()
+export const getAverageWpm = (data: History[]): number => {
+  const filteredData = filterDataByMode(data, 'Custom', true)
+  if (filteredData.length === 0) {
+    return 0
+  }
+  const totalWpm = filteredData.reduce((acc, curr) => acc + curr.wpm, 0)
+  return Math.round(totalWpm / filteredData.length)
 }
 
-export const stopTimer = (interval: number): void => {
-  clearInterval(interval) // stop timer using given interval
+export const getAverageAccuracy = (data: History[]): number => {
+  const filteredData = filterDataByMode(data, 'Custom', true)
+  if (filteredData.length === 0) {
+    return 0
+  }
+  const totalAccuracy = data.reduce((acc, curr) => acc + curr.accuracy, 0)
+  return Math.round(totalAccuracy / filteredData.length)
 }
 
-export const startPerf = () => {
-  performance.clearMeasures()
-  performance.mark('start')
+export const getTotalAccuracy = (
+  data: Training | undefined,
+  answer: string[]
+): number => {
+  const questions = data?.text.questions?.allQuestions || []
+  const totalCorrectAnswers = questions.reduce((acc, curr, index) => {
+    const correctAnswer = curr.answerOptions.find(
+      (item) => item.isCorrect === true
+    )
+    if (
+      correctAnswer !== undefined &&
+      answer[index]?.toString() === correctAnswer.answerText
+    ) {
+      return acc + 1
+    }
+    return acc
+  }, 0)
+  return getAccuracyPercentage(totalCorrectAnswers, answer)
 }
 
-export const stopPerf = () => {
-  performance.mark('end')
-  performance.measure('read time', 'start', 'end')
-  const measure = performance.getEntriesByName('read time')
-  const output = Math.trunc(measure[0].duration)
+export const getAccuracyPercentage = (
+  correctAnswers: number,
+  answer: string[]
+): number => {
+  const totalCorrectAnswers = (correctAnswers / answer.length) * 100
+  return Math.round(totalCorrectAnswers)
+}
+
+export const getTotalReadTime = (data: History[]): number => {
+  return data.reduce((acc, curr) => acc + curr.readTime, 0)
+}
+
+export const getFormattedReadTime = (readTime: number): string => {
+  return moment.utc(readTime).format('mm[m]:ss[s]')
+}
+
+export const getTotalFormattedReadTime = (data: History[]): string => {
+  const totalReadTime = getTotalReadTime(data)
+  return getFormattedReadTime(totalReadTime)
+}
+
+export const getFormattedReadDate = (
+  data: History[],
+  mode: string
+): string[] => {
+  const filteredData = getFilteredData(data, mode)
+  const output = filteredData.map((item) =>
+    moment(item.readDate).format('DD/MM/YYYY')
+  )
   return output
 }
