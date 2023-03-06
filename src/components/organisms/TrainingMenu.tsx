@@ -40,7 +40,7 @@ export const TrainingMenu = () => {
                     <Button
                       text={menu.optionName}
                       width="full"
-                      weight="primary"
+                      className="btn-primary"
                       onClick={() => {
                         navigate(menu.navigateTo)
                       }}

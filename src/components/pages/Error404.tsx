@@ -17,7 +17,7 @@ export const Error404 = () => {
             Klik tombol dibawah untuk kembali ke Home.
           </p>
           <Link to="/">
-            <Button weight="primary" text="Back to Home" />
+            <Button className="btn-primary" text="Back to Home" />
           </Link>
         </div>
       </div>

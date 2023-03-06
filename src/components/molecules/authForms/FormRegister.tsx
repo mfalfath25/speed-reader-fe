@@ -101,7 +101,7 @@ export const FormRegister = () => {
           <Button
             text="Confirm"
             type="submit"
-            weight="primary"
+            className="btn-primary"
             disabled={isLoading}
           />
         </div>

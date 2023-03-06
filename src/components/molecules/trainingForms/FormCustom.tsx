@@ -91,7 +91,7 @@ export const FormCustom = () => {
           </div>
 
           <div className="grid gap-4">
-            <Button text="Set Options" type="submit" weight="primary" />
+            <Button text="Set Options" type="submit" className="btn-primary" />
             <Button text="Reset" outline onClick={() => clearText()} />
           </div>
         </div>

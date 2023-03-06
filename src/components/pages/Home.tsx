@@ -55,9 +55,9 @@ export const Home = () => {
           </h1>
           <div className="card-actions justify-end">
             <Button
-              weight="primary"
               text="Training"
               width="full"
+              className="btn-primary"
               onClick={() => navigate('/training')}
             >
               <BiBookReader size={24} className="ml-2" />

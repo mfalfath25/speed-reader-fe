@@ -76,7 +76,7 @@ export const EditProfile = () => {
             <Button
               text="Save"
               type="submit"
-              weight="primary"
+              className="btn-primary"
               width="full"
               disabled={isLoading}
             />

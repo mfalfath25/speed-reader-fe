@@ -1,14 +1,13 @@
 import React from 'react'
-import className from 'classnames'
+import classNames from 'classnames'
 
 interface Props {
-  weight?: 'primary' | 'secondary' | 'ghost'
   type?: 'button' | 'submit' | 'reset'
   size?: 'sm' | 'md' | 'lg'
   width?: 'full' | 'auto' | 'fit'
   status?: 'success' | 'error' | 'warning'
   outline?: boolean
-  onClick?: React.MouseEventHandler
+  onClick?: React.MouseEventHandler<HTMLButtonElement>
   children?: React.ReactNode
   className?: string
   disabled?: boolean
@@ -32,28 +31,20 @@ export const ButtonWidth = {
   AUTO: 'auto',
 }
 
-export const ButtonWeight = {
-  PRIMARY: 'primary',
-  SECONDARY: 'secondary',
-  GHOST: 'ghost',
-}
-
-export const Button = (props: Props): React.ReactElement => {
-  const {
-    weight,
-    type,
-    text,
-    size,
-    width,
-    status,
-    outline,
-    children,
-    disabled,
-    onClick,
-  } = props
-  const classProps: string = className(
+export const Button = ({
+  type,
+  size,
+  width,
+  status,
+  outline,
+  onClick,
+  children,
+  className,
+  disabled,
+  text,
+}: Props): React.ReactElement => {
+  const classProps = classNames(
     'btn',
-    `btn-${weight}`,
     `btn-${size}`,
     `btn-${status}`,
     `w-${width}`,
@@ -64,9 +55,8 @@ export const Button = (props: Props): React.ReactElement => {
     'no-animation',
     'active:text-white',
     'active:opacity-70',
-    {
-      disabled,
-    }
+    { disabled },
+    className
   )
 
   return (
@@ -83,9 +73,6 @@ export const Button = (props: Props): React.ReactElement => {
 }
 
 Button.defaultProps = {
-  className: '',
-  text: '',
-  weight: '',
   type: ButtonType.BUTTON,
   size: ButtonSize.MEDIUM,
   width: ButtonWidth.AUTO,
@@ -93,4 +80,6 @@ Button.defaultProps = {
   outline: false,
   disabled: false,
   onClick: () => {},
+  className: '',
+  text: '',
 }

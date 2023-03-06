@@ -19,7 +19,7 @@ export const Auth = () => {
             Terdaftar sebagai Trainee?
           </span>
           <Button
-            weight="primary"
+            className="btn-primary"
             text="Login"
             width="full"
             onClick={() => navigate('/login')}

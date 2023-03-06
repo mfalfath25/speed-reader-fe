@@ -97,7 +97,7 @@ export const ModeNormal = () => {
         <div className="flex justify-center">
           <Button
             text="Start"
-            weight="primary"
+            className="btn-primary"
             disabled={running}
             width="full"
             onClick={() => {

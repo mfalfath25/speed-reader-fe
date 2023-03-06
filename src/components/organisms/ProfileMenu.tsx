@@ -80,7 +80,7 @@ export const ProfileMenu = () => {
           </span>
           <Button
             text="My Progress"
-            weight="primary"
+            className="btn-primary"
             onClick={() => navigate(`/profile/progress/${userData.userId}`)}
           >
             <BiBarChart size={24} className="ml-2" />

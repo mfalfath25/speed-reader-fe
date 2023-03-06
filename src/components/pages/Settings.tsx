@@ -92,7 +92,7 @@ export const Settings = () => {
         <Button
           text="Apply Settings"
           width="full"
-          weight="primary"
+          className="btn-primary"
           onClick={() => {
             handleChange()
           }}

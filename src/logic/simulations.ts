@@ -1,33 +1,42 @@
-export const startTimer = (
+export const startWpmCounter = (
   setWpm: React.Dispatch<React.SetStateAction<number>>,
-  totalWords: number
-): ReturnType<typeof setInterval> => {
-  let elapsedTime = 0 // in seconds
-  let result = 0 // in wpm
-  const intervalId = setInterval(() => {
-    elapsedTime++ // increment time every second
-    result = Math.round((totalWords / elapsedTime) * 60) // calculate wpm every second
-    setWpm(result) // update wpm every second
+  totalWords: number,
+  startTimeRef: React.MutableRefObject<number | null>,
+  intervalRef: React.MutableRefObject<number | null>
+): void => {
+  let elapsedTime = 0
+  let result = 0
+  startTimeRef.current = performance.now()
+  intervalRef.current = setInterval(() => {
+    elapsedTime++
+    result = Math.round((totalWords / elapsedTime) * 60)
+    setWpm(result)
   }, 1000)
-  return intervalId // return interval (the interval id) to be referenced in stopTimer()
 }
 
-export const stopTimer = (intervalId: ReturnType<typeof setInterval>): void => {
-  clearInterval(intervalId)
+export const stopWpmCounter = (
+  intervalRef: React.MutableRefObject<number | null>,
+  startTimeRef: React.MutableRefObject<number | null>
+): number => {
+  clearInterval(intervalRef.current!)
+  const elapsedTime = Math.trunc(performance.now() - startTimeRef.current!)
+  intervalRef.current = null
+  startTimeRef.current = null
+  return elapsedTime
 }
 
-export const startPerf = () => {
-  performance.clearMeasures()
-  performance.mark('start')
-}
+// export const startPerf = () => {
+//   performance.clearMeasures()
+//   performance.mark('start')
+// }
 
-export const stopPerf = () => {
-  performance.mark('end')
-  performance.measure('read time', 'start', 'end')
-  const measure = performance.getEntriesByName('read time')
-  const output = Math.trunc(measure[0].duration)
-  return output
-}
+// export const stopPerf = () => {
+//   performance.mark('end')
+//   performance.measure('read time', 'start', 'end')
+//   const measure = performance.getEntriesByName('read time')
+//   const output = Math.trunc(measure[0].duration)
+//   return output
+// }
 
 export const splitTextToChunks = (
   text: string,

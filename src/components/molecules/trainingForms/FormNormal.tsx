@@ -161,7 +161,7 @@ export const FormNormal = () => {
               <Button
                 text="Set Options"
                 type="submit"
-                weight="primary"
+                className="btn-primary"
                 width="full"
               />
             </div>

@@ -68,7 +68,12 @@ export const FormComprehension = () => {
             </div>
           ))}
           <div className="mt-2 flex justify-center sm:mx-auto sm:w-[200px]">
-            <Button text="Submit" type="submit" weight="primary" width="full" />
+            <Button
+              text="Submit"
+              type="submit"
+              className="btn-primary"
+              width="full"
+            />
           </div>
         </div>
       </form>

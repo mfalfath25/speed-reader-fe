@@ -134,7 +134,7 @@ export const FormBlind = () => {
               <Button
                 text="Set Options"
                 type="submit"
-                weight="primary"
+                className="btn-primary"
                 width="full"
               />
             </div>

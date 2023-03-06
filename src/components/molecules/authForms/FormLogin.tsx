@@ -107,7 +107,7 @@ export const FormLogin = () => {
           <Button
             text="Sign In"
             type="submit"
-            weight="primary"
+            className="btn-primary"
             disabled={isLoading}
           />
         </div>
