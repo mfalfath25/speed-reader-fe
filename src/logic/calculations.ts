@@ -71,7 +71,12 @@ export const getTotalReadTime = (data: History[]): number => {
 }
 
 export const getFormattedReadTime = (readTime: number): string => {
-  return moment.utc(readTime).format('mm[m]:ss[s]')
+  const duration = moment.duration(readTime)
+  const hours = Math.floor(duration.asHours())
+  const minutes = duration.minutes()
+  const seconds = duration.seconds()
+  const formattedTime = `${hours}h ${minutes}m ${seconds}s`
+  return formattedTime
 }
 
 export const getTotalFormattedReadTime = (data: History[]): string => {

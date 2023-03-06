@@ -12,9 +12,9 @@ import { registerSW } from 'virtual:pwa-register'
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      refetchOnWindowFocus: true,
+      refetchOnWindowFocus: false,
       refetchOnReconnect: true,
-      retry: 1,
+      retry: 0,
       staleTime: 1000,
       // refetchInterval: 1000,
     },

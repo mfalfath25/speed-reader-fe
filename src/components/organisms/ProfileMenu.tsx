@@ -1,16 +1,14 @@
 import React from 'react'
 import { BiAlarm, BiBarChart, BiBookReader, BiEdit } from 'react-icons/bi'
 import { useNavigate } from 'react-router-dom'
-import { fetchUserData } from '../../hooks'
+import { useFetchUser } from '../../hooks'
 import { getTotalFormattedReadTime } from '../../logic'
 import { getFirstLetter } from '../../logic/utils'
-import { useUserStore } from '../../stores/UserStore'
 import { Button } from '../atoms'
 
 export const ProfileMenu = () => {
   const navigate = useNavigate()
-  const fetcher = fetchUserData()
-  const { userData } = useUserStore()
+  const { userData, isLoading, isError } = useFetchUser()
 
   return (
     <>
@@ -49,12 +47,15 @@ export const ProfileMenu = () => {
               <div className="stat-title text-xl font-bold text-black">
                 Total latihan
               </div>
-              <div className="stat-value text-primary">
-                {fetcher.isLoading
+              <div
+                className={`stat-value text-primary ${
+                  isError ? 'text-red-500' : null
+                } ${isLoading ? 'animate-pulse' : null}`}
+              >
+                {isLoading
                   ? 'Loading...'
-                  : userData.trainings.length !== 0 && !fetcher.isError
-                  ? userData.trainings.length
-                  : '0'}
+                  : !isError && userData.trainings.length}
+                {isError && 'Fetch error'}
               </div>
             </div>
 
@@ -65,12 +66,15 @@ export const ProfileMenu = () => {
               <div className="stat-title text-xl font-bold text-black">
                 Total waktu membaca
               </div>
-              <div className="stat-value text-primary">
-                {fetcher.isLoading
+              <div
+                className={`stat-value text-primary ${
+                  isError ? 'text-red-500' : null
+                } ${isLoading ? 'animate-pulse' : null}`}
+              >
+                {isLoading
                   ? 'Loading...'
-                  : userData.trainings.length !== 0 && !fetcher.isError
-                  ? getTotalFormattedReadTime(userData.trainings)
-                  : getTotalFormattedReadTime([])}
+                  : !isError && getTotalFormattedReadTime(userData.trainings)}
+                {isError && 'Fetch error'}
               </div>
             </div>
           </div>

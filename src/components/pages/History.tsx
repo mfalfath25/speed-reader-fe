@@ -1,17 +1,36 @@
 import React, { useState } from 'react'
 import _ from 'lodash'
 import moment from 'moment'
-import { useUserStore } from '../../stores'
-import { fetchUserData } from '../../hooks'
+import { useFetchUser } from '../../hooks'
 import { getFormattedReadTime } from '../../logic'
+import { BiError, BiLoader } from 'react-icons/bi'
 
 export const History = () => {
-  const fetcher = fetchUserData()
-  const { userData } = useUserStore()
+  const { userData, isLoading, isError } = useFetchUser()
   const [currentPage, setCurrentPage] = useState<number>(1)
 
   const handlePagination = (page: number) => {
     setCurrentPage(page)
+  }
+
+  if (isLoading) {
+    return (
+      <div className="flex flex-1 flex-col items-center justify-center">
+        <BiLoader size={32} className="bg- mb-2 animate-spin text-primary" />
+        <div className="stat-value animate-pulse text-2xl text-primary">
+          Loading
+        </div>
+      </div>
+    )
+  }
+
+  if (isError) {
+    return (
+      <div className="flex flex-1 flex-col items-center justify-center">
+        <BiError size={32} className="mb-2 text-red-500" />
+        <div className="stat-value text-2xl text-red-500">Fetch error</div>
+      </div>
+    )
   }
 
   return (
@@ -32,13 +51,7 @@ export const History = () => {
               </tr>
             </thead>
             <tbody>
-              {fetcher.isLoading ? (
-                <tr>
-                  <td colSpan={8} className="text-center">
-                    <progress className="progress w-10"></progress>
-                  </td>
-                </tr>
-              ) : userData.trainings.length !== 0 ? (
+              {userData.trainings.length !== 0 ? (
                 _.chunk(userData.trainings, 15)[currentPage - 1].map(
                   (data, index) => (
                     <tr key={index}>
@@ -66,21 +79,22 @@ export const History = () => {
           </table>
         </div>
 
-        {fetcher.isLoading || fetcher.isError ? null : userData.trainings
-            .length !== 0 ? (
+        {userData.trainings.length !== 0 ? (
           <>
             <div className="mb-20 flex items-center justify-center">
               <div className="btn-group">
                 <button
-                  className="btn"
+                  className="btn pb-1 text-2xl outline-double"
                   onClick={() => handlePagination(currentPage - 1)}
                   disabled={currentPage === 1}
                 >
                   «
                 </button>
-                <button className="btn">{currentPage}</button>
+                <button className="no-animation btn w-20 outline-double">
+                  {currentPage}
+                </button>
                 <button
-                  className="btn"
+                  className="btn pb-1 text-2xl outline-double"
                   onClick={() => handlePagination(currentPage + 1)}
                   disabled={
                     currentPage === Math.ceil(userData.trainings.length / 15)

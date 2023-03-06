@@ -1,5 +1,4 @@
-export { fetchUserData } from './fetchUserData'
-export { useFetchInitializer } from './useFetchInitializer'
-export { useStoreCleanup } from './useStoreCleanup'
+export { useFetchUser } from './useFetchUser'
 export { useTextAnimation } from './useTextAnimation'
 export { useWpmCounter } from './useWpmCounter'
+export { useStoreCleanup } from './useStoreCleanup'

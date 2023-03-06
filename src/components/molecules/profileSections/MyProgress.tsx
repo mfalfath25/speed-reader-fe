@@ -1,5 +1,5 @@
 import React from 'react'
-import { BiInfoCircle } from 'react-icons/bi'
+import { BiInfoCircle, BiLoader } from 'react-icons/bi'
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -17,12 +17,10 @@ import {
   getFilteredData,
   getFormattedReadDate,
 } from '../../../logic'
-import { fetchUserData } from '../../../hooks'
-import { useUserStore } from '../../../stores'
+import { useFetchUser } from '../../../hooks'
 
 export const MyProgress = () => {
-  const fetcher = fetchUserData()
-  const { userData } = useUserStore()
+  const { userData, isLoading, isError } = useFetchUser()
   const labelNormalMode = getFormattedReadDate(userData.trainings, 'Normal')
   const labelBlindMode = getFormattedReadDate(userData.trainings, 'Blind')
   const filteredNormalMode = getFilteredData(userData.trainings, 'Normal')
@@ -145,8 +143,13 @@ export const MyProgress = () => {
               <div className="stat-title text-center text-xl font-bold text-black">
                 Rerata Kecepatan Membaca
               </div>
-              <div className="stat-value mx-auto text-primary">
-                {fetcher.isLoading ? 'Loading...' : averageWpm + ' WPM'}
+              <div
+                className={`stat-value mx-auto text-primary ${
+                  isError ? 'text-red-500' : null
+                } ${isLoading ? 'animate-pulse' : null}`}
+              >
+                {isLoading ? 'Loading...' : !isError && averageWpm + ' WPM'}
+                {isError && 'Fetch error'}
               </div>
             </div>
 
@@ -154,34 +157,51 @@ export const MyProgress = () => {
               <div className="stat-title text-center text-xl font-bold text-black">
                 Rerata Akurasi Pemahaman
               </div>
-              <div className="stat-value mx-auto text-primary">
-                {fetcher.isLoading ? 'Loading...' : averageAccuracy + ' %'}
+              <div
+                className={`stat-value mx-auto text-primary ${
+                  isError ? 'text-red-500' : null
+                } ${isLoading ? 'animate-pulse' : null}`}
+              >
+                {isLoading ? 'Loading...' : !isError && averageAccuracy + ' %'}
+                {isError && 'Fetch error'}
               </div>
             </div>
           </div>
         </div>
 
         <div className="flex flex-col items-center justify-center">
-          <p className="mb-4 text-xl font-bold sm:text-2xl">
-            Grafik Perkembangan Latihan
-          </p>
-          {fetcher.isLoading ? (
-            'Loading...'
+          {isLoading ? (
+            <>
+              <BiLoader
+                size={32}
+                className="bg- mb-2 animate-spin text-primary"
+              />
+              <div className="stat-value animate-pulse text-primary">
+                Loading
+              </div>
+            </>
           ) : (
-            <div className="flex w-full flex-col xl:flex-row">
-              <div className="w-full text-center xl:w-1/2">
-                <p className="my-2 inline-block text-base font-semibold sm:text-left sm:text-xl">
-                  Progres mode Normal
+            !isError && (
+              <>
+                <p className="mb-4 text-xl font-bold sm:text-2xl">
+                  Grafik Perkembangan Latihan
                 </p>
-                <Line options={options} data={dataNormalMode} />
-              </div>
-              <div className="w-full text-center xl:w-1/2">
-                <p className="my-2 inline-block text-base font-semibold sm:text-left sm:text-xl">
-                  Progres mode Blind
-                </p>
-                <Line options={options} data={dataBlindMode} />
-              </div>
-            </div>
+                <div className="flex w-full flex-col xl:flex-row">
+                  <div className="w-full text-center xl:w-1/2">
+                    <p className="my-2 inline-block text-base font-semibold sm:text-left sm:text-xl">
+                      Progres mode Normal
+                    </p>
+                    <Line options={options} data={dataNormalMode} />
+                  </div>
+                  <div className="w-full text-center xl:w-1/2">
+                    <p className="my-2 inline-block text-base font-semibold sm:text-left sm:text-xl">
+                      Progres mode Blind
+                    </p>
+                    <Line options={options} data={dataBlindMode} />
+                  </div>
+                </div>
+              </>
+            )
           )}
         </div>
       </div>
