@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { checkCurrentPathname } from '../../logic/utils'
 import { BackButton } from '../atoms'
@@ -8,20 +8,22 @@ interface TitleProps {
   children?: React.ReactNode
 }
 
-const hideBackButton = ['home', 'auth', 'result', 'simulate', 'comprehension']
+const hideBackButton = ['home', 'auth', 'result', 'comprehension']
 
 export const Title = ({ pageTitle, children }: TitleProps) => {
   const location = useLocation()
+  const [renderBackButton, setRenderBackButton] = useState(false)
 
-  const renderBackButton = checkCurrentPathname(
-    hideBackButton,
-    location.pathname
-  )
+  useEffect(() => {
+    setRenderBackButton(
+      !checkCurrentPathname(hideBackButton, location.pathname)
+    )
+  }, [location.pathname])
 
   return (
     <>
       <div className="navbar">
-        {renderBackButton === false ? <BackButton /> : null}
+        {renderBackButton ? <BackButton /> : null}
         <span className="mx-auto text-xl font-semibold sm:text-2xl">
           {pageTitle}
         </span>

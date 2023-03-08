@@ -1,15 +1,15 @@
 import { useSettingStore, useTrainingStore, useUserStore } from '../stores'
 
-export const useStoreCleanup = () => {
+export const useClearStore = () => {
   const { clearUserData } = useUserStore()
   const { clearTrainingData } = useTrainingStore()
   const { clearSettingData } = useSettingStore()
 
-  const clearAllData = () => {
+  const clearStores = () => {
     clearUserData()
     clearTrainingData()
     clearSettingData()
   }
 
-  return { clearAllData }
+  return { clearStores }
 }

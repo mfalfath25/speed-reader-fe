@@ -1,4 +1,3 @@
-import React from 'react'
 import toast from 'react-hot-toast'
 
 export const ToastStyles = {
@@ -9,29 +8,20 @@ export const ToastStyles = {
 export const ToastAlert = (
   message: string,
   type: string,
-  duration?: number
+  duration: number = 1000
 ) => {
-  switch (type) {
-    case 'success':
-      toast.success(message, {
-        duration: duration,
-      })
-      break
-    case 'error':
-      toast.error(message, {
-        duration: duration,
-      })
-      break
-    case 'loading':
-      toast.loading(message, {
-        duration: duration,
-      })
-      break
-    case 'promise':
+  const toastFunctions = {
+    success: toast.success,
+    error: toast.error,
+    loading: toast.loading,
+    promise: () =>
       toast.promise(new Promise((resolve) => setTimeout(resolve, 1000)), {
         loading: 'Loading',
         success: message,
         error: message + ' gagal',
-      })
+      }),
   }
+
+  const toastFunction = toastFunctions[type as keyof typeof toastFunctions]
+  toastFunction(message, { duration })
 }

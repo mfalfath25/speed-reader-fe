@@ -4,17 +4,19 @@ import { Button, ToastAlert } from '../atoms'
 import { BiBookReader } from 'react-icons/bi'
 import { homeMenu } from '../../static/staticData'
 import { useUserStore } from '../../stores'
-import { useStoreCleanup } from '../../hooks'
+import { useClearStore } from '../../hooks'
 
 export const Home = () => {
   const navigate = useNavigate()
   const { userData } = useUserStore()
-  const { clearAllData } = useStoreCleanup()
+  const { clearStores } = useClearStore()
 
   const handleLogout = () => {
-    clearAllData()
+    clearStores()
     ToastAlert('Logout berhasil', 'success')
-    navigate('/login', { replace: true })
+    setTimeout(() => {
+      navigate('/login', { replace: true })
+    }, 1000)
   }
 
   return (
