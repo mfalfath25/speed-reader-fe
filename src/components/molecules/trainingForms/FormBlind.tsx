@@ -1,17 +1,17 @@
 import React from 'react'
-import cefr from '../../../assets/training/cefr.png'
 import { SubmitHandler, useForm } from 'react-hook-form'
+import { useNavigate } from 'react-router-dom'
 import { BiInfoCircle } from 'react-icons/bi'
+import cefr from '../../../assets/training/cefr.png'
 import { Questions, Training } from '../../../types/model'
 import { Button } from '../../atoms'
-import { useNavigate } from 'react-router-dom'
-import { useTrainingStore } from '../../../stores/TrainingStore'
 import {
   QuestionData,
   textChoiceData,
   textData,
   textLevelData,
 } from '../../../static/staticData'
+import { useTrainingStore } from '../../../stores'
 
 export const FormBlind = () => {
   const navigate = useNavigate()
@@ -20,7 +20,6 @@ export const FormBlind = () => {
   const { addTrainingData } = useTrainingStore()
 
   const onSubmit: SubmitHandler<Training> = (data) => {
-    // console.log('Blind form values: ', data)
     let textOption = {
       textValue:
         textData.find(

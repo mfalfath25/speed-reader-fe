@@ -25,19 +25,6 @@ export const stopWpmCounter = (
   return elapsedTime
 }
 
-// export const startPerf = () => {
-//   performance.clearMeasures()
-//   performance.mark('start')
-// }
-
-// export const stopPerf = () => {
-//   performance.mark('end')
-//   performance.measure('read time', 'start', 'end')
-//   const measure = performance.getEntriesByName('read time')
-//   const output = Math.trunc(measure[0].duration)
-//   return output
-// }
-
 export const splitTextToChunks = (
   text: string,
   chunk: number = 1

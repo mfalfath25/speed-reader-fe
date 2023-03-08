@@ -1,10 +1,10 @@
 import React from 'react'
 import { BiAlarm, BiBarChart, BiBookReader, BiEdit } from 'react-icons/bi'
 import { useNavigate } from 'react-router-dom'
-import { useFetchUser } from '../../hooks'
+import { Button } from '../atoms'
 import { getTotalFormattedReadTime } from '../../logic'
 import { getFirstLetter } from '../../logic/utils'
-import { Button } from '../atoms'
+import { useFetchUser } from '../../hooks'
 
 export const ProfileMenu = () => {
   const navigate = useNavigate()

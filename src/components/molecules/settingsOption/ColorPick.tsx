@@ -1,6 +1,6 @@
 import React from 'react'
-import { useSettingStore } from '../../../stores/SettingStore'
 import { ColorPreset } from '../../../static/staticData'
+import { useSettingStore } from '../../../stores'
 
 export const ColorPick = () => {
   const { settingData, setSettingData } = useSettingStore()
@@ -11,7 +11,7 @@ export const ColorPick = () => {
         {ColorPreset.map((color) => (
           <div key={color.id}>
             <button
-              className="btn btn-circle border-none"
+              className="btn-circle btn border-none"
               style={{ backgroundColor: color?.hex }}
               onClick={() =>
                 setSettingData({

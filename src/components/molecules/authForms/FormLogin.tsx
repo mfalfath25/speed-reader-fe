@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 
 // types
 import { FormLoginValues } from '../../../types/model'
@@ -12,8 +12,7 @@ import { ToastAlert } from '../../atoms'
 import { useNavigate } from 'react-router-dom'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useLoginMutation } from '../../../api/mutation'
-import { useUserStore } from '../../../stores/UserStore'
-import { useSettingStore } from '../../../stores'
+import { useSettingStore, useUserStore } from '../../../stores'
 
 export const FormLogin = () => {
   const navigate = useNavigate()

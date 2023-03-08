@@ -1,11 +1,11 @@
 import React from 'react'
-import { AxiosError } from 'axios'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
-import { useUserStore } from '../../../stores/UserStore'
+import { AxiosError } from 'axios'
 import { FormEditProfileValues } from '../../../types/model'
 import { Button, ToastAlert } from '../../atoms'
 import { useEditProfileMutation } from '../../../api/mutation'
+import { useUserStore } from '../../../stores'
 
 export const EditProfile = () => {
   const navigate = useNavigate()
@@ -19,7 +19,6 @@ export const EditProfile = () => {
   const { mutate, isLoading } = useEditProfileMutation()
 
   const onSubmit: SubmitHandler<FormEditProfileValues> = (data) => {
-    // console.log('Edit profile form values: ', data)
     mutate(data, {
       onSuccess: (data) => {
         editUserData(data.data.data)

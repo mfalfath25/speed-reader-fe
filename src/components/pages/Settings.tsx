@@ -1,7 +1,9 @@
 import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useSettingStore } from '../../stores/SettingStore'
+import { BiError, BiLoader } from 'react-icons/bi'
+import { AxiosError } from 'axios'
 import { loremPlaceholder } from '../../static/staticData'
+import { FormSettingsValues } from '../../types/model'
 import { Button, ToastAlert } from '../atoms'
 import {
   ColorPick,
@@ -9,11 +11,9 @@ import {
   FontfaceToggler,
   renderFixationLine,
 } from '../molecules'
-import { FormSettingsValues } from '../../types/model'
 import { useEditSettingMutation } from '../../api/mutation'
-import { AxiosError } from 'axios'
 import { useFetchUser } from '../../hooks'
-import { BiError, BiLoader } from 'react-icons/bi'
+import { useSettingStore } from '../../stores'
 
 export const Settings = () => {
   const navigate = useNavigate()
@@ -119,15 +119,17 @@ export const Settings = () => {
               <ColorPick />
             </div>
           </div>
-          <Button
-            text="Apply Settings"
-            width="full"
-            className="btn-primary"
-            onClick={() => {
-              handleChange()
-            }}
-            disabled={isLoading}
-          />
+          <div className="mt-2 flex justify-center sm:mx-auto sm:w-[200px]">
+            <Button
+              className="btn-primary"
+              text="Apply Settings"
+              width="full"
+              disabled={isLoading}
+              onClick={() => {
+                handleChange()
+              }}
+            />
+          </div>
         </div>
       )}
     </>

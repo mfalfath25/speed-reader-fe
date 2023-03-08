@@ -1,5 +1,5 @@
 import React from 'react'
-import { useSettingStore } from '../../../stores/SettingStore'
+import { useSettingStore } from '../../../stores'
 
 export const FontfaceToggler = () => {
   const { settingData, setSettingData } = useSettingStore()

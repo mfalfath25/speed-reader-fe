@@ -1,10 +1,10 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Button, ToastAlert } from '../atoms'
 import { BiBookReader } from 'react-icons/bi'
 import { homeMenu } from '../../static/staticData'
-import { useUserStore } from '../../stores'
+import { Button, ToastAlert } from '../atoms'
 import { useClearStore } from '../../hooks'
+import { useUserStore } from '../../stores'
 
 export const Home = () => {
   const navigate = useNavigate()
@@ -31,14 +31,14 @@ export const Home = () => {
           <div className="grid grid-cols-2 gap-4">
             <label
               htmlFor="logout-modal"
-              className="btn-outline no-animation btn w-full text-lg normal-case active:text-white active:opacity-70"
+              className="btn-outline btn no-animation w-full text-lg normal-case active:text-white active:opacity-70"
               onClick={handleLogout}
             >
               Yes
             </label>
             <label
               htmlFor="logout-modal"
-              className="no-animation btn w-full text-lg normal-case active:text-white active:opacity-70"
+              className="btn no-animation w-full text-lg normal-case active:text-white active:opacity-70"
             >
               Cancel
             </label>
@@ -79,7 +79,7 @@ export const Home = () => {
                     {menu.optionName === 'Logout' ? (
                       <label
                         htmlFor="logout-modal"
-                        className="btn-error no-animation btn w-full text-lg normal-case active:text-white active:opacity-70"
+                        className="btn btn-error no-animation w-full text-lg normal-case active:text-white active:opacity-70"
                       >
                         {menu.optionName}
                         {menu.buttonIcon}

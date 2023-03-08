@@ -1,5 +1,5 @@
 import React from 'react'
-import { useSettingStore } from '../../../stores/SettingStore'
+import { useSettingStore } from '../../../stores'
 
 export const renderFixationLine = (count: number) => {
   switch (count) {
@@ -8,22 +8,46 @@ export const renderFixationLine = (count: number) => {
     case 1:
       return (
         <>
-          <span className="overlay-helper left-1/2"></span>
+          <span
+            className={`overlay-helper left-1/2 min-h-[500px] ${
+              window.innerHeight < 768 ? 'min-h-[375px]' : 'min-h-[500px]'
+            }`}
+          ></span>
         </>
       )
     case 2:
       return (
         <>
-          <span className="overlay-helper left-1/3"></span>
-          <span className="overlay-helper left-2/3"></span>
+          <span
+            className={`overlay-helper left-1/3 min-h-[500px] ${
+              window.innerHeight < 768 ? 'min-h-[375px]' : 'min-h-[500px]'
+            }`}
+          ></span>
+          <span
+            className={`overlay-helper left-2/3 min-h-[500px] ${
+              window.innerHeight < 768 ? 'min-h-[375px]' : 'min-h-[500px]'
+            }`}
+          ></span>
         </>
       )
     case 3:
       return (
         <>
-          <span className="overlay-helper left-1/4"></span>
-          <span className="overlay-helper left-2/4"></span>
-          <span className="overlay-helper left-3/4"></span>
+          <span
+            className={`overlay-helper left-1/4 min-h-[500px] ${
+              window.innerHeight < 768 ? 'min-h-[375px]' : 'min-h-[500px]'
+            }`}
+          ></span>
+          <span
+            className={`overlay-helper left-2/4 min-h-[500px] ${
+              window.innerHeight < 768 ? 'min-h-[375px]' : 'min-h-[500px]'
+            }`}
+          ></span>
+          <span
+            className={`overlay-helper left-3/4 min-h-[500px] ${
+              window.innerHeight < 768 ? 'min-h-[375px]' : 'min-h-[500px]'
+            }`}
+          ></span>
         </>
       )
   }

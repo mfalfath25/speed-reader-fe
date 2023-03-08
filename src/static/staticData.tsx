@@ -10,8 +10,8 @@ export const titles = [
   { path: '/guide', title: 'Reading Guides' },
   { path: '/history', title: 'Training History' },
   { path: '/profile', title: 'Profile' },
-  // { path: '/profile/edit', title: 'Edit Profile' },
-  // { path: '/profile/progress', title: 'My Progress' },
+  { path: '/profile/edit/:userId', title: 'Edit Profile' },
+  { path: '/profile/progress/:userId', title: 'My Progress' },
   { path: '/training', title: 'Training' },
   { path: '/training/settings', title: 'Visual Settings' },
   { path: '/training/normal', title: 'Normal Mode' },
@@ -44,7 +44,6 @@ export const textLevelData = [
 export const textChoiceData = [
   { label: 'Text 1', value: 'Text 1' },
   { label: 'Text 2', value: 'Text 2' },
-  // { label: 'Text 3', value: 'Text 3' },
 ]
 
 export const textData = [

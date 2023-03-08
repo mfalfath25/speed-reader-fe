@@ -1,6 +1,5 @@
-import { stopWpmCounter } from './../logic/simulations'
 import { useState, useRef, useEffect } from 'react'
-import { startWpmCounter } from '../logic'
+import { startWpmCounter, stopWpmCounter } from '../logic'
 
 export const useWpmCounter = (totalWords: number) => {
   const [wpm, setWpm] = useState(0)
@@ -9,7 +8,7 @@ export const useWpmCounter = (totalWords: number) => {
   const startTimeRef = useRef<number | null>(null)
   const intervalRef = useRef<number | null>(null)
 
-  const handleStartTimer = () => {
+  const handleStartCounter = () => {
     if (
       !isRunning &&
       intervalRef.current === null &&
@@ -23,7 +22,7 @@ export const useWpmCounter = (totalWords: number) => {
     }
   }
 
-  const handleStopTimer = () => {
+  const handleStopCounter = () => {
     if (isRunning) {
       setElapsedTime(stopWpmCounter(intervalRef, startTimeRef))
       setIsRunning(false)
@@ -42,7 +41,7 @@ export const useWpmCounter = (totalWords: number) => {
     wpm,
     isRunning,
     elapsedTime,
-    handleStartTimer,
-    handleStopTimer,
+    handleStartCounter,
+    handleStopCounter,
   }
 }

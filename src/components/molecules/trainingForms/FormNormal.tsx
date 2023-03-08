@@ -1,17 +1,17 @@
 import React from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
+import { useNavigate } from 'react-router-dom'
 import { BiInfoCircle } from 'react-icons/bi'
 import { Questions, Training } from '../../../types/model'
 import { Button } from '../../atoms'
 import cefr from '../../../assets/training/cefr.png'
-import { useNavigate } from 'react-router-dom'
-import { useTrainingStore } from '../../../stores/TrainingStore'
 import {
   QuestionData,
   textChoiceData,
   textData,
   textLevelData,
 } from '../../../static/staticData'
+import { useTrainingStore } from '../../../stores'
 
 export const FormNormal = () => {
   const navigate = useNavigate()
@@ -20,7 +20,6 @@ export const FormNormal = () => {
   const { addTrainingData } = useTrainingStore()
 
   const onSubmit: SubmitHandler<Training> = (data) => {
-    // assign textValue and questionPairId to a new object (textOption)
     const textOption = {
       textValue:
         textData.find(

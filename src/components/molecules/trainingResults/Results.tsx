@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react'
-import moment from 'moment'
 import { useNavigate } from 'react-router-dom'
-import { useTrainingStore } from '../../../stores/TrainingStore'
+import { AxiosError } from 'axios'
+import moment from 'moment'
 import { Button, ToastAlert } from '../../atoms'
 import { getFormattedReadTime } from '../../../logic'
+import { useTrainingStore } from '../../../stores'
 import { useSubmitTrainingMutation } from '../../../api/mutation'
-import { AxiosError } from 'axios'
 
 export const Results = () => {
   const navigate = useNavigate()
@@ -25,13 +25,13 @@ export const Results = () => {
 
     switch (trainingData.mode) {
       case 'Normal':
-        navigate('/training/normal/simulate')
+        navigate('/training/normal/simulate', { replace: true })
         break
       case 'Blind':
-        navigate('/training/blind/simulate')
+        navigate('/training/blind/simulate', { replace: true })
         break
       case 'Custom':
-        navigate('/training/custom/simulate')
+        navigate('/training/custom/simulate', { replace: true })
         break
     }
   }

@@ -1,11 +1,9 @@
 import React, { useCallback, useEffect } from 'react'
-import { useTrainingStore } from '../../../stores/TrainingStore'
-import { useSettingStore } from '../../../stores/SettingStore'
-import { renderFixationLine } from '../../molecules'
-import { Button } from '../../atoms'
-import { ToastAlert } from '../../atoms'
 import { useNavigate } from 'react-router-dom'
+import { Button, ToastAlert } from '../../atoms'
+import { renderFixationLine } from '../../molecules'
 import { useTextAnimation } from '../../../hooks'
+import { useSettingStore, useTrainingStore } from '../../../stores'
 
 export const ModeCustom = () => {
   const navigate = useNavigate()
@@ -66,7 +64,13 @@ export const ModeCustom = () => {
               {trainingData.wpm}
             </label>
           ) : null}
-          <div className="scroll relative max-h-[500px] w-full overflow-y-auto rounded-md bg-slate-100 p-0 outline outline-1 outline-offset-0">
+          <div
+            className={`scroll relative ${
+              window.innerHeight < 768
+                ? 'max-h-[375px] min-h-[375px]'
+                : 'max-h-[500px] min-h-[500px]'
+            } w-full overflow-y-auto rounded-md bg-slate-100 p-0 outline outline-1 outline-offset-0`}
+          >
             <pre
               className="relative whitespace-pre-line p-2 text-left text-base font-normal sm:text-xl"
               style={{
@@ -95,7 +99,8 @@ export const ModeCustom = () => {
             </pre>
           </div>
         </div>
-        <div className="flex justify-center">
+        <div className="flex justify-center"></div>
+        <div className="mt-2 flex justify-center sm:mx-auto sm:w-[200px]">
           <Button
             text="Start"
             className="btn-primary"

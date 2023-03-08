@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
-import { useTrainingStore } from '../../../stores/TrainingStore'
 import { Training } from '../../../types/model'
 import { Button } from '../../atoms'
+import { useTrainingStore } from '../../../stores'
 
 export const FormCustom = () => {
   // global state
@@ -18,7 +18,6 @@ export const FormCustom = () => {
   } = useForm<Training>()
 
   const onSubmit: SubmitHandler<Training> = (data) => {
-    // console.log('Custom form values: ', data)
     addTrainingData(
       (data = {
         ...data,
@@ -90,7 +89,7 @@ export const FormCustom = () => {
             </div>
           </div>
 
-          <div className="grid gap-4">
+          <div className="mt-2 flex flex-col justify-center gap-4 sm:mx-auto sm:w-[200px]">
             <Button text="Set Options" type="submit" className="btn-primary" />
             <Button text="Reset" outline onClick={() => clearText()} />
           </div>

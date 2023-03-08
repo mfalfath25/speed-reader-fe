@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Outlet, useNavigate } from 'react-router-dom'
-import { useUserStore } from '../stores/UserStore'
 import logo from '../assets/logo/SpeedReaderLoader.png'
+import { useUserStore } from '../stores'
 
 export const Public = () => {
   const [isLoading, setIsLoading] = useState(false)

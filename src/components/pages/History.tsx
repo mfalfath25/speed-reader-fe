@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import _ from 'lodash'
 import moment from 'moment'
+import { BiError, BiLoader } from 'react-icons/bi'
 import { useFetchUser } from '../../hooks'
 import { getFormattedReadTime } from '../../logic'
-import { BiError, BiLoader } from 'react-icons/bi'
 
 export const History = () => {
   const { userData, isLoading, isError } = useFetchUser()
@@ -90,7 +90,7 @@ export const History = () => {
                 >
                   «
                 </button>
-                <button className="no-animation btn w-20 outline-double">
+                <button className="btn no-animation w-20 outline-double">
                   {currentPage}
                 </button>
                 <button

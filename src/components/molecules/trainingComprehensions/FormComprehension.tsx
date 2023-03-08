@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { getTotalAccuracy } from '../../../logic'
-import { useTrainingStore } from '../../../stores/TrainingStore'
 import { Training } from '../../../types/model'
 import { Button, ToastAlert } from '../../atoms'
+import { getTotalAccuracy } from '../../../logic'
+import { useTrainingStore } from '../../../stores'
 
 export const FormComprehension = () => {
   const navigate = useNavigate()

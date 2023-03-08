@@ -12,8 +12,6 @@ export const FormRegister = () => {
   const {
     register,
     handleSubmit,
-    getValues,
-    watch,
     reset,
     formState: { errors },
   } = useForm<FormRegisterValues>()
@@ -21,7 +19,6 @@ export const FormRegister = () => {
   const { mutate, isLoading } = useRegisterMutation()
 
   const onSubmit: SubmitHandler<FormRegisterValues> = (data) => {
-    // console.log('Register form values: ', data)
     mutate(data, {
       onSuccess: (data) => {
         if (data instanceof AxiosError) {
