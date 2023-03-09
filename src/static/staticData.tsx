@@ -923,29 +923,6 @@ export const guidesMenu = [
   },
 ]
 
-export const ColorPreset = [
-  {
-    id: 1,
-    name: 'Black',
-    hex: '#000000',
-  },
-  {
-    id: 2,
-    name: 'Red',
-    hex: '#EF3E35',
-  },
-  {
-    id: 3,
-    name: 'Green',
-    hex: '#55B949',
-  },
-  {
-    id: 4,
-    name: 'Blue',
-    hex: '#057AFF',
-  },
-]
-
 export const loremPlaceholder = [
   {
     loremLong:

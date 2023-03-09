@@ -1,14 +1,14 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, useCallback } from 'react'
 import { startWpmCounter, stopWpmCounter } from '../logic'
 
 export const useWpmCounter = (totalWords: number) => {
   const [wpm, setWpm] = useState(0)
   const [isRunning, setIsRunning] = useState(false)
-  const [elapsedTime, setElapsedTime] = useState(0)
+  const [timeElapsed, setTimeElapsed] = useState(0)
   const startTimeRef = useRef<number | null>(null)
   const intervalRef = useRef<number | null>(null)
 
-  const handleStartCounter = () => {
+  const handleStartCounter = useCallback(() => {
     if (
       !isRunning &&
       intervalRef.current === null &&
@@ -20,14 +20,14 @@ export const useWpmCounter = (totalWords: number) => {
       startWpmCounter(setWpm, totalWords, startTimeRef, intervalRef)
       setIsRunning(true)
     }
-  }
+  }, [isRunning, totalWords])
 
-  const handleStopCounter = () => {
+  const handleStopCounter = useCallback(() => {
     if (isRunning) {
-      setElapsedTime(stopWpmCounter(intervalRef, startTimeRef))
+      setTimeElapsed(stopWpmCounter(intervalRef, startTimeRef))
       setIsRunning(false)
     }
-  }
+  }, [isRunning])
 
   useEffect(() => {
     return () => {
@@ -40,7 +40,7 @@ export const useWpmCounter = (totalWords: number) => {
   return {
     wpm,
     isRunning,
-    elapsedTime,
+    timeElapsed,
     handleStartCounter,
     handleStopCounter,
   }

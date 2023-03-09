@@ -15,7 +15,7 @@ export const ModeBlind = () => {
     (state) => state.trainingData[state.trainingData.length - 1]
   )
   const totalWords = trainingData?.text.textWordCount
-  const { wpm, isRunning, elapsedTime, handleStartCounter, handleStopCounter } =
+  const { wpm, isRunning, timeElapsed, handleStartCounter, handleStopCounter } =
     useWpmCounter(totalWords)
 
   useEffect(() => {
@@ -26,16 +26,16 @@ export const ModeBlind = () => {
     if (!isRunning && counterStopped) {
       setTrainingData(trainingData.trainingId, {
         ...trainingData,
-        readTime: elapsedTime,
+        readTime: timeElapsed,
         wpm: wpm,
       })
 
-      ToastAlert('loading', 'loading', 1500)
+      ToastAlert('loading', 'loading', 1000)
       setTimeout(() => {
         navigate('/training/blind/simulate/comprehension', {
           replace: true,
         })
-      }, 1500)
+      }, 1000)
     }
 
     return () => {
@@ -56,15 +56,9 @@ export const ModeBlind = () => {
           </label>
         </div>
         <div>
-          <div
-            className={`scroll relative ${
-              window.innerHeight < 768
-                ? 'max-h-[375px] min-h-[375px]'
-                : 'max-h-[500px] min-h-[500px]'
-            } w-full overflow-y-auto rounded-md bg-slate-100 p-0 outline outline-1 outline-offset-0`}
-          >
+          <div className="scroll relative max-h-[500px] w-full overflow-y-auto rounded-md bg-slate-100 p-0 outline outline-1 outline-offset-0">
             <pre
-              className="relative whitespace-pre-line p-2 text-left text-base font-normal text-black sm:text-xl"
+              className="relative whitespace-pre-line break-words p-2 text-left text-base font-normal text-black sm:text-xl"
               style={{
                 lineHeight: '1.5',
                 fontFamily: settingData.isFontSerif

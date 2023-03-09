@@ -30,11 +30,16 @@ export const splitTextToChunks = (
   chunk: number = 1
 ): string[] => {
   const chunkedText: string[] = []
-  const regex = /(\r\n|\r|\n){1,}/g
 
-  text = text.trim().replace(regex, '$& ')
+  const processedText = text
+    .trimStart() // Removes any sequence of spaces or tabs at the beginning of a line.
+    .replace(/[\t ]{2,}/g, ' ') // Replaces any sequence of two or more spaces or tabs with a single space character.
+    .replace(/(\r\n|\r|\n){1,}/g, '$& ') // Replaces any sequence of one or more line breaks with the same sequence followed by a space character after.
+    .replace(/[\t ]+($|\s)/g, '$1') // Removes any sequence of spaces or tabs at the end of a line or before another word.
+    .trimEnd() // Removes any sequence of spaces or tabs at the end of a line.
 
-  const words = text.split(' ')
+  const words = processedText.split(' ')
+
   for (let i = 0; i < words.length; i += chunk) {
     chunkedText.push(words.slice(i, i + chunk).join(' '))
   }
@@ -48,16 +53,20 @@ export const createDurationArray = (
 ): number[] => {
   const durations: number[] = []
   let totalChars = 0
+
   for (let i = 0; i < totalChunks.length; i++) {
-    const len = totalChunks[i].length
+    const len = totalChunks[i].replace(/\n/g, '').length // exclude \n characters
     totalChars += len
   }
+
   const durationPerChar = duration / totalChars
+
   for (let i = 0; i < totalChunks.length; i++) {
-    const len = totalChunks[i].length
+    const len = totalChunks[i].replace(/\n/g, '').length // exclude \n characters
     const stringDuration = durationPerChar * len
     durations.push(Number(stringDuration.toFixed(2)))
   }
+
   return durations
 }
 

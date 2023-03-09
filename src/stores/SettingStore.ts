@@ -2,13 +2,13 @@ import create from 'zustand'
 import { devtools, persist } from 'zustand/middleware'
 import { Settings } from './../types/model'
 
-interface SettingStore {
+export interface SettingStoreProps {
   settingData: Settings
   setSettingData: (data: Settings) => void
-  clearSettingData: () => void
+  clearSettingData?: () => void
 }
 
-export const useSettingStore = create<SettingStore>()(
+export const useSettingStore = create<SettingStoreProps>()(
   devtools(
     persist(
       (set) => ({

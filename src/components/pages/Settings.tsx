@@ -6,7 +6,7 @@ import { loremPlaceholder } from '../../static/staticData'
 import { FormSettingsValues } from '../../types/model'
 import { Button, ToastAlert } from '../atoms'
 import {
-  ColorPick,
+  ColorPicker,
   FixationSelect,
   FontfaceToggler,
   renderFixationLine,
@@ -20,6 +20,10 @@ export const Settings = () => {
   const { settingData, setSettingData } = useSettingStore()
   const { isError, isLoading: fetchLoading } = useFetchUser()
   const { mutate, isLoading } = useEditSettingMutation()
+
+  const MemoizedColorPicker = React.memo(ColorPicker)
+  const MemoizedFixationSelect = React.memo(FixationSelect)
+  const MemoizedFontfaceToggler = React.memo(FontfaceToggler)
 
   const handleChange = (data: FormSettingsValues = settingData) => {
     mutate(data, {
@@ -64,7 +68,7 @@ export const Settings = () => {
       ) : (
         <div className="mx-auto w-full xl:w-[800px] 2xl:w-2/3">
           <div>
-            <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+            <div className="flex flex-row justify-between gap-6 md:items-center">
               <label className="label px-0 font-bold">Preview</label>
               {isError ? (
                 <div className="flex flex-row items-center">
@@ -75,10 +79,10 @@ export const Settings = () => {
                 </div>
               ) : null}
             </div>
-            <div className="relative min-h-[250px] w-full rounded-md p-0 outline outline-1 outline-offset-0 ">
+            <div className="relative min-h-[250px] w-full rounded-md p-0 outline outline-1 outline-offset-0">
               {renderFixationLine(settingData.fixationCount)}
               <pre
-                className="relative whitespace-pre-line p-2 text-left text-base font-normal  sm:text-xl"
+                className="relative whitespace-pre-line p-2 text-left text-base font-normal sm:text-xl"
                 style={{
                   lineHeight: '1.5',
                   fontFamily: settingData.isFontSerif
@@ -106,17 +110,28 @@ export const Settings = () => {
           <div className="my-6 flex flex-col gap-6 md:flex-row">
             <div>
               <p className="font-bold">Tipe fontface</p>
-              <FontfaceToggler />
+              <MemoizedFontfaceToggler
+                settingData={settingData}
+                setSettingData={setSettingData}
+              />
             </div>
 
             <div>
               <p className="font-bold">Garis bantu fiksasi</p>
-              <FixationSelect />
+              <MemoizedFixationSelect
+                settingData={settingData}
+                setSettingData={setSettingData}
+              />
             </div>
 
             <div>
               <p className="font-bold">Warna highlight kata</p>
-              <ColorPick />
+              {
+                <MemoizedColorPicker
+                  settingData={settingData}
+                  setSettingData={setSettingData}
+                />
+              }
             </div>
           </div>
           <div className="mt-2 flex justify-center sm:mx-auto sm:w-[200px]">

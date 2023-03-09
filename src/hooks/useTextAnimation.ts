@@ -11,26 +11,12 @@ export const useTextAnimation = (
   const [textDisplay, setTextDisplay] = useState<string | null>(null)
   const [readTime, setReadTime] = useState<number>(0)
 
-  let cleanupFunction: (() => void) | undefined
-
-  useEffect(() => {
-    return () => {
-      if (cleanupFunction) {
-        cleanupFunction()
-      }
-    }
-  }, [])
-
-  const resetAnimation = () => {
-    setTextDisplay(null)
-    setRunning(false)
-    setReadTime(0)
-  }
+  let animationCleanupTrigger: (() => void) | undefined
 
   const startAnimation = () => {
     resetAnimation()
     setRunning(true)
-    cleanupFunction = startTextAnimation(
+    animationCleanupTrigger = startTextAnimation(
       text,
       wpm,
       chunk,
@@ -39,6 +25,20 @@ export const useTextAnimation = (
       setReadTime
     )
   }
+
+  const resetAnimation = () => {
+    setTextDisplay(null)
+    setRunning(false)
+    setReadTime(0)
+  }
+
+  useEffect(() => {
+    return () => {
+      if (animationCleanupTrigger) {
+        animationCleanupTrigger()
+      }
+    }
+  }, [animationCleanupTrigger])
 
   return [
     textDisplay,

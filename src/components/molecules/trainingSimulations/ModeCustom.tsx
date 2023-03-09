@@ -44,13 +44,13 @@ export const ModeCustom = () => {
           readTime: readTime,
         })
 
-      ToastAlert('loading', 'loading', 1500)
+      ToastAlert('loading', 'loading', 1000)
 
       setTimeout(() => {
         navigate('/training/custom/result', {
           replace: true,
         })
-      }, 1500)
+      }, 1000)
     }
   }, [finished])
 
@@ -64,15 +64,9 @@ export const ModeCustom = () => {
               {trainingData.wpm}
             </label>
           ) : null}
-          <div
-            className={`scroll relative ${
-              window.innerHeight < 768
-                ? 'max-h-[375px] min-h-[375px]'
-                : 'max-h-[500px] min-h-[500px]'
-            } w-full overflow-y-auto rounded-md bg-slate-100 p-0 outline outline-1 outline-offset-0`}
-          >
+          <div className="scroll relative max-h-[500px] min-h-[250px] w-full overflow-y-auto rounded-md bg-slate-100 p-0 outline outline-1 outline-offset-0">
             <pre
-              className="relative whitespace-pre-line p-2 text-left text-base font-normal sm:text-xl"
+              className="relative whitespace-pre-line break-words p-2 text-left text-base font-normal sm:text-xl"
               style={{
                 lineHeight: '1.5',
                 fontFamily: settingData.isFontSerif
@@ -86,7 +80,7 @@ export const ModeCustom = () => {
                 : 'Your custom text will be shown here'}
             </pre>
             <pre
-              className="absolute top-0 whitespace-pre-line p-2 text-left text-base font-normal text-black dark:text-slate-200 sm:text-xl"
+              className="absolute top-0 whitespace-pre-line break-words p-2 text-left text-base font-normal text-black dark:text-slate-200 sm:text-xl"
               style={{
                 lineHeight: '1.5',
                 fontFamily: settingData.isFontSerif

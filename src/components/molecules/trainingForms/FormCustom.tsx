@@ -18,9 +18,15 @@ export const FormCustom = () => {
   } = useForm<Training>()
 
   const onSubmit: SubmitHandler<Training> = (data) => {
+    const processedText = data?.text.textValue.trimStart().trimEnd()
+
     addTrainingData(
       (data = {
         ...data,
+        text: {
+          ...data.text,
+          textValue: processedText,
+        },
         mode: 'Custom',
         chunksCount: data.chunksCount ? data.chunksCount : 3,
         wpm: data.wpm ? data.wpm : 250,
