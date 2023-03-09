@@ -33,10 +33,13 @@ export const renderFixationLine = (count: number) => {
   }
 }
 
+interface FixationSelectProps
+  extends Pick<SettingStoreProps, 'settingData' | 'setSettingData'> {}
+
 export const FixationSelect = ({
   settingData,
   setSettingData,
-}: SettingStoreProps) => {
+}: FixationSelectProps) => {
   const options = [
     { title: '0', value: 0 },
     { title: '1', value: 1 },

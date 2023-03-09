@@ -5,7 +5,7 @@ import { Settings } from './../types/model'
 export interface SettingStoreProps {
   settingData: Settings
   setSettingData: (data: Settings) => void
-  clearSettingData?: () => void
+  clearSettingData: () => void
 }
 
 export const useSettingStore = create<SettingStoreProps>()(

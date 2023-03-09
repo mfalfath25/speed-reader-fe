@@ -67,7 +67,11 @@ export const Guide = () => {
                 )}
               </ul>
               <br />
-              <img src={menu.image} className="w-[400px]"></img>
+              <img
+                src={menu.image}
+                className="w-[400px]"
+                alt={menu.optionName}
+              ></img>
             </div>
           </div>
         ))}

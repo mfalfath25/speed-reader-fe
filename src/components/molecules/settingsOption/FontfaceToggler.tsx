@@ -1,10 +1,13 @@
 import React from 'react'
 import { SettingStoreProps } from '../../../stores/SettingStore'
 
+interface FontfaceTogglerProps
+  extends Pick<SettingStoreProps, 'settingData' | 'setSettingData'> {}
+
 export const FontfaceToggler = ({
   settingData,
   setSettingData,
-}: SettingStoreProps) => {
+}: FontfaceTogglerProps) => {
   const handleToggle = () => {
     setSettingData({
       ...settingData,

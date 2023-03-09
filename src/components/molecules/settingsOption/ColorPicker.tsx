@@ -7,10 +7,13 @@ interface ColorPreset {
   hex: string
 }
 
+interface ColorPickerProps
+  extends Pick<SettingStoreProps, 'settingData' | 'setSettingData'> {}
+
 export const ColorPicker = ({
   settingData,
   setSettingData,
-}: SettingStoreProps) => {
+}: ColorPickerProps) => {
   const colorPresets: ColorPreset[] = [
     {
       id: 1,
@@ -47,7 +50,7 @@ export const ColorPicker = ({
         {colorPresets.map((color) => (
           <div key={color.id}>
             <button
-              className="no-animation btn-circle btn border-none"
+              className="btn no-animation btn-circle border-none"
               style={{ backgroundColor: color.hex }}
               onClick={() => handleClick(color)}
             >
