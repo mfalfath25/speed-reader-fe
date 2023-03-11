@@ -20,6 +20,11 @@ export const getFilteredData = (data: History[], mode: string): History[] => {
   return output
 }
 
+export const getTrainingCount = (data: History[], mode: string): number => {
+  const filteredData = getFilteredData(data, mode)
+  return filteredData.length
+}
+
 export const getAverageWpm = (data: History[]): number => {
   const filteredData = filterDataByMode(data, 'Custom', true)
   if (filteredData.length === 0) {
@@ -68,6 +73,14 @@ export const getAccuracyPercentage = (
 
 export const getTotalReadTime = (data: History[]): number => {
   return data.reduce((acc, curr) => acc + curr.readTime, 0)
+}
+
+export const getAverageReadTime = (data: History[]): number => {
+  if (data.length === 0) {
+    return 0
+  }
+  const totalReadTime = getTotalReadTime(data)
+  return Math.round(totalReadTime / data.length)
 }
 
 export const getFormattedReadTime = (readTime: number): string => {

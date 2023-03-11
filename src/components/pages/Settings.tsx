@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { BiError, BiLoader } from 'react-icons/bi'
 import { AxiosError } from 'axios'
@@ -17,8 +17,9 @@ import { useSettingStore } from '../../stores'
 
 export const Settings = () => {
   const navigate = useNavigate()
+  const [isApplied, setIsApplied] = useState(false)
   const { settingData, setSettingData } = useSettingStore()
-  const { isError, isLoading: fetchLoading } = useFetchUser()
+  const { isError, isLoading: fetchLoading, isSuccess } = useFetchUser()
   const { mutate, isLoading } = useEditSettingMutation()
 
   const MemoizedColorPicker = React.memo(ColorPicker)
@@ -47,25 +48,24 @@ export const Settings = () => {
   }
 
   useEffect(() => {
-    if (isError) ToastAlert('Setting fetch error', 'error')
-  }, [isError])
+    if (isSuccess || isError) {
+      if (isError) {
+        ToastAlert('Fetch settings error', 'error')
+      }
+      setTimeout(() => {
+        setIsApplied(true)
+      }, 500)
+    }
 
-  useEffect(() => {
     return () => {
       setSettingData(settingData)
+      setIsApplied(false)
     }
-  }, [])
+  }, [isSuccess, isError, fetchLoading])
 
   return (
     <>
-      {fetchLoading ? (
-        <div className="flex flex-1 flex-col items-center justify-center">
-          <BiLoader size={32} className="bg- mb-2 animate-spin text-primary" />
-          <div className="stat-value animate-pulse text-2xl text-primary">
-            Loading
-          </div>
-        </div>
-      ) : (
+      {isApplied ? (
         <div className="mx-auto w-full xl:w-[800px] 2xl:w-2/3">
           <div>
             <div className="flex flex-row justify-between gap-6 md:items-center">
@@ -79,7 +79,7 @@ export const Settings = () => {
                 </div>
               ) : null}
             </div>
-            <div className="relative min-h-[250px] w-full rounded-md p-0 outline outline-1 outline-offset-0">
+            <div className="relative min-h-[250px] w-full rounded-md bg-slate-100 p-0 outline outline-1 outline-offset-0">
               {renderFixationLine(settingData.fixationCount)}
               <pre
                 className="relative whitespace-pre-line p-2 text-left text-base font-normal sm:text-xl"
@@ -144,6 +144,13 @@ export const Settings = () => {
                 handleChange()
               }}
             />
+          </div>
+        </div>
+      ) : (
+        <div className="flex flex-1 flex-col items-center justify-center">
+          <BiLoader size={32} className="bg- mb-2 animate-spin text-primary" />
+          <div className="stat-value animate-pulse text-2xl text-primary">
+            Loading
           </div>
         </div>
       )}

@@ -9,15 +9,18 @@ export const useFetchUser = () => {
 
   useEffect(() => {
     if (isSuccess && data) {
+      const { data: fetchedData } = data?.data
+
       setUserData({
         ...userData,
-        trainings: data?.data.data.trainings || [],
+        trainings: fetchedData.trainings,
       })
+
       setSettingData({
         ...settingData,
-        isFontSerif: data?.data.data.setting.isFontSerif || false,
-        fixationCount: data?.data.data.setting.fixationCount || 0,
-        fontColor: data?.data.data.setting.fontColor || '#000000',
+        isFontSerif: fetchedData.setting.isFontSerif,
+        fixationCount: fetchedData.setting.fixationCount,
+        fontColor: fetchedData.setting.fontColor,
       })
     }
   }, [data, isSuccess])

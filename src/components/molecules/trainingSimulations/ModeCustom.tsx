@@ -93,7 +93,6 @@ export const ModeCustom = () => {
             </pre>
           </div>
         </div>
-        <div className="flex justify-center"></div>
         <div className="mt-2 flex justify-center sm:mx-auto sm:w-[200px]">
           <Button
             text="Start"

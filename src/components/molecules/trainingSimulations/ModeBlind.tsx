@@ -45,17 +45,17 @@ export const ModeBlind = () => {
 
   return (
     <>
-      <div className="mx-auto w-full space-y-0 xl:w-[800px] 2xl:w-2/3">
-        <div className="flex flex-row justify-between">
-          <label className="label px-0 font-bold">
-            Teks: {trainingData.text.textLevel} -{' '}
-            {trainingData?.text.textChoice}
-          </label>
-          <label className="label px-0 font-bold">
-            {wpm > 0 ? `${wpm} WPM` : null}
-          </label>
-        </div>
+      <div className="mx-auto w-full space-y-4 xl:w-[800px] 2xl:w-2/3">
         <div>
+          <div className="flex flex-row justify-between">
+            <label className="label px-0 font-bold">
+              Teks: {trainingData.text.textLevel} -{' '}
+              {trainingData?.text.textChoice}
+            </label>
+            <label className="label px-0 font-bold text-blue-500">
+              {wpm > 0 ? `${wpm} WPM` : null}
+            </label>
+          </div>
           <div className="scroll relative max-h-[500px] w-full overflow-y-auto rounded-md bg-slate-100 p-0 outline outline-1 outline-offset-0">
             <pre
               className="relative whitespace-pre-line break-words p-2 text-left text-base font-normal text-black sm:text-xl"
@@ -73,26 +73,26 @@ export const ModeBlind = () => {
             </pre>
           </div>
         </div>
-      </div>
-      <div className="mt-2 flex justify-center pt-4 sm:mx-auto sm:w-[200px]">
-        {isRunning ? (
-          <Button
-            text="Stop"
-            outline
-            width="full"
-            onClick={() => {
-              handleStopCounter()
-              setCounterStopped(true)
-            }}
-          />
-        ) : (
-          <Button
-            text="Start"
-            className="btn-primary"
-            width="full"
-            onClick={() => handleStartCounter()}
-          />
-        )}
+        <div className="mt-2 flex justify-center sm:mx-auto sm:w-[200px]">
+          {isRunning ? (
+            <Button
+              text="Stop"
+              outline
+              width="full"
+              onClick={() => {
+                handleStopCounter()
+                setCounterStopped(true)
+              }}
+            />
+          ) : (
+            <Button
+              text="Start"
+              className="btn-primary"
+              width="full"
+              onClick={() => handleStartCounter()}
+            />
+          )}
+        </div>
       </div>
     </>
   )

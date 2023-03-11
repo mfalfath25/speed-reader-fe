@@ -28,7 +28,7 @@ export const FormRegister = () => {
             ToastAlert(data.data.message, 'success')
             reset()
             navigate('/login', { replace: true })
-          }, 500)
+          }, 1000)
         }
       },
       onError: (err) => {

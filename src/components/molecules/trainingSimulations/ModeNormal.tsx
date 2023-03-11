@@ -93,17 +93,17 @@ export const ModeNormal = () => {
             </pre>
           </div>
         </div>
-      </div>
-      <div className="mt-2 flex justify-center sm:mx-auto sm:w-[200px]">
-        <Button
-          text="Start"
-          className="btn-primary"
-          disabled={running}
-          width="full"
-          onClick={() => {
-            handleStartAnimation()
-          }}
-        />
+        <div className="mt-2 flex justify-center sm:mx-auto sm:w-[200px]">
+          <Button
+            text="Start"
+            className="btn-primary"
+            disabled={running}
+            width="full"
+            onClick={() => {
+              handleStartAnimation()
+            }}
+          />
+        </div>
       </div>
     </>
   )

@@ -12,11 +12,11 @@ export const Home = () => {
   const { clearStores } = useClearStore()
 
   const handleLogout = () => {
-    clearStores()
-    ToastAlert('Logout berhasil', 'success')
     setTimeout(() => {
+      ToastAlert('Logout berhasil', 'success')
+      clearStores()
       navigate('/login', { replace: true })
-    }, 1000)
+    }, 500)
   }
 
   return (
