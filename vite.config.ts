@@ -8,7 +8,7 @@ export default defineConfig({
     VitePWA({
       manifest: {
         name: 'Speed Reader',
-        short_name: 'SR PWA',
+        short_name: 'Speed Reader',
         description: 'Speed Reader PWA',
         theme_color: '#ffffff',
         scope: '/',
@@ -30,22 +30,22 @@ export default defineConfig({
       workbox: {
         globPatterns: ['**/*.{js,css,html,ico,png,jpg,svg,webp}'],
         runtimeCaching: [
-          // {
-          //   urlPattern: ({ url }) => {
-          //     return url.pathname.startsWith('/api/')
-          //   },
-          //   handler: 'StaleWhileRevalidate' as const,
-          //   method: 'GET' as const,
-          //   options: {
-          //     expiration: {
-          //       maxAgeSeconds: 1,
-          //     },
-          //     cacheName: 'api-cache',
-          //     cacheableResponse: {
-          //       statuses: [0, 200],
-          //     },
-          //   },
-          // },
+          {
+            urlPattern: ({ url }) => {
+              return url.pathname.startsWith('/api/')
+            },
+            handler: 'NetworkFirst' as const,
+            method: 'GET' as const,
+            options: {
+              expiration: {
+                maxAgeSeconds: 1,
+              },
+              cacheName: 'api-cache',
+              cacheableResponse: {
+                statuses: [0, 200],
+              },
+            },
+          },
           {
             urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
             handler: 'CacheFirst',
