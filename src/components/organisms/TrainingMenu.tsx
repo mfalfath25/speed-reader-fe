@@ -17,8 +17,8 @@ export const TrainingMenu = () => {
           <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
             {trainingMenu.map((menu, index) => (
               <div key={index} className="h-full w-auto">
-                <div className="card-body h-full w-full rounded-lg bg-base-300 p-4 shadow-xl outline outline-2 xl:p-8">
-                  <h2 className="card-title text-base sm:text-xl">
+                <div className="card-body h-full w-full rounded-lg bg-base-300 p-2 shadow-xl outline outline-2 sm:p-4 xl:p-8">
+                  <h2 className="card-title text-base sm:text-lg">
                     {menu.description}
                   </h2>
                   <p>{menu.info}</p>

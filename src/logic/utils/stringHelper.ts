@@ -14,7 +14,7 @@ export const checkCurrentPathname = (
   checkPath: string[],
   currentPath: string
 ): boolean => {
-  return checkPath.some((path) => currentPath.includes(path))
+  return checkPath.some((path) => currentPath === path)
 }
 
 export const getFirstLetter = (text: string = '-'): string => {

@@ -833,24 +833,23 @@ export const homeMenu = [
 export const trainingMenu = [
   {
     id: 1,
-    optionName: 'Normal Test',
+    optionName: 'Normal Mode',
     description:
-      'Latih kecepatan membaca dengan dipandu penunjuk kata dan kecepatan WPM tetap',
+      'Berlatih membaca cepat dengan panduan highlight kata dan kecepatan WPM tetap',
     info: 'Training with assisted WPM speed',
     navigateTo: '/training/normal',
   },
   {
     id: 2,
-    optionName: 'Blind Test',
-    description: 'Latih kecepatan membaca dengan kecepatan WPM murni.',
+    optionName: 'Blind Mode',
+    description: 'Berlatih membaca cepat dengan kecepatan WPM murni.',
     info: 'Training with pure WPM speed',
     navigateTo: '/training/blind',
   },
   {
     id: 3,
-    optionName: 'Custom Test',
-    description:
-      'Simulasi membaca cepat menggunakan input dan pengaturan teks kustom sendiri.',
+    optionName: 'Custom Mode',
+    description: 'Berlatih membaca cepat menggunakan teks bebas.',
     info: 'Training with custom text input',
     navigateTo: '/training/custom',
   },

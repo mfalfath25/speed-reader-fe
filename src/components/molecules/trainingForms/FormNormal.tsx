@@ -132,7 +132,9 @@ export const FormNormal = () => {
                 </select>
               </div>
               <div className="w-full sm:w-[22.5%]">
-                <label className="label px-0 pt-0 font-bold">Word Chunks</label>
+                <label className="label px-0 pt-0 font-bold">
+                  Jumlah Highlight Kata
+                </label>
                 <input
                   type="number"
                   placeholder="(1-5)"
@@ -141,10 +143,12 @@ export const FormNormal = () => {
                   max="5"
                   {...register('chunksCount', { valueAsNumber: true })}
                 />
-                <label className="label-text-alt">(default: 3 chunks)</label>
+                <label className="label-text-alt">(default: 3 kata)</label>
               </div>
               <div className="w-full sm:w-[22.5%]">
-                <label className="label px-0 pt-0 font-bold">Target WPM</label>
+                <label className="label px-0 pt-0 font-bold">
+                  Target Kata per Menit
+                </label>
                 <input
                   type="number"
                   placeholder="(100-1000)"

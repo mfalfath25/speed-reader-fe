@@ -53,7 +53,7 @@ export const FormCustom = () => {
         onSubmit={handleSubmit(onSubmit)}
       >
         <div className="w-full">
-          <label className="label px-0 font-bold">Custom text input</label>
+          <label className="label px-0 font-bold">Input Teks Bebas</label>
           <textarea
             className="textarea-bordered textarea h-[300px] w-full"
             placeholder="Type your text here..."
@@ -70,7 +70,9 @@ export const FormCustom = () => {
         <div className="grid grid-rows-1 gap-4">
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             <div className="w-auto">
-              <label className="label px-0 pt-0 font-bold">Word Chunks</label>
+              <label className="label px-0 pt-0 font-bold">
+                Jumlah Highlight Kata
+              </label>
               <input
                 type="number"
                 placeholder="(1-5)"
@@ -79,10 +81,12 @@ export const FormCustom = () => {
                 max="5"
                 {...register('chunksCount', { valueAsNumber: true })}
               />
-              <label className="label-text-alt">(default: 3 chunks)</label>
+              <label className="label-text-alt">(default: 3 kata)</label>
             </div>
             <div className="w-auto">
-              <label className="label px-0 pt-0 font-bold">Target WPM</label>
+              <label className="label px-0 pt-0 font-bold">
+                Target Kata per Menit
+              </label>
               <input
                 type="number"
                 placeholder="(100-1000)"

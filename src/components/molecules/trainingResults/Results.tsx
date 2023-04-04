@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
+import moment from 'moment'
 import { useNavigate } from 'react-router-dom'
 import { AxiosError } from 'axios'
-import moment from 'moment'
 import { Button, ToastAlert } from '../../atoms'
 import { getFormattedReadTime } from '../../../logic'
 import { useTrainingStore } from '../../../stores'
@@ -78,15 +78,15 @@ export const Results = () => {
             <div className="flex flex-row">
               <div className="stat">
                 <div className="stat-title text-center text-xl font-bold text-black">
-                  Word Count
+                  Jumlah Kata
                 </div>
                 <div className="stat-value mx-auto text-primary">
-                  {trainingData.text.textWordCount} words
+                  {trainingData.text.textWordCount} kata
                 </div>
               </div>
               <div className="stat">
                 <div className="stat-title text-center text-xl font-bold text-black">
-                  Accuracy
+                  Akurasi
                 </div>
                 <div className="stat-value mx-auto text-primary">
                   {trainingData.accuracy} %
@@ -101,15 +101,15 @@ export const Results = () => {
             <div className="flex flex-row">
               <div className="stat">
                 <div className="stat-title text-center text-xl font-bold text-black">
-                  Word Count
+                  Jumlah Kata
                 </div>
                 <div className="stat-value mx-auto text-primary">
-                  {trainingData.text.textWordCount} words
+                  {trainingData.text.textWordCount} kata
                 </div>
               </div>
               <div className="stat">
                 <div className="stat-title text-center text-xl font-bold text-black">
-                  Accuracy
+                  Akurasi
                 </div>
                 <div className="stat-value mx-auto text-primary">
                   {trainingData.accuracy} %
@@ -123,10 +123,10 @@ export const Results = () => {
           <>
             <div className="stat">
               <div className="stat-title text-center text-xl font-bold text-black">
-                Word Count
+                Jumlah Kata
               </div>
               <div className="stat-value mx-auto text-primary">
-                {trainingData.text.textWordCount} words
+                {trainingData.text.textWordCount} kata
               </div>
             </div>
           </>
@@ -147,7 +147,7 @@ export const Results = () => {
           <div className="stats stats-vertical bg-slate-100 shadow">
             <div className="stat min-w-[340px] sm:w-full">
               <div className="stat-title text-center text-xl font-bold text-black">
-                Reading Speed
+                Kecepatan Baca
               </div>
               <div className="stat-value mx-auto text-primary">
                 {trainingData !== undefined
@@ -160,7 +160,7 @@ export const Results = () => {
 
           <div className="flex flex-row justify-between">
             <div>
-              <p className="text-xl">Date taken</p>
+              <p className="text-xl">Tanggal Latihan</p>
               <p className="text-2xl font-bold">
                 {trainingData !== undefined
                   ? moment(trainingData.readDate).format('l')
@@ -168,7 +168,7 @@ export const Results = () => {
               </p>
             </div>
             <div>
-              <p className="text-right text-xl">Reading Time</p>
+              <p className="text-right text-xl">Waktu Baca</p>
               <p className="text-right text-2xl font-bold">
                 {trainingData !== undefined
                   ? getFormattedReadTime(trainingData.readTime)

@@ -8,7 +8,7 @@ import { useSettingStore, useTrainingStore } from '../../../stores'
 export const ModeBlind = () => {
   const navigate = useNavigate()
   const { settingData } = useSettingStore()
-  const [counterStopped, setCounterStopped] = useState(false)
+  const [stopCounter, setStopCounter] = useState(false)
 
   const { setTrainingData } = useTrainingStore()
   const trainingData = useTrainingStore(
@@ -23,7 +23,7 @@ export const ModeBlind = () => {
   }, [trainingData])
 
   useEffect(() => {
-    if (!isRunning && counterStopped) {
+    if (!isRunning && stopCounter) {
       setTrainingData(trainingData.trainingId, {
         ...trainingData,
         readTime: timeElapsed,
@@ -39,9 +39,9 @@ export const ModeBlind = () => {
     }
 
     return () => {
-      setCounterStopped(false)
+      setStopCounter(false)
     }
-  }, [isRunning, counterStopped])
+  }, [isRunning, stopCounter])
 
   return (
     <>
@@ -78,10 +78,11 @@ export const ModeBlind = () => {
             <Button
               text="Stop"
               outline
+              status="error"
               width="full"
               onClick={() => {
                 handleStopCounter()
-                setCounterStopped(true)
+                setStopCounter(true)
               }}
             />
           ) : (

@@ -16,7 +16,7 @@ export const filterDataByMode = (
 }
 
 export const getFilteredData = (data: History[], mode: string): History[] => {
-  let output = data.filter((item) => item.mode === mode)
+  const output = data.filter((item) => item.mode === mode)
   return output
 }
 
