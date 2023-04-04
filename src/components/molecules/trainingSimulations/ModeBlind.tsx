@@ -59,7 +59,7 @@ export const ModeBlind = () => {
                 {wpm > 0 ? `${wpm} WPM` : '~ WPM'}
               </label>
               <label className="label px-0 font-bold text-pink-500">
-                {time > 0 ? `${getFormattedStopwatch(time)}` : '~ 00:00:00'}
+                {time > 0 ? `${getFormattedStopwatch(time)}` : '00:00:00'}
               </label>
             </div>
           </div>

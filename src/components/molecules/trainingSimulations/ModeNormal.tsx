@@ -68,14 +68,14 @@ export const ModeNormal = () => {
           <div className="flex flex-row justify-between">
             {trainingData !== undefined ? (
               <label className="label px-0 font-bold">
-                Text: {trainingData.text.textLevel} {' - '}
-                {trainingData.text.textChoice}, Chunk count:{' '}
+                Teks: {trainingData.text.textLevel} {' - '}
+                {trainingData.text.textChoice}, Highlight kata:{' '}
                 {trainingData.chunksCount}, Target WPM:
                 {trainingData.wpm}
               </label>
             ) : null}
             <label className="label px-0 font-bold text-pink-500">
-              {time > 0 ? `${getFormattedStopwatch(time)}` : '~ 00:00:00'}
+              {time > 0 ? `${getFormattedStopwatch(time)}` : '00:00:00'}
             </label>
           </div>
           <div className="scroll relative max-h-[500px] w-full overflow-y-auto rounded-md bg-slate-100 p-0 outline outline-1 outline-offset-0">

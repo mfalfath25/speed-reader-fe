@@ -115,7 +115,7 @@ export const FormBlind = () => {
                 </select>
               </div>
               <div className="flex w-full flex-col sm:w-[22.5%]">
-                <label className="label px-0 pt-0 font-bold">Pilih Text</label>
+                <label className="label px-0 pt-0 font-bold">Pilih Teks</label>
                 <select
                   className="select-bordered select w-auto"
                   value={watch('text.textChoice')}
