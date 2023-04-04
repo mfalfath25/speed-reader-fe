@@ -17,7 +17,7 @@ export const Guide = () => {
     <>
       <div className="flex flex-col gap-4">
         <h2 className="mx-auto text-lg sm:text-2xl">
-          Konsep dan unsur dalam membaca cepat
+          Konsep dalam membaca cepat
           <BiBookOpen size={24} className="ml-2 inline" />
         </h2>
         {guidesMenu.map((menu, index) => (

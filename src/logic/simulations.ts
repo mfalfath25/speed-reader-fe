@@ -25,45 +25,6 @@ export const stopWpmCounter = (
   return elapsedTime
 }
 
-export const Stopwatch = () => {
-  let startTime: number,
-    endTime: number,
-    running: boolean,
-    duration: number = 0
-
-  const start = () => {
-    if (running) throw new Error('Stopwatch has already started.')
-
-    running = true
-
-    startTime = performance.now()
-  }
-
-  const stop = () => {
-    if (!running) throw new Error('Stopwatch is not started.')
-
-    running = false
-
-    endTime = performance.now()
-
-    const seconds = (endTime - startTime) / 1000
-    duration += seconds
-  }
-
-  const reset = () => {
-    startTime = 0
-    endTime = 0
-    running = false
-    duration = 0
-  }
-
-  Object.defineProperty(this, 'duration', {
-    get: () => duration,
-  })
-
-  return { start, stop, reset, duration }
-}
-
 export const splitTextToChunks = (
   text: string,
   chunk: number = 1

@@ -83,6 +83,17 @@ export const getAverageReadTime = (data: History[]): number => {
   return Math.round(totalReadTime / data.length)
 }
 
+export const getFormattedStopwatch = (time: number): string => {
+  const duration = moment.duration(time)
+  const minutes = duration.minutes().toString().padStart(2, '0')
+  const seconds = duration.seconds().toString().padStart(2, '0')
+  const milliseconds = Math.floor(duration.milliseconds() / 10)
+    .toString()
+    .padStart(2, '0')
+  const formattedTime = `${minutes}:${seconds}:${milliseconds}`
+  return formattedTime
+}
+
 export const getFormattedReadTime = (readTime: number): string => {
   const duration = moment.duration(readTime)
   const hours = Math.floor(duration.asHours())

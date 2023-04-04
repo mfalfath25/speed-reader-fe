@@ -2,14 +2,14 @@ import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Button, ToastAlert } from '../../atoms'
 import { renderFixationLine } from '../../molecules'
-import { useWpmCounter } from '../../../hooks'
+import { useStopwatch, useWpmCounter } from '../../../hooks'
 import { useSettingStore, useTrainingStore } from '../../../stores'
+import { getFormattedStopwatch } from '../../../logic'
 
 export const ModeBlind = () => {
   const navigate = useNavigate()
-  const { settingData } = useSettingStore()
   const [stopCounter, setStopCounter] = useState(false)
-
+  const { settingData } = useSettingStore()
   const { setTrainingData } = useTrainingStore()
   const trainingData = useTrainingStore(
     (state) => state.trainingData[state.trainingData.length - 1]
@@ -17,6 +17,7 @@ export const ModeBlind = () => {
   const totalWords = trainingData?.text.textWordCount
   const { wpm, isRunning, timeElapsed, handleStartCounter, handleStopCounter } =
     useWpmCounter(totalWords)
+  const { time, handleStartSW, handleStopSW } = useStopwatch()
 
   useEffect(() => {
     if (trainingData === undefined) return navigate('/training/blind')
@@ -49,12 +50,18 @@ export const ModeBlind = () => {
         <div>
           <div className="flex flex-row justify-between">
             <label className="label px-0 font-bold">
-              Teks: {trainingData.text.textLevel} -{' '}
+              Teks: {trainingData.text.textLevel}
+              {' - '}
               {trainingData?.text.textChoice}
             </label>
-            <label className="label px-0 font-bold text-blue-500">
-              {wpm > 0 ? `${wpm} WPM` : null}
-            </label>
+            <div className="flex flex-row gap-3">
+              <label className="label px-0 font-bold text-blue-500">
+                {wpm > 0 ? `${wpm} WPM` : '~ WPM'}
+              </label>
+              <label className="label px-0 font-bold text-pink-500">
+                {time > 0 ? `${getFormattedStopwatch(time)}` : '~ 00:00:00'}
+              </label>
+            </div>
           </div>
           <div className="scroll relative max-h-[500px] w-full overflow-y-auto rounded-md bg-slate-100 p-0 outline outline-1 outline-offset-0">
             <pre
@@ -81,6 +88,7 @@ export const ModeBlind = () => {
               status="error"
               width="full"
               onClick={() => {
+                handleStopSW()
                 handleStopCounter()
                 setStopCounter(true)
               }}
@@ -90,7 +98,10 @@ export const ModeBlind = () => {
               text="Start"
               className="btn-primary"
               width="full"
-              onClick={() => handleStartCounter()}
+              onClick={() => {
+                handleStartSW()
+                handleStartCounter()
+              }}
             />
           )}
         </div>
