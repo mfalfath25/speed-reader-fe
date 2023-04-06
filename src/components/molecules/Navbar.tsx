@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom'
 export const Navbar = () => {
   return (
     <>
-      <div className="navbar justify-center bg-base-100 p-0">
+      <div className="navbar justify-center p-0">
         <Link to="/">
           <img
             src={logo}

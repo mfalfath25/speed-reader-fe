@@ -1,7 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
-  darkMode: ['class', '[data-theme="night"]'],
+  // darkMode: ['class', '[data-theme="night"]'],
   theme: {
     container: {
       center: true,
@@ -22,12 +22,12 @@ module.exports = {
   plugins: [require('daisyui')],
   daisyui: {
     styled: true,
-    themes: ['night', 'winter'],
+    themes: ['winter'],
     base: true,
     utils: true,
     logs: true,
     rtl: false,
     prefix: '',
-    darkTheme: 'night',
+    darkTheme: 'winter',
   },
 }

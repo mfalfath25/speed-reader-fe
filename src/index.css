@@ -10,6 +10,10 @@
   -webkit-text-size-adjust: 100%;
 }
 
+body {
+  background-color: #ffffff;
+}
+
 /* ===== Scrollbar CSS ===== */
 /* Firefox */
 * {
