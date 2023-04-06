@@ -1,12 +1,13 @@
 import React from 'react'
 import { BiCog } from 'react-icons/bi'
 import { useNavigate } from 'react-router-dom'
+import { useFetchUser } from '../../hooks'
 import { trainingMenu } from '../../static/staticData'
 import { Button } from '../atoms'
 
 export const TrainingMenu = () => {
   const navigate = useNavigate()
-
+  const {} = useFetchUser()
   return (
     <>
       <div className="grid w-full grid-cols-1 gap-8">

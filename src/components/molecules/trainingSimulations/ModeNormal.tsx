@@ -41,10 +41,10 @@ export const ModeNormal = () => {
   useEffect(() => {
     if (finished) {
       handleStopSW()
-      readTime &&
+      time &&
         setTrainingData(trainingData.trainingId, {
           ...trainingData,
-          readTime: readTime,
+          readTime: time,
         })
 
       ToastAlert('loading', 'loading', 1000)

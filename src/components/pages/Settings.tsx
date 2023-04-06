@@ -56,9 +56,7 @@ export const Settings = () => {
         setIsApplied(true)
       }, 500)
     }
-
     return () => {
-      setSettingData(settingData)
       setIsApplied(false)
     }
   }, [isSuccess, isError, fetchLoading])
