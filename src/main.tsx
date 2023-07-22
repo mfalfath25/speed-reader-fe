@@ -23,10 +23,11 @@ const queryClient = new QueryClient({
 
 const updateSW = registerSW({
   onOfflineReady() {
-    console.log('App is ready for offline usage.')
+    console.log('Offline ready')
   },
   onNeedRefresh() {
     updateSW(true)
+    console.log('SW updated')
   },
   onRegisteredSW() {
     console.log('SW registered')

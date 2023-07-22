@@ -56,13 +56,13 @@ export const FixationSelect = ({
 
   return (
     <>
-      <div className="btn-group">
+      <div className="join">
         {options.map((option) => (
           <input
             key={option.title}
             type="radio"
             name="options"
-            className="btn no-animation"
+            className="join-item no-animation btn"
             data-title={option.title}
             value={option.value}
             checked={settingData.fixationCount === option.value}

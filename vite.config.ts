@@ -19,14 +19,18 @@ export default defineConfig({
             src: '/icon-192x192.png',
             sizes: '192x192',
             type: 'image/png',
+            purpose: 'any maskable',
           },
           {
             src: '/icon-512x512.png',
             sizes: '512x512',
             type: 'image/png',
+            purpose: 'any maskable',
           },
         ],
       },
+      includeAssets: ['**/*'],
+      registerType: 'autoUpdate',
       workbox: {
         globPatterns: ['**/*.{js,css,html,ico,png,jpg,svg,webp}'],
         runtimeCaching: [
@@ -34,8 +38,8 @@ export default defineConfig({
             urlPattern: ({ url }) => {
               return url.pathname.startsWith('/api/')
             },
-            handler: 'NetworkFirst' as const,
-            method: 'GET' as const,
+            handler: 'NetworkFirst',
+            method: 'GET',
             options: {
               expiration: {
                 maxAgeSeconds: 1,
@@ -76,8 +80,6 @@ export default defineConfig({
           },
         ],
       },
-      includeAssets: ['src/assets/**/*'],
-      registerType: 'autoUpdate',
     }),
   ],
 })
