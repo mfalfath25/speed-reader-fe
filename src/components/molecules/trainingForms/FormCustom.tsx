@@ -53,7 +53,12 @@ export const FormCustom = () => {
         onSubmit={handleSubmit(onSubmit)}
       >
         <div className="w-full">
-          <label className="label px-0 font-bold">Input Teks Bebas</label>
+          <div className="flex flex-row gap-x-1 sm:flex-col">
+            <label className="label px-0 pt-0 font-bold">
+              Input Teks Bebas
+            </label>
+            <label className="label px-0 pt-0 font-normal">(Text Input)</label>
+          </div>
           <textarea
             className="textarea-bordered textarea h-[300px] w-full"
             placeholder="Type your text here..."
@@ -70,9 +75,14 @@ export const FormCustom = () => {
         <div className="grid grid-rows-1 gap-4">
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             <div className="w-auto">
-              <label className="label px-0 pt-0 font-bold">
-                Jumlah Highlight Kata
-              </label>
+              <div className="flex flex-row gap-x-1 sm:flex-col">
+                <label className="label px-0 pt-0 font-bold">
+                  Jumlah Highlight Kata
+                </label>
+                <label className="label px-0 pt-0 font-normal">
+                  (Word Chunks Count)
+                </label>
+              </div>
               <input
                 type="number"
                 placeholder="(1-5)"
@@ -84,9 +94,14 @@ export const FormCustom = () => {
               <label className="label-text-alt">(default: 3 kata)</label>
             </div>
             <div className="w-auto">
-              <label className="label px-0 pt-0 font-bold">
-                Target Kata per Menit
-              </label>
+              <div className="flex flex-row gap-x-1 sm:flex-col">
+                <label className="label px-0 pt-0 font-bold">
+                  Target Kata per Menit
+                </label>
+                <label className="label px-0 pt-0 font-normal">
+                  (WPM Target)
+                </label>
+              </div>
               <input
                 type="number"
                 placeholder="(100-1000)"

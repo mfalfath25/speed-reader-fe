@@ -12,9 +12,7 @@ export const useWpmCounter = (totalWords: number) => {
     if (
       !isRunning &&
       intervalRef.current === null &&
-      startTimeRef.current === null &&
-      typeof totalWords === 'number' &&
-      !isNaN(totalWords)
+      startTimeRef.current === null
     ) {
       startTimeRef.current = performance.now()
       startWpmCounter(setWpm, totalWords, startTimeRef, intervalRef)

@@ -46,66 +46,66 @@ export const ModeBlind = () => {
 
   return (
     <>
-      <div className="mx-auto w-full space-y-4 xl:w-[800px] 2xl:w-2/3">
-        <div>
-          <div className="flex flex-row justify-between">
-            <label className="label px-0 font-bold">
-              Teks: {trainingData.text.textLevel}
-              {' - '}
-              {trainingData?.text.textChoice}
-            </label>
-            <div className="flex flex-row gap-3">
-              <label className="label px-0 font-bold text-blue-500">
-                {wpm > 0 ? `${wpm} WPM` : '~ WPM'}
+      {trainingData !== undefined && (
+        <div className="mx-auto w-full space-y-4 xl:w-[800px] 2xl:w-2/3">
+          <div>
+            <div className="flex flex-row justify-between">
+              <label className="label px-0 font-bold">
+                Teks: {trainingData.text.textLevel}
+                {' - '}
+                {trainingData.text.textChoice}
               </label>
-              <label className="label px-0 font-bold text-pink-500">
-                {time > 0 ? `${getFormattedStopwatch(time)}` : '00:00:00'}
-              </label>
+              <div className="flex flex-row gap-3">
+                <label className="label px-0 font-bold text-blue-500">
+                  {wpm > 0 ? `${wpm} WPM` : '~ WPM'}
+                </label>
+                <label className="label px-0 font-bold text-pink-500">
+                  {time > 0 ? `${getFormattedStopwatch(time)}` : '00:00:00'}
+                </label>
+              </div>
+            </div>
+            <div className="scroll relative max-h-[500px] w-full overflow-y-auto rounded-md bg-slate-100 p-0 outline outline-1 outline-offset-0">
+              <pre
+                className="relative whitespace-pre-line break-words p-2 text-left text-base font-normal text-black sm:text-xl"
+                style={{
+                  lineHeight: '1.5',
+                  fontFamily: settingData.isFontSerif
+                    ? 'Literata' || 'serif'
+                    : 'Inter' || 'sans-serif',
+                }}
+              >
+                {renderFixationLine(settingData.fixationCount)}
+                {trainingData.text.textValue}
+              </pre>
             </div>
           </div>
-          <div className="scroll relative max-h-[500px] w-full overflow-y-auto rounded-md bg-slate-100 p-0 outline outline-1 outline-offset-0">
-            <pre
-              className="relative whitespace-pre-line break-words p-2 text-left text-base font-normal text-black sm:text-xl"
-              style={{
-                lineHeight: '1.5',
-                fontFamily: settingData.isFontSerif
-                  ? 'Literata' || 'serif'
-                  : 'Inter' || 'sans-serif',
-              }}
-            >
-              {renderFixationLine(settingData.fixationCount)}
-              {trainingData !== undefined
-                ? trainingData.text.textValue
-                : 'Your custom text will be shown here'}
-            </pre>
+          <div className="mt-2 flex justify-center sm:mx-auto sm:w-[200px]">
+            {isRunning ? (
+              <Button
+                text="Stop"
+                outline
+                status="error"
+                width="full"
+                onClick={() => {
+                  handleStopSW()
+                  handleStopCounter()
+                  setStopCounter(true)
+                }}
+              />
+            ) : (
+              <Button
+                text="Start"
+                className="btn-primary"
+                width="full"
+                onClick={() => {
+                  handleStartSW()
+                  handleStartCounter()
+                }}
+              />
+            )}
           </div>
         </div>
-        <div className="mt-2 flex justify-center sm:mx-auto sm:w-[200px]">
-          {isRunning ? (
-            <Button
-              text="Stop"
-              outline
-              status="error"
-              width="full"
-              onClick={() => {
-                handleStopSW()
-                handleStopCounter()
-                setStopCounter(true)
-              }}
-            />
-          ) : (
-            <Button
-              text="Start"
-              className="btn-primary"
-              width="full"
-              onClick={() => {
-                handleStartSW()
-                handleStartCounter()
-              }}
-            />
-          )}
-        </div>
-      </div>
+      )}
     </>
   )
 }

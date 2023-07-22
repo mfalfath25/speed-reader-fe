@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useState } from 'react'
 import { BiBookOpen, BiRightArrowAlt } from 'react-icons/bi'
 import { guidesMenu } from '../../static/staticData'
 
@@ -72,6 +72,17 @@ export const Guide = () => {
                 className="w-[400px]"
                 alt={menu.optionName}
               ></img>
+              <br />
+              <p className="text-sm font-bold sm:text-lg">Referensi:</p>
+              <ul>
+                {menu.referensi.map((item, index) => (
+                  <li key={index} className="ml-6 list-disc">
+                    <a href={item} className="hover:text-blue-400">
+                      <p className="truncate text-sm sm:text-lg">{item}</p>
+                    </a>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
         ))}

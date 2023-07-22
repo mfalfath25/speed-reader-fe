@@ -842,14 +842,14 @@ export const trainingMenu = [
   {
     id: 2,
     optionName: 'Blind Mode',
-    description: 'Berlatih membaca cepat dengan kecepatan WPM murni.',
+    description: 'Berlatih membaca cepat dengan kecepatan WPM murni',
     info: 'Training with pure WPM speed',
     navigateTo: '/training/blind',
   },
   {
     id: 3,
     optionName: 'Custom Mode',
-    description: 'Berlatih membaca cepat menggunakan teks bebas.',
+    description: 'Berlatih membaca cepat menggunakan teks bebas',
     info: 'Training with custom text input',
     navigateTo: '/training/custom',
   },
@@ -877,6 +877,9 @@ export const guidesMenu = [
       },
     ],
     image: media_1,
+    referensi: [
+      'https://eyewiki.aao.org/Saccade#:~:text=A%20saccade%20is%20a%20rapid,horizontal%2C%20vertical%2C%20or%20oblique.',
+    ],
   },
   {
     id: '2',
@@ -898,6 +901,10 @@ export const guidesMenu = [
       },
     ],
     image: media_2,
+    referensi: [
+      'https://www.aje.com/en/arc/tips-for-reading-more-quickly/#:~:text=Regression%20is%20the%20unnecessary%20re,that%20you%20read%20something%20right.',
+      'https://forcesofhabit.com/speed-reading/',
+    ],
   },
   {
     id: '3',
@@ -919,6 +926,10 @@ export const guidesMenu = [
       },
     ],
     image: media_3,
+    referensi: [
+      'https://irisreading.com/speed-reading-tips-5-ways-to-minimize-subvocalization',
+      'https://www.myharvardclassics.com/articles/20131231',
+    ],
   },
 ]
 

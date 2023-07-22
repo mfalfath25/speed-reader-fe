@@ -102,9 +102,16 @@ export const FormNormal = () => {
 
         <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
           <div className="grid grid-cols-1 gap-10">
-            <div className="flex flex-col justify-between sm:flex-row">
+            <div className="flex flex-col justify-between gap-4 sm:flex-row">
               <div className="flex w-full flex-col sm:w-[22.5%]">
-                <label className="label px-0 pt-0 font-bold">Pilih Level</label>
+                <div className="flex flex-row gap-x-1 sm:flex-col">
+                  <label className="label px-0 pt-0 font-bold">
+                    Pilih Level
+                  </label>
+                  <label className="label px-0 pt-0 font-normal">
+                    (Select Level)
+                  </label>
+                </div>
                 <select
                   className="select-bordered select w-auto"
                   value={watch('text.textLevel')}
@@ -118,7 +125,14 @@ export const FormNormal = () => {
                 </select>
               </div>
               <div className="flex w-full flex-col sm:w-[22.5%]">
-                <label className="label px-0 pt-0 font-bold">Pilih Teks</label>
+                <div className="flex flex-row gap-x-1 sm:flex-col">
+                  <label className="label px-0 pt-0 font-bold">
+                    Pilih Teks
+                  </label>
+                  <label className="label px-0 pt-0 font-normal">
+                    (Select Text)
+                  </label>
+                </div>
                 <select
                   className="select-bordered select w-auto"
                   value={watch('text.textChoice')}
@@ -132,9 +146,14 @@ export const FormNormal = () => {
                 </select>
               </div>
               <div className="w-full sm:w-[22.5%]">
-                <label className="label px-0 pt-0 font-bold">
-                  Jumlah Highlight Kata
-                </label>
+                <div className="flex flex-row gap-x-1 sm:flex-col">
+                  <label className="label px-0 pt-0 font-bold">
+                    Jumlah Highlight Kata
+                  </label>
+                  <label className="label px-0 pt-0 font-normal">
+                    (Word Chunks Count)
+                  </label>
+                </div>
                 <input
                   type="number"
                   placeholder="(1-5)"
@@ -146,9 +165,14 @@ export const FormNormal = () => {
                 <label className="label-text-alt">(default: 3 kata)</label>
               </div>
               <div className="w-full sm:w-[22.5%]">
-                <label className="label px-0 pt-0 font-bold">
-                  Target Kata per Menit
-                </label>
+                <div className="flex flex-row gap-x-1 sm:flex-col">
+                  <label className="label px-0 pt-0 font-bold">
+                    Target Kata per Menit
+                  </label>
+                  <label className="label px-0 pt-0 font-normal">
+                    (WPM Target)
+                  </label>
+                </div>
                 <input
                   type="number"
                   placeholder="(100-1000)"

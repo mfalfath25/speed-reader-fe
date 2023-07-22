@@ -101,7 +101,14 @@ export const FormBlind = () => {
           <div className="grid grid-cols-1 gap-10">
             <div className="flex flex-col justify-between gap-4 sm:flex-row sm:justify-center">
               <div className="flex w-full flex-col sm:w-[22.5%]">
-                <label className="label px-0 pt-0 font-bold">Pilih Level</label>
+                <div className="flex flex-row gap-x-1 sm:flex-col">
+                  <label className="label px-0 pt-0 font-bold">
+                    Pilih Level
+                  </label>
+                  <label className="label px-0 pt-0 font-normal">
+                    (Select Level)
+                  </label>
+                </div>
                 <select
                   className="select-bordered select w-auto"
                   value={watch('text.textLevel')}
@@ -115,7 +122,14 @@ export const FormBlind = () => {
                 </select>
               </div>
               <div className="flex w-full flex-col sm:w-[22.5%]">
-                <label className="label px-0 pt-0 font-bold">Pilih Teks</label>
+                <div className="flex flex-row gap-x-1 sm:flex-col">
+                  <label className="label px-0 pt-0 font-bold">
+                    Pilih Teks
+                  </label>
+                  <label className="label px-0 pt-0 font-normal">
+                    (Select Text)
+                  </label>
+                </div>
                 <select
                   className="select-bordered select w-auto"
                   value={watch('text.textChoice')}

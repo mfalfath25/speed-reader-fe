@@ -6,22 +6,23 @@ export const startWpmCounter = (
 ): void => {
   let elapsedTime = 0
   let result = 0
-  startTimeRef.current = performance.now()
+  startTimeRef.current = performance.now() // start recording time
   intervalRef.current = setInterval(() => {
-    elapsedTime++
-    result = Math.round((totalWords / elapsedTime) * 60)
-    setWpm(result)
-  }, 1000)
+    // start interval
+    elapsedTime++ // increment elapsed time by 1 second
+    result = Math.round((totalWords / elapsedTime) * 60) // calculate wpm for every second
+    setWpm(result) // update wpm
+  }, 1000) // interval executes every 1 second
 }
 
 export const stopWpmCounter = (
   intervalRef: React.MutableRefObject<number | null>,
   startTimeRef: React.MutableRefObject<number | null>
 ): number => {
-  clearInterval(intervalRef.current!)
-  const elapsedTime = Math.trunc(performance.now() - startTimeRef.current!)
-  intervalRef.current = null
-  startTimeRef.current = null
+  clearInterval(intervalRef.current!) // stop interval
+  const elapsedTime = Math.trunc(performance.now() - startTimeRef.current!) // calculate final elapsed time
+  intervalRef.current = null // reset interval ref
+  startTimeRef.current = null // reset start time ref
   return elapsedTime
 }
 
@@ -40,31 +41,34 @@ export const splitTextToChunks = (
 
   const words = processedText.split(' ')
 
+  // loop through words array
   for (let i = 0; i < words.length; i += chunk) {
-    chunkedText.push(words.slice(i, i + chunk).join(' '))
+    chunkedText.push(words.slice(i, i + chunk).join(' ')) // join words every nth chunk with a space
   }
 
   return chunkedText
 }
 
 export const createDurationArray = (
-  totalChunks: string[],
+  // returns an array of duration for each chunk
+  allChunks: string[],
   duration: number
 ): number[] => {
   const durations: number[] = []
   let totalChars = 0
 
-  for (let i = 0; i < totalChunks.length; i++) {
-    const len = totalChunks[i].replace(/\n/g, '').length // exclude \n characters
-    totalChars += len
+  // loop through all chunks
+  for (let i = 0; i < allChunks.length; i++) {
+    const len = allChunks[i].replace(/\n/g, '').length // exclude \n characters
+    totalChars += len // count total characters
   }
 
-  const durationPerChar = duration / totalChars
+  const durationPerChar = duration / totalChars // calculate duration per character
 
-  for (let i = 0; i < totalChunks.length; i++) {
-    const len = totalChunks[i].replace(/\n/g, '').length // exclude \n characters
-    const stringDuration = durationPerChar * len
-    durations.push(Number(stringDuration.toFixed(2)))
+  for (let i = 0; i < allChunks.length; i++) {
+    const len = allChunks[i].replace(/\n/g, '').length // exclude \n characters
+    const stringDuration = durationPerChar * len // calculate duration for current chunk
+    durations.push(Number(stringDuration.toFixed(2))) // push duration to array
   }
 
   return durations
@@ -78,29 +82,31 @@ export const startTextAnimation = (
   setRunningOnce: React.Dispatch<React.SetStateAction<boolean>>,
   setReadTime: React.Dispatch<React.SetStateAction<number>>
 ) => {
-  const totalChunks = splitTextToChunks(text, chunk)
+  const allChunks = splitTextToChunks(text, chunk)
   const duration = Math.trunc((text.split(' ').length / wpm) * (60 * 1000))
-  const durationArray = createDurationArray(totalChunks, duration)
+  const durationArray = createDurationArray(allChunks, duration)
 
   let i = 0
   let currentText = ''
   let timeoutId: ReturnType<typeof setTimeout>
 
   const animate = () => {
-    if (i === totalChunks.length) {
+    // recursive function
+    if (i === allChunks.length) {
+      // stop animation when all chunks are displayed
       setReadTime(duration)
       setRunningOnce(true)
       return
     }
 
-    currentText += totalChunks[i] + ' '
-    setText(currentText.trim())
-    i++
+    currentText += allChunks[i] + ' ' // add space after every chunk displayed
+    setText(currentText.trim()) // update text state (remove trailing space)
+    i++ // increment animation step
 
-    timeoutId = setTimeout(animate, durationArray[i - 1])
+    timeoutId = setTimeout(animate, durationArray[i - 1]) // recursive call with duration of current chunk as delay
   }
 
-  timeoutId = setTimeout(animate, durationArray[0])
+  timeoutId = setTimeout(animate, durationArray[0]) // initial call with duration of first chunk as delay
 
   return () => {
     clearTimeout(timeoutId)
