@@ -84,17 +84,17 @@ export const History = () => {
             <div className="mb-20 flex items-center justify-center">
               <div className="join">
                 <button
-                  className="join-item btn pb-1 text-2xl"
+                  className="join-item btn rounded-tr-none rounded-br-none"
                   onClick={() => handlePagination(currentPage - 1)}
                   disabled={currentPage === 1}
                 >
                   «
                 </button>
-                <button className="join-item no-animation btn w-20">
+                <button className="join-item no-animation btn w-16 rounded-none">
                   {currentPage}
                 </button>
                 <button
-                  className="join-item btn pb-1 text-2xl"
+                  className="join-item btn rounded-tl-none rounded-bl-none"
                   onClick={() => handlePagination(currentPage + 1)}
                   disabled={
                     currentPage === Math.ceil(userData.trainings.length / 15)

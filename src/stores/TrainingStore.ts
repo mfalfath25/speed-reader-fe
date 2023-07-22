@@ -6,18 +6,15 @@ import { getTotalChunks, removeExtraWhitespaces } from '../logic/utils'
 
 interface TrainingStore {
   trainingData: Training[]
-  // animationStatus: boolean
   addTrainingData: (data: Training) => void // add new TrainingData
   setTrainingData: (id: string, data: Training) => void // modify TrainingData by id
   clearTrainingData: () => void // reset TrainingData value
-  // setAnimationStatus: (status: boolean) => void // set animation status
 }
 
 export const useTrainingStore = create<TrainingStore>()(
   devtools(
     persist(
       (set) => ({
-        // animationStatus: false,
         trainingData: [],
         addTrainingData: (data) => {
           set((state) => ({
@@ -80,7 +77,6 @@ export const useTrainingStore = create<TrainingStore>()(
           }))
         },
         clearTrainingData: () => set({ trainingData: [] }),
-        // setAnimationStatus: (status) => set({ animationStatus: status }),
       }),
       {
         name: 'training-store',
