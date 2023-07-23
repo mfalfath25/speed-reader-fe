@@ -35,7 +35,7 @@ export const ProfileMenu = () => {
           <div className="mx-auto grid grid-flow-row gap-5 sm:grid-flow-col">
             <div className="stats stats-vertical w-full bg-slate-100 shadow sm:w-fit">
               <div className="stat gap-5">
-                <div className="placeholder avatar mx-auto">
+                <div className="avatar placeholder mx-auto">
                   <div className="mask mask-hexagon w-24 bg-neutral-focus text-neutral-content">
                     <span className="text-3xl">
                       {userData.username !== ''
@@ -133,7 +133,7 @@ export const ProfileMenu = () => {
               <div className="stat">
                 <Button
                   text="My Progress"
-                  className="btn-primary"
+                  style="primary"
                   width="full"
                   onClick={() =>
                     navigate(`/profile/progress/${userData.userId}`)

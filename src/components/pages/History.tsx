@@ -37,8 +37,8 @@ export const History = () => {
     <>
       <div className="flex flex-1 flex-col justify-between gap-5">
         <div className="overflow-x-auto">
-          <table className="table-zebra table-compact mb-auto table w-full">
-            <thead>
+          <table className="table-compact table table-zebra table-sm mb-auto w-full">
+            <thead className="bg-slate-200 text-black">
               <tr>
                 <th>No.</th>
                 <th>Mode</th>
@@ -84,17 +84,17 @@ export const History = () => {
             <div className="mb-20 flex items-center justify-center">
               <div className="join">
                 <button
-                  className="join-item btn rounded-tr-none rounded-br-none"
+                  className="btn btn-neutral join-item rounded-br-none rounded-tr-none"
                   onClick={() => handlePagination(currentPage - 1)}
                   disabled={currentPage === 1}
                 >
                   «
                 </button>
-                <button className="join-item no-animation btn w-16 rounded-none">
+                <button className="btn btn-neutral join-item no-animation w-16 rounded-none">
                   {currentPage}
                 </button>
                 <button
-                  className="join-item btn rounded-tl-none rounded-bl-none"
+                  className="btn btn-neutral join-item rounded-bl-none rounded-tl-none"
                   onClick={() => handlePagination(currentPage + 1)}
                   disabled={
                     currentPage === Math.ceil(userData.trainings.length / 15)

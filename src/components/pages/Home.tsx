@@ -21,7 +21,27 @@ export const Home = () => {
 
   return (
     <>
-      <input type="checkbox" id="logout-modal" className="modal-toggle" />
+      <dialog id="logout_modal" className="modal">
+        <form method="dialog" className="modal-box">
+          <h3 className="text-center text-lg font-bold">Confirm logout?</h3>
+          <div className="modal-action justify-center ">
+            <button
+              onClick={handleLogout}
+              className="btn btn-primary no-animation w-1/2 text-lg normal-case active:opacity-70"
+            >
+              Yes
+            </button>
+            <button className="btn btn-neutral no-animation w-1/2 text-lg normal-case active:opacity-70">
+              Cancel
+            </button>
+          </div>
+        </form>
+        <form method="dialog" className="modal-backdrop">
+          <button>close</button>
+        </form>
+      </dialog>
+
+      {/* <input type="checkbox" id="logout_modal" className="modal-toggle" />
       <label htmlFor="logout-modal" className="modal cursor-pointer">
         <label
           className="modal-box relative grid auto-rows-auto grid-cols-1 gap-4"
@@ -31,20 +51,20 @@ export const Home = () => {
           <div className="grid grid-cols-2 gap-4">
             <label
               htmlFor="logout-modal"
-              className="btn-outline no-animation btn w-full text-lg normal-case active:text-white active:opacity-70"
+              className="btn btn-primary no-animation w-full text-lg normal-case active:text-white active:opacity-70"
               onClick={handleLogout}
             >
               Yes
             </label>
             <label
               htmlFor="logout-modal"
-              className="no-animation btn w-full text-lg normal-case active:text-white active:opacity-70"
+              className="btn btn-neutral no-animation w-full text-lg normal-case active:text-white active:opacity-70"
             >
               Cancel
             </label>
           </div>
         </label>
-      </label>
+      </label> */}
 
       <p className="mb-4 flex items-center justify-center text-xl sm:mb-10 sm:text-2xl">
         Selamat datang, {userData.username}
@@ -59,7 +79,7 @@ export const Home = () => {
             <Button
               text="Training"
               width="full"
-              className="btn-primary"
+              style="primary"
               onClick={() => navigate('/training')}
             >
               <BiBookReader size={24} className="ml-2" />
@@ -77,14 +97,29 @@ export const Home = () => {
                   </h1>
                   <div className="card-actions">
                     {menu.optionName === 'Logout' ? (
-                      <label
-                        htmlFor="logout-modal"
-                        className="btn-error no-animation btn w-full text-lg normal-case active:text-white active:opacity-70"
+                      <button
+                        className="btn btn-error no-animation w-full text-lg normal-case hover:contrast-125 active:text-white active:opacity-70"
+                        onClick={() => {
+                          if (document) {
+                            ;(
+                              document.getElementById(
+                                'logout_modal'
+                              ) as HTMLFormElement
+                            ).showModal()
+                          }
+                        }}
                       >
                         {menu.optionName}
                         {menu.buttonIcon}
-                      </label>
+                      </button>
                     ) : (
+                      // <label
+                      //   htmlFor="logout-modal"
+                      //   className="btn btn-error no-animation w-full text-lg normal-case hover:contrast-125 active:text-white active:opacity-70"
+                      // >
+                      //   {menu.optionName}
+                      //   {menu.buttonIcon}
+                      // </label>
                       <Button
                         text={menu.optionName}
                         width="full"

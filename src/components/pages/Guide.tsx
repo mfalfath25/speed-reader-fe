@@ -1,18 +1,8 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { BiBookOpen, BiRightArrowAlt } from 'react-icons/bi'
 import { guidesMenu } from '../../static/staticData'
 
 export const Guide = () => {
-  const [currentOpen, setCurrentOpen] = useState('')
-
-  const handleOpen = (id: string) => {
-    if (currentOpen === id) {
-      setCurrentOpen('')
-    } else {
-      setCurrentOpen(id)
-    }
-  }
-
   return (
     <>
       <div className="flex flex-col gap-4">
@@ -20,23 +10,14 @@ export const Guide = () => {
           Konsep dalam membaca cepat
           <BiBookOpen size={24} className="ml-2 inline" />
         </h2>
+
         {guidesMenu.map((menu, index) => (
-          <div
-            key={index}
-            tabIndex={0}
-            className="collapse-arrow rounded-box collapse border border-base-300 bg-slate-100"
-          >
-            <input
-              type="checkbox"
-              id={menu.id}
-              name={menu.id}
-              checked={currentOpen === menu.id}
-              onChange={() => handleOpen(menu.id)}
-            />
-            <div className="collapse-title text-lg font-bold sm:text-xl">
+          <div key={index} className="collapse-arrow collapse bg-base-200">
+            <input type="radio" name="my-accordion-2" />
+            <div className="collapse-title text-xl font-bold">
               {menu.optionName}
             </div>
-            <div className="collapse-content">
+            <div className="collapse-content truncate whitespace-normal">
               <p className="text-sm font-bold sm:text-lg">{menu.definition1}</p>
               <p className="text-sm sm:text-lg">
                 <BiRightArrowAlt size={24} className="inline pb-1" />

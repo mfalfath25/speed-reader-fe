@@ -177,9 +177,9 @@ export const Results = () => {
             </div>
           </div>
 
-          <Button text="Home" className="btn-primary" onClick={handleHome} />
+          <Button text="Home" style="primary" onClick={handleHome} />
           {trainingData !== undefined ? (
-            <Button text="Restart" outline onClick={handleRestart} />
+            <Button text="Restart" onClick={handleRestart} />
           ) : null}
         </div>
       </div>

@@ -13,7 +13,7 @@ module.exports = {
       },
     },
     fontFamily: {
-      sans: ['Manrope', 'Inter', 'Open Sans', 'sans-serif'],
+      sans: ['Manrope', 'Inter', 'Helvetica', 'sans-serif'],
       serif: ['Literata', 'Times New Roman', 'Georgia', 'serif'],
     },
   },

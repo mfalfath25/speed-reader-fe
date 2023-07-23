@@ -13,11 +13,11 @@ export const Error404 = () => {
           <p className="text-2xl font-semibold md:text-3xl">
             Halaman tidak ditemukan.
           </p>
-          <p className="mt-4 mb-8 dark:text-gray-400">
+          <p className="mb-8 mt-4 dark:text-gray-400">
             Klik tombol dibawah untuk kembali ke Home.
           </p>
           <Link to="/">
-            <Button className="btn-primary" text="Back to Home" />
+            <Button style="primary" text="Back to Home" />
           </Link>
         </div>
       </div>

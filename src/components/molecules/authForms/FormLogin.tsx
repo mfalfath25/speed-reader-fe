@@ -77,7 +77,7 @@ export const FormLogin = () => {
             <input
               type="email"
               placeholder="email"
-              className="input-bordered input w-full"
+              className="input input-bordered w-full"
               {...register('email', { required: true })}
             />
             <div className="flex justify-end">
@@ -91,7 +91,7 @@ export const FormLogin = () => {
             <input
               type="password"
               placeholder="password"
-              className="input-bordered input w-full"
+              className="input input-bordered w-full"
               {...register('password', {
                 required: true,
               })}
@@ -106,7 +106,7 @@ export const FormLogin = () => {
           <Button
             text="Sign In"
             type="submit"
-            className="btn-primary"
+            style="primary"
             disabled={isLoading}
           />
         </div>

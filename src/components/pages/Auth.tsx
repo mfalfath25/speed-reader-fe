@@ -19,9 +19,9 @@ export const Auth = () => {
             Terdaftar sebagai Trainee?
           </span>
           <Button
-            className="btn-primary"
             text="Login"
             width="full"
+            style="primary"
             onClick={() => navigate('/login')}
           />
           <span className="mx-auto text-xl font-bold">atau</span>

@@ -56,13 +56,19 @@ export const FixationSelect = ({
 
   return (
     <>
-      <div className="btn-group">
+      <div className="join">
         {options.map((option, index) => (
           <input
             key={option.title}
             type="radio"
             name="options"
-            className="btn no-animation"
+            className={`btn btn-neutral no-animation ${
+              index === 0
+                ? 'rounded-lg rounded-br-none rounded-tr-none'
+                : index === options.length - 1
+                ? 'rounded-lg rounded-bl-none rounded-tl-none'
+                : 'rounded-none'
+            }`}
             aria-label={index.toString()}
             data-title={option.title}
             value={option.value}

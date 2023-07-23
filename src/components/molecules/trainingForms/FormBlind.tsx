@@ -80,7 +80,7 @@ export const FormBlind = () => {
                   <span className="ml-2 text-base font-bold sm:text-xl">
                     Info
                   </span>
-                  <span className="ml-2 mb-auto text-base sm:text-xl">
+                  <span className="mb-auto ml-2 text-base sm:text-xl">
                     Level materi bacaan mengacu pada standar tingkat CEFR <br />
                     <br /> CEFR (Common European Framework of Reference for
                     Languages) adalah salah satu framework yang menjelaskan
@@ -110,7 +110,7 @@ export const FormBlind = () => {
                   </label>
                 </div>
                 <select
-                  className="select-bordered select w-auto"
+                  className="select select-bordered w-auto"
                   value={watch('text.textLevel')}
                   {...register('text.textLevel', { required: true })}
                 >
@@ -131,7 +131,7 @@ export const FormBlind = () => {
                   </label>
                 </div>
                 <select
-                  className="select-bordered select w-auto"
+                  className="select select-bordered w-auto"
                   value={watch('text.textChoice')}
                   {...register('text.textChoice', { required: true })}
                 >
@@ -147,7 +147,7 @@ export const FormBlind = () => {
               <Button
                 text="Set Options"
                 type="submit"
-                className="btn-primary"
+                style="primary"
                 width="full"
               />
             </div>

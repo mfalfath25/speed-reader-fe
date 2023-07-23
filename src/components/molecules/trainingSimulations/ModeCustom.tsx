@@ -109,7 +109,7 @@ export const ModeCustom = () => {
         <div className="mt-2 flex justify-center sm:mx-auto sm:w-[200px]">
           <Button
             text="Start"
-            className="btn-primary"
+            style="primary"
             disabled={running}
             width="full"
             onClick={() => {

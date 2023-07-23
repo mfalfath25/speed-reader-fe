@@ -52,7 +52,7 @@ export const EditProfile = () => {
             <input
               type="text"
               placeholder="Username"
-              className="input-bordered input w-full"
+              className="input input-bordered w-full"
               defaultValue={userData.username}
               minLength={3}
               maxLength={20}
@@ -75,7 +75,7 @@ export const EditProfile = () => {
             <Button
               text="Save"
               type="submit"
-              className="btn-primary"
+              style="primary"
               width="full"
               disabled={isLoading}
             />

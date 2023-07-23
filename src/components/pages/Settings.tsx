@@ -134,9 +134,9 @@ export const Settings = () => {
           </div>
           <div className="mt-2 flex justify-center sm:mx-auto sm:w-[200px]">
             <Button
-              className="btn-primary"
               text="Apply Settings"
               width="full"
+              style="primary"
               disabled={isLoading}
               onClick={() => {
                 handleChange()

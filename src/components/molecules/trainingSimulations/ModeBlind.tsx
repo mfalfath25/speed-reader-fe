@@ -95,7 +95,7 @@ export const ModeBlind = () => {
             ) : (
               <Button
                 text="Start"
-                className="btn-primary"
+                style="primary"
                 width="full"
                 onClick={() => {
                   handleStartSW()

@@ -60,7 +60,7 @@ export const FormCustom = () => {
             <label className="label px-0 pt-0 font-normal">(Text Input)</label>
           </div>
           <textarea
-            className="textarea-bordered textarea h-[300px] w-full"
+            className="textarea textarea-bordered h-[300px] w-full"
             placeholder="Type your text here..."
             defaultValue=""
             {...register('text.textValue', { required: true })}
@@ -86,7 +86,7 @@ export const FormCustom = () => {
               <input
                 type="number"
                 placeholder="(1-5)"
-                className="input-bordered input w-full"
+                className="input input-bordered w-full"
                 min="1"
                 max="5"
                 {...register('chunksCount', { valueAsNumber: true })}
@@ -105,7 +105,7 @@ export const FormCustom = () => {
               <input
                 type="number"
                 placeholder="(100-1000)"
-                className="input-bordered input w-full"
+                className="input input-bordered w-full"
                 min="100"
                 max="1000"
                 {...register('wpm', { valueAsNumber: true })}
@@ -115,8 +115,8 @@ export const FormCustom = () => {
           </div>
 
           <div className="mt-2 flex flex-col justify-center gap-4 sm:mx-auto sm:w-[200px]">
-            <Button text="Set Options" type="submit" className="btn-primary" />
-            <Button text="Reset" outline onClick={() => clearText()} />
+            <Button text="Set Options" type="submit" style="primary" />
+            <Button text="Reset" onClick={() => clearText()} />
           </div>
         </div>
       </form>

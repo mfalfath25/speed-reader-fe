@@ -55,7 +55,7 @@ export const FormRegister = () => {
             <input
               type="text"
               placeholder="username"
-              className="input-bordered input w-full"
+              className="input input-bordered w-full"
               {...register('username', { required: true })}
             />
             <div className="flex justify-end">
@@ -69,7 +69,7 @@ export const FormRegister = () => {
             <input
               type="email"
               placeholder="Email"
-              className="input-bordered input w-full"
+              className="input input-bordered w-full"
               {...register('email', { required: true })}
             />
             <div className="flex justify-end">
@@ -83,7 +83,7 @@ export const FormRegister = () => {
             <input
               type="password"
               placeholder="password"
-              className="input-bordered input w-full"
+              className="input input-bordered w-full"
               {...register('password', {
                 required: true,
               })}
@@ -98,7 +98,7 @@ export const FormRegister = () => {
           <Button
             text="Confirm"
             type="submit"
-            className="btn-primary"
+            style="primary"
             disabled={isLoading}
           />
         </div>
