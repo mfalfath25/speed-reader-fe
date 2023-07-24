@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Button, ToastAlert } from '../../atoms'
 import { renderFixationLine } from '../../molecules'
@@ -8,7 +8,7 @@ import { getFormattedStopwatch } from '../../../logic'
 
 export const ModeCustom = () => {
   const navigate = useNavigate()
-
+  const [blur, setBlur] = useState(true)
   const { settingData } = useSettingStore()
   const { setTrainingData } = useTrainingStore()
   const trainingData = useTrainingStore(
@@ -79,7 +79,9 @@ export const ModeCustom = () => {
           </div>
           <div className="scroll relative max-h-[500px] min-h-[250px] w-full overflow-y-auto rounded-md bg-slate-100 p-0 outline outline-1 outline-offset-0">
             <pre
-              className="relative whitespace-pre-line break-words p-2 text-left text-base font-normal sm:text-xl"
+              className={`relative whitespace-pre-line break-words p-2 text-left text-base font-normal ${
+                blur ? 'blur-sm' : ''
+              } sm:text-xl`}
               style={{
                 lineHeight: '1.5',
                 fontFamily: settingData.isFontSerif
@@ -113,6 +115,7 @@ export const ModeCustom = () => {
             disabled={running}
             width="full"
             onClick={() => {
+              setBlur(false)
               handleStartSW()
               handleStartAnimation()
             }}

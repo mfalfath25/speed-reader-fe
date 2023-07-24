@@ -8,6 +8,7 @@ import { getFormattedStopwatch } from '../../../logic'
 
 export const ModeBlind = () => {
   const navigate = useNavigate()
+  const [blur, setBlur] = useState(true)
   const [stopCounter, setStopCounter] = useState(false)
   const { settingData } = useSettingStore()
   const { setTrainingData } = useTrainingStore()
@@ -66,7 +67,9 @@ export const ModeBlind = () => {
             </div>
             <div className="scroll relative max-h-[500px] w-full overflow-y-auto rounded-md bg-slate-100 p-0 outline outline-1 outline-offset-0">
               <pre
-                className="relative whitespace-pre-line break-words p-2 text-left text-base font-normal text-black sm:text-xl"
+                className={`relative whitespace-pre-line break-words p-2 text-left font-normal text-black ${
+                  blur ? 'blur-sm' : ''
+                } sm:text-xl`}
                 style={{
                   lineHeight: '1.5',
                   fontFamily: settingData.isFontSerif
@@ -98,6 +101,7 @@ export const ModeBlind = () => {
                 style="primary"
                 width="full"
                 onClick={() => {
+                  setBlur(false)
                   handleStartSW()
                   handleStartCounter()
                 }}
